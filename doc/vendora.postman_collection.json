@@ -1,0 +1,584 @@
+{
+	"info": {
+		"_postman_id": "ac0e984d-66d6-4015-a7b8-87a5e99b56be",
+		"name": "vendora",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41699014"
+	},
+	"item": [
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Women\",\r\n    \"description\": \"this is the women category\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/categories",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LH}}/api/v1/categories?page=1&limit=15",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LH}}/api/v1/categories/67a327811bd63f1f49d3132d",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"67a327811bd63f1f49d3132d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"updated category\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/categories/67a327811bd63f1f49d3132d",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"67a327811bd63f1f49d3132d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"updated 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/categories/67a5d9ed1fc954d01a631d63",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"67a5d9ed1fc954d01a631d63"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subcategories",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"test\",\r\n    \"description\": \"this the test subcategory\",\r\n    \"category\": \"67a5d9bf1fc954d01a631d5d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/subcategories",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subcategories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LH}}/api/v1/subcategories?page=1&limit=15",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subcategories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LH}}/api/v1/subcategories/67a5f0b727b2993589ae7393",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subcategories",
+								"67a5f0b727b2993589ae7393"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Updated Subategory\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/subcategories/67a5f09b27b2993589ae738f",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subcategories",
+								"67a5f09b27b2993589ae738f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"updated 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/subcategories/67a743e3089c3670ce81a488",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subcategories",
+								"67a743e3089c3670ce81a488"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Brands",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ZARA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/brands",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LH}}/api/v1/brands?page=1&limit=15",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LH}}/api/v1/brands/67a833a60b3ac4db80adc98f",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								"67a833a60b3ac4db80adc98f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Samsung\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/brands/67a833a60b3ac4db80adc98f",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								"67a833a60b3ac4db80adc98f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/brands/67a833a60b3ac4db80adc98f",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								"67a833a60b3ac4db80adc98f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ZARA Shirt M1\",\r\n    \"description\": \"Description of ZARA Shirt M1.\",\r\n    \"price\": 1500,\r\n    \"priceAfterDiscount\": 1000,\r\n    \"brand\": \"67a854e8b5700587bafa91e6\",\r\n    \"category\": \"67a5d9bf1fc954d01a631d5d\",\r\n    \"subcategory\": \"67a5f0b127b2993589ae7391\",\r\n    \"quantity\": 15\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/products",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LH}}/api/v1/products?page=1&limit=15",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LH}}/api/v1/products/67a8569a3bed8047865cd34a",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"67a8569a3bed8047865cd34a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ZARA Shirt M1\",\r\n    \"description\": \"Description of ZARA Shirt M1.\",\r\n    \"price\": 1500,\r\n    \"priceAfterDiscount\": 1000,\r\n    \"brand\": \"67a854e8b5700587bafa91e6\",\r\n    \"category\": \"67a5d9bf1fc954d01a631d5d\",\r\n    \"subcategory\": \"67a5f0b127b2993589ae7391\",\r\n    \"quantity\": 12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/products/67a8569a3bed8047865cd34a",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"67a8569a3bed8047865cd34a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/products/67a856a53bed8047865cd34c",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"67a856a53bed8047865cd34c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "App",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LH}}",
+					"host": [
+						"{{LH}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
