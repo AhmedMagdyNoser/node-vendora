@@ -19,8 +19,8 @@ const productSchema = new mongoose.Schema(
       min: [1, "Product price must be at least 1."],
       max: [9999, "Product price must be at most 9999."],
     },
-    CoverImage: String,
-    Images: [String],
+    coverImage: String,
+    images: [String],
     brand: { type: mongoose.Schema.Types.ObjectId, ref: "Brand" },
     category: {
       type: mongoose.Schema.Types.ObjectId,
