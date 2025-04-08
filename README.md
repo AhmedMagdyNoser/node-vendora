@@ -315,3 +315,44 @@ exports.getProducts = asyncHandler(async (req, res) => {
   });
 });
 ```
+
+---
+
+## Factory Handlers
+
+So far, we've implemented four modules: `Categories`, `Subcategories`, `Brands`, and `Products`.  
+You'll likely notice that much of the logic across these modules is repetitive. To improve **reusability** and maintain **cleaner code**, we can extract the shared logic into a centralized factory.
+
+Take a look at `utils/factory.js` to see how this approach works. We've applied it in both `brandService.js` and `productService.js`, resulting in much cleaner and more maintainable code.
+
+---
+
+Here’s a polished and more structured version of your summary:
+
+---
+
+## So Far
+
+We’ve learned and applied the following features across different modules:
+
+- **Categories**
+
+  - Project architecture fundamentals
+  - Basic validation techniques
+  - Introduction to pagination
+  - Basic error handling
+
+- **Subcategories**
+
+  - Establishing references to the parent category
+  - Utilizing `asyncHandler` for cleaner async logic
+  - Basics of Mongoose population
+
+- **Brands**
+
+  - Implementing factory methods for a cleaner architecture
+
+- **Products**
+  - Applying custom validation logic
+  - Integrating the `apiQueryBuilder` for advanced querying
+  - Implementing factory methods for a cleaner architecture
