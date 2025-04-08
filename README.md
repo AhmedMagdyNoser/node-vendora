@@ -224,6 +224,16 @@ npm i -D eslint eslint-config-airbnb eslint-config-prettier eslint-plugin-import
 }
 ```
 
+### Create `.prettierrc`
+
+```
+{
+  "tabWidth": 2,
+  "printWidth": 125,
+  "singleQuote": false
+}
+```
+
 ---
 
 ## Population
