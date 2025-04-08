@@ -1,7 +1,10 @@
-class ApiFeatures {
-  constructor(monogooseQuery, requestQuery) {
-    this.mongooseQuery = monogooseQuery; // The mongoose query
-    this.requestQuery = requestQuery; // The request query string
+class ApiQueryBuilder {
+  constructor(mongooseModel, requestQuery) {
+    this.mongooseModel = mongooseModel; // The mongoose model (e.g., ProductModal)
+    this.requestQuery = requestQuery; // The request query parameters (e.g., req.query)
+    this.mongooseQuery = mongooseModel.find(); // The mongoose query object
+    this.documentsCount = null; // To hold the count of documents
+    this.pagination = null; // To hold pagination details
   }
 
   filter() {
@@ -17,15 +20,19 @@ class ApiFeatures {
   }
 
   search() {
-    if (this.requestQuery.keyword) {
+    const keyword = this.requestQuery.keyword;
+    if (keyword) {
       this.mongooseQuery.find({
-        $or: [
-          { title: { $regex: this.requestQuery.keyword, $options: "i" } },
-          { description: { $regex: this.requestQuery.keyword, $options: "i" } },
-        ],
+        $or: [{ title: { $regex: keyword, $options: "i" } }, { description: { $regex: keyword, $options: "i" } }],
       });
     }
     return this; // Returning this for method chaining
+  }
+
+  // This method is used to count the number of documents after applying filters (Important for pagination)
+  async countFilteredDocuments() {
+    this.documentsCount = await this.mongooseQuery.clone().countDocuments();
+    return this;
   }
 
   paginate() {
@@ -33,6 +40,18 @@ class ApiFeatures {
     const limit = parseInt(this.requestQuery.limit) || 10;
     const skip = (page - 1) * limit;
     this.mongooseQuery.skip(skip).limit(limit);
+
+    // Adding pagination details
+    if (this.documentsCount !== null)
+      this.pagination = {
+        page: page, // Current page
+        limit: limit, // Number of documents per page
+        totalDocuments: this.documentsCount, // Total number of documents
+        totalPages: Math.ceil(this.documentsCount / limit), // Total number of pages
+        hasNextPage: skip + limit < this.documentsCount, // Check if there is a next page
+        hasPreviousPage: skip > 0, // Check if there is a previous page
+      };
+
     return this; // Returning this for method chaining
   }
 
@@ -41,8 +60,8 @@ class ApiFeatures {
       const sortBy = this.requestQuery.sort.split(",").join(" ");
       this.mongooseQuery.sort(sortBy);
     } else {
-      this.mongooseQuery.sort("-createdAt");
-    } // Default sorting by createdAt field in descending order
+      this.mongooseQuery.sort("-createdAt"); // Default sorting by createdAt field in descending order
+    }
     return this; // Returning this for method chaining
   }
 
@@ -55,4 +74,4 @@ class ApiFeatures {
   }
 }
 
-module.exports = ApiFeatures;
+module.exports = ApiQueryBuilder;
