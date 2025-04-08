@@ -14,6 +14,8 @@ npm init --y
 npm i express
 ```
 
+> In this tutorial, we’ll use CommonJS modules, but you’re free to use ES Modules instead. ES Modules are the modern standard, while CommonJS remains the legacy default in Node.js.
+
 Create a `index.js` in the root directory and add this basic Express server setup:
 
 ```js
