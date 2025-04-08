@@ -37,12 +37,12 @@ const productSchema = new mongoose.Schema(
       required: [true, "Product quantity is required."],
     },
     sold: { type: Number, default: 0 },
-    ratingsAverage: {
+    rating: {
       type: Number,
       min: [1, "Rating must be at least 1."],
       max: [5, "Rating must be at most 5."],
     },
-    ratingsQuantity: { type: Number, default: 0 },
+    ratingsCount: { type: Number, default: 0 },
   },
   { timestamps: true, versionKey: false }
 );

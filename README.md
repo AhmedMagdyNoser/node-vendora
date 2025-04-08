@@ -175,9 +175,7 @@ exports.getCategories = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
     const categories = await CategoryModel.find().skip(skip).limit(limit);
-    res
-      .status(200)
-      .json({ page, limit, results: categories.length, data: categories });
+    res.status(200).json({ page, limit, results: categories.length, data: categories });
   } catch (err) {
     res.status(500).json({ message: `Error fetching categories: ${err}` });
   }
@@ -194,7 +192,7 @@ exports.getCategories = async (req, res) => {
 
 ---
 
-# ESLint with Airbnb Configurations
+## ESLint with Airbnb Configurations
 
 ### Install ESLint and Required Packages
 
@@ -228,6 +226,62 @@ npm i -D eslint eslint-config-airbnb eslint-config-prettier eslint-plugin-import
 
 ---
 
-# Population
+## Population
 
 - See the population example in `services/subcategoryService.js`.
+
+---
+
+## Retrieval with Filtring, Searching, Pagination, Sorting, and Limiting Fields
+
+```js
+exports.getProducts = asyncHandler(async (req, res) => {
+  // Declaring the mongoose query
+  const mongooseQuery = ProductModal.find();
+
+  // 1 - Handling filtering + Handling filtring using [gt, gte, lt, lte]
+  // Copying the query object (to avoid mutating the original request object)
+  const queryObj = JSON.parse(JSON.stringify(req.query));
+  // Removing specific fields from the query object
+  ["keyword", "page", "limit", "sort", "fields"].forEach((excludedField) => delete queryObj[excludedField]);
+  // The request is sent like: /products?rating=5&price[gt]=100
+  // The query object will be like: { rating: 5, price: { gt: 100 } }
+  // We need to convert it to: { rating: 5, price: { $gt: 100 } }
+  mongooseQuery.find(JSON.parse(JSON.stringify(queryObj).replace(/\b(gt|gte|lt|lte)\b/g, (match) => `$${match}`))); // gt -> $gt, gte -> $gte, lt -> $lt, lte -> $lte
+
+  // 2 - Searching (For example: /products?keyword=apple)
+  if (req.query.keyword) {
+    mongooseQuery.find({
+      $or: [
+        { title: { $regex: req.query.keyword, $options: "i" } },
+        { description: { $regex: req.query.keyword, $options: "i" } },
+      ],
+    });
+  }
+
+  // 3 - Pagination (For example: /products?page=1&limit=25)
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+  mongooseQuery.skip(skip).limit(limit);
+
+  // 4 - Sorting (For example: /products?sort=price)
+  if (req.query.sort) {
+    const sortBy = req.query.sort.split(",").join(" ");
+    mongooseQuery.sort(sortBy);
+  } else {
+    mongooseQuery.sort("-createdAt"); // Default sorting by createdAt field in descending order
+  }
+
+  // 5 - Field limiting (For example: /products?fields=title,price)
+  if (req.query.fields) {
+    const fields = req.query.fields.split(",").join(" ");
+    mongooseQuery.select(fields);
+  }
+
+  // Excuting the query
+  const products = await mongooseQuery;
+
+  res.status(200).json({ page, limit, results: products.length, data: products });
+});
+```
