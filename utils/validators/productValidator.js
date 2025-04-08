@@ -6,10 +6,7 @@ const SubcategoryModal = require("../../models/subcategoryModel");
 
 exports.createProductValidator = [
   body("title").notEmpty().withMessage("Product title is required.").trim(),
-  body("description")
-    .notEmpty()
-    .withMessage("Product description is required.")
-    .trim(),
+  body("description").notEmpty().withMessage("Product description is required.").trim(),
   body("price")
     .notEmpty()
     .withMessage("Product price is required.")
@@ -20,10 +17,7 @@ exports.createProductValidator = [
     .isNumeric()
     .withMessage("Product price after discount must be a number.")
     .custom((value, { req }) => {
-      if (value > req.body.price)
-        throw new Error(
-          "Product price after discount must be less than product price"
-        );
+      if (value > req.body.price) throw new Error("Product price after discount must be less than product price");
       else return true;
     }),
   body("quantity")
@@ -65,21 +59,15 @@ exports.createProductValidator = [
     .withMessage("Invalid subcategory id format.")
     .custom(async (value, { req }) => {
       const subcategory = await SubcategoryModal.findById(value);
-      if (!subcategory)
-        throw new Error(`Subcategory not found with id: ${value}.`);
+      if (!subcategory) throw new Error(`Subcategory not found with id: ${value}.`);
       else if (subcategory.category.toString() !== req.body.category)
-        throw new Error(
-          `The subcategory provided does not belong to the category provided.`
-        );
+        throw new Error(`The subcategory provided does not belong to the category provided.`);
       return true;
     }),
   validatorMiddleware,
 ];
 
-exports.getProductValidator = [
-  param("id").isMongoId().withMessage("Invalid product id format."),
-  validatorMiddleware,
-];
+exports.getProductValidator = [param("id").isMongoId().withMessage("Invalid product id format."), validatorMiddleware];
 
 exports.updateProductValidator = [
   param("id").isMongoId().withMessage("Invalid product id format."),
@@ -91,10 +79,7 @@ exports.updateProductValidator = [
     .isNumeric()
     .withMessage("Price after discount must be a number.")
     .custom((value, { req }) => {
-      if (value > req.body.price)
-        throw new Error(
-          "Product price after discount must be less than product price"
-        );
+      if (value > req.body.price) throw new Error("Product price after discount must be less than product price");
       else return true;
     }),
   body("quantity")
@@ -103,12 +88,7 @@ exports.updateProductValidator = [
     .withMessage("Quantity must be a number.")
     .isInt()
     .withMessage("Quantity must be an integer."),
-  body("sold")
-    .optional()
-    .isNumeric()
-    .withMessage("Sold must be a number.")
-    .isInt()
-    .withMessage("Sold must be an integer."),
+  body("sold").optional().isNumeric().withMessage("Sold must be a number.").isInt().withMessage("Sold must be an integer."),
   body("brand")
     .optional()
     .isMongoId()
@@ -133,18 +113,12 @@ exports.updateProductValidator = [
     .withMessage("Invalid subcategory id format.")
     .custom(async (value, { req }) => {
       const subcategory = await SubcategoryModal.findById(value);
-      if (!subcategory)
-        throw new Error(`Subcategory not found with id: ${value}.`);
+      if (!subcategory) throw new Error(`Subcategory not found with id: ${value}.`);
       else if (subcategory.category.toString() !== req.body.category)
-        throw new Error(
-          `The subcategory provided does not belong to the category provided.`
-        );
+        throw new Error(`The subcategory provided does not belong to the category provided.`);
       return true;
     }),
   validatorMiddleware,
 ];
 
-exports.deleteProductValidator = [
-  param("id").isMongoId().withMessage("Invalid product id format"),
-  validatorMiddleware,
-];
+exports.deleteProductValidator = [param("id").isMongoId().withMessage("Invalid product id format"), validatorMiddleware];

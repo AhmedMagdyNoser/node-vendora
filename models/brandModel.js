@@ -6,7 +6,7 @@ const brandSchema = new mongoose.Schema(
     slug: { type: String, lowercase: true },
     image: String,
   },
-  { timestamps: true, versionKey: false }
+  { timestamps: true, versionKey: false },
 );
 
 module.exports = mongoose.model("Brand", brandSchema);

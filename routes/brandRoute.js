@@ -1,12 +1,6 @@
 const router = require("express").Router();
 
-const {
-  createBrand,
-  getBrands,
-  getBrand,
-  updateBrand,
-  deleteBrand,
-} = require("../services/brandService");
+const { createBrand, getBrands, getBrand, updateBrand, deleteBrand } = require("../services/brandService");
 
 const {
   createBrandValidator,

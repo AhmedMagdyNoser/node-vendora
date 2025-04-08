@@ -38,10 +38,7 @@ exports.updateSubcategoryValidator = [
     .isLength({ max: 250 })
     .withMessage("Subcategory description must be at most 250 characters long.")
     .trim(),
-  check("category")
-    .optional()
-    .isMongoId()
-    .withMessage("Invalid category id format"),
+  check("category").optional().isMongoId().withMessage("Invalid category id format"),
   validatorMiddleware,
 ];
 

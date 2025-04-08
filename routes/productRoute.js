@@ -1,12 +1,6 @@
 const router = require("express").Router();
 
-const {
-  createProduct,
-  getProducts,
-  getProduct,
-  updateProduct,
-  deleteProduct,
-} = require("../services/productService");
+const { createProduct, getProducts, getProduct, updateProduct, deleteProduct } = require("../services/productService");
 
 const {
   createProductValidator,

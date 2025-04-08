@@ -32,12 +32,7 @@ exports.getCategories = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
     const categories = await CategoryModal.find().skip(skip).limit(limit);
-    res.status(200).json({
-      page,
-      limit,
-      results: categories.length,
-      data: categories,
-    });
+    res.status(200).json({ page, limit, results: categories.length, data: categories });
   } catch (err) {
     res.status(500).json({ message: `Error fetching categories: ${err}` });
   }
@@ -47,10 +42,7 @@ exports.getCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const category = await CategoryModal.findOne({ _id: id }); // or `findById(id)`
-    if (!category)
-      return res
-        .status(404)
-        .json({ message: `Category not found with id: ${id}` });
+    if (!category) return res.status(404).json({ message: `Category not found with id: ${id}` });
     res.status(200).json({ data: category });
   } catch (err) {
     res.status(500).json({ message: `Error fetching category: ${err}` });
@@ -66,12 +58,9 @@ exports.updateCategory = async (req, res) => {
       // or `findByIdAndUpdate(id, ...)`
       { _id: id }, // Find the category by its ID
       { title, slug, description }, // Updating fields
-      { new: true } // `true` to return the updated category (`false` by default)
+      { new: true }, // `true` to return the updated category (`false` by default)
     );
-    if (!category)
-      return res
-        .status(404)
-        .json({ message: `Category not found with id: ${id}` });
+    if (!category) return res.status(404).json({ message: `Category not found with id: ${id}` });
     res.status(200).json({ message: "Category updated", data: category });
   } catch (err) {
     res.status(500).json({ message: `Error updating category: ${err}` });
@@ -82,10 +71,7 @@ exports.deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const category = await CategoryModal.findOneAndDelete({ _id: id }); // or `findByIdAndDelete(id)`
-    if (!category)
-      return res
-        .status(404)
-        .json({ message: `Category not found with id: ${id}` });
+    if (!category) return res.status(404).json({ message: `Category not found with id: ${id}` });
     res.status(204).send();
   } catch (err) {
     res.status(500).json({ message: `Error deleting category: ${err}` });
@@ -104,9 +90,7 @@ exports.deleteCategory = async (req, res) => {
 
 //     // Here is the point
 //     if (!category) {
-//       return res
-//       .status(404)
-//       .json({ message: `Category not found with id: ${id}` });
+//       return res.status(404).json({ message: `Category not found with id: ${id}` });
 //     }
 
 //     res.status(204).send();
@@ -153,6 +137,6 @@ exports.deleteCategory = async (req, res) => {
 // exports.deleteCategory = asyncHandler(async (req, res, next) => {
 //   const { id } = req.params;
 //   const category = await CategoryModal.findOneAndDelete({ _id: id });
-//   if (!category)  return next(new ApiError(404, `Category not found with id: ${id}`));
+//   if (!category) return next(new ApiError(404, `Category not found with id: ${id}`));
 //   res.status(204).send();
 // });

@@ -18,7 +18,7 @@ const categorySchema = new mongoose.Schema(
       maxLength: [250, "Category description must be at most 250 characters."],
     },
   },
-  { timestamps: true, versionKey: false }
+  { timestamps: true, versionKey: false },
 );
 
 const CategoryModal = mongoose.model("Category", categorySchema);

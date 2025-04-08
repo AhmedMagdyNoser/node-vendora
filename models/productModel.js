@@ -44,7 +44,7 @@ const productSchema = new mongoose.Schema(
     },
     ratingsCount: { type: Number, default: 0 },
   },
-  { timestamps: true, versionKey: false }
+  { timestamps: true, versionKey: false },
 );
 
 module.exports = mongoose.model("Product", productSchema);

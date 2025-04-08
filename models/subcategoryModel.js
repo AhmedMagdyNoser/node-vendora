@@ -16,10 +16,7 @@ const subcategorySchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      maxLength: [
-        250,
-        "Subcategory description must be at most 250 characters.",
-      ],
+      maxLength: [250, "Subcategory description must be at most 250 characters."],
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
@@ -27,7 +24,7 @@ const subcategorySchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true, versionKey: false }
+  { timestamps: true, versionKey: false },
 );
 
 const SubcategoryModal = mongoose.model("Subcategory", subcategorySchema);
