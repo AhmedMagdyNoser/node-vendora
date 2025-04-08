@@ -27,6 +27,10 @@ const subcategorySchema = new mongoose.Schema(
   { timestamps: true, versionKey: false },
 );
 
-const SubcategoryModal = mongoose.model("Subcategory", subcategorySchema);
+// // Mongoose middleware to populate the category field before executing any `find` query (like find, findOne, findAndUpdate, etc.)
+// subcategorySchema.pre(/^find/, function (next) {
+//   this.populate("category"); // `this` refers to the current query
+//   next();
+// });
 
-module.exports = SubcategoryModal;
+module.exports = mongoose.model("Subcategory", subcategorySchema);

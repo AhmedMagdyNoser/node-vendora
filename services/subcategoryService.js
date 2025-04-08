@@ -72,3 +72,5 @@ exports.getSubcategoriesWithPopulation = asyncHandler(async (req, res) => {
 
   res.status(200).json({ page, limit, results: subcategories.length, data: subcategories });
 });
+
+// Another way to populate is to use mongoose middleware (see models/subcategoryModel.js pre hook)
