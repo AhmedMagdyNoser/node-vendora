@@ -19,12 +19,10 @@ class ApiQueryBuilder {
     return this; // Returning this for method chaining
   }
 
-  search() {
-    const keyword = this.requestQuery.keyword;
-    if (keyword) {
-      this.mongooseQuery.find({
-        $or: [{ title: { $regex: keyword, $options: "i" } }, { description: { $regex: keyword, $options: "i" } }],
-      });
+  search(...fields) {
+    if (this.requestQuery.keyword) {
+      const searchQueries = fields.map((field) => ({ [field]: { $regex: this.requestQuery.keyword, $options: "i" } })); // Creating search queries for each field
+      this.mongooseQuery.find({ $or: searchQueries }); // Using $or to combine the search queries
     }
     return this; // Returning this for method chaining
   }

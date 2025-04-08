@@ -295,3 +295,23 @@ exports.getProducts = asyncHandler(async (req, res) => {
   res.status(200).json({ page, limit, results: products.length, data: products });
 });
 ```
+
+For reusability, we can create a class that encapsulates these functionalities, making it easy to apply them across multiple models.
+
+Take a look at `utils/apiQueryBuilder` — you'll notice that we've also included additional logic to provide pagination details and additional logic to make the search functionality more flexible.
+
+Here's how this class can be used:
+
+```js
+exports.getProducts = asyncHandler(async (req, res) => {
+  const apiQueryBuilder = new ApiQueryBuilder(ProductModal, req.query).filter().search("title", "description");
+  await apiQueryBuilder.countFilteredDocuments(); // Count the number of documents after applying filters (for pagination)
+  apiQueryBuilder.paginate().sort().limitFields();
+  const products = await apiQueryBuilder.mongooseQuery;
+  res.status(200).json({
+    results: products.length,
+    pagination: apiQueryBuilder.pagination,
+    data: products,
+  });
+});
+```

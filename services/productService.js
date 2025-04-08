@@ -2,7 +2,7 @@ const slugify = require("slugify");
 const asyncHandler = require("express-async-handler");
 const ProductModal = require("../models/productModel");
 const ApiError = require("../utils/apiError");
-const ApiQueryBuilder = require("../utils/apiFeatures");
+const ApiQueryBuilder = require("../utils/apiQueryBuilder");
 
 exports.createProduct = asyncHandler(async (req, res) => {
   req.body.slug = slugify(req.body.title, { lower: true });
@@ -11,7 +11,7 @@ exports.createProduct = asyncHandler(async (req, res) => {
 });
 
 exports.getProducts = asyncHandler(async (req, res) => {
-  const apiQueryBuilder = new ApiQueryBuilder(ProductModal, req.query).filter().search();
+  const apiQueryBuilder = new ApiQueryBuilder(ProductModal, req.query).filter().search("title", "description");
   await apiQueryBuilder.countFilteredDocuments(); // Count the number of documents after applying filters (for pagination)
   apiQueryBuilder.paginate().sort().limitFields();
   const products = await apiQueryBuilder.mongooseQuery;
