@@ -1,3 +1,4 @@
+const fs = require("fs");
 const sharp = require("sharp");
 const slugify = require("slugify");
 const asyncHandler = require("express-async-handler");
@@ -22,6 +23,10 @@ exports.processBrandImage = asyncHandler(async (req, res, next) => {
   next();
 });
 
+const deleteBrandImage = asyncHandler(async (brand) => {
+  if (brand.image) await fs.promises.unlink(`uploads/brands/${brand.image}`);
+});
+
 // =============================================================
 
 exports.createBrand = factory.createDocument(BrandModal, { fieldToSlugify: "name" });
@@ -32,4 +37,4 @@ exports.getBrand = factory.getDocument(BrandModal);
 
 exports.updateBrand = factory.updateDocument(BrandModal, { fieldToSlugify: "name" });
 
-exports.deleteBrand = factory.deleteDocument(BrandModal);
+exports.deleteBrand = factory.deleteDocument(BrandModal, { preDelete: deleteBrandImage });

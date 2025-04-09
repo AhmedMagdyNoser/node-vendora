@@ -45,10 +45,17 @@ exports.updateDocument = (Model, options) =>
     res.status(200).json({ message: "Document updated successfully.", data: doc });
   });
 
-exports.deleteDocument = (Model) =>
+exports.deleteDocument = (Model, options) =>
   asyncHandler(async (req, res, next) => {
     const { id } = req.params;
-    const doc = await Model.findByIdAndDelete(id);
-    if (!doc) return next(new ApiError(404, `Document with ID: \`${id}\` does not exist.`));
+    if (options?.preDelete) {
+      const doc = await Model.findById(id);
+      if (!doc) return next(new ApiError(404, `Document with ID: \`${id}\` does not exist.`));
+      await options.preDelete(doc);
+      await doc.deleteOne();
+    } else {
+      const doc = await Model.findByIdAndDelete(id);
+      if (!doc) return next(new ApiError(404, `Document with ID: \`${id}\` does not exist.`));
+    }
     res.status(204).send();
   });

@@ -500,7 +500,7 @@ router.post(
 
 ### Organize Your Code
 
-> Now we can organize our code more effectively. Take a look at `middlewares/uploadSingleMiddleware.js`, and then explore how it can be reused across multiple routes in `routes/brandRoute.js`.
+> Now that we've structured our code more effectively, take a look at `middlewares/uploadSingleMiddleware.js` to see how the image upload middleware is defined and reused across multiple routes in `routes/brandRoute.js`. Also, explore `services/brandService.js` to understand how the `processBrandImage` middleware is implemented, along with the `deleteBrandImage` function for handling image removal.
 
 ---
 
