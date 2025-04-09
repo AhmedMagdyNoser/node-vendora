@@ -1,6 +1,14 @@
 const router = require("express").Router();
 
-const { createBrand, getBrands, getBrand, updateBrand, deleteBrand } = require("../services/brandService");
+const {
+  createBrand,
+  getBrands,
+  getBrand,
+  updateBrand,
+  deleteBrand,
+  uploadBrandImage,
+  processBrandImage,
+} = require("../services/brandService");
 
 const {
   createBrandValidator,
@@ -9,10 +17,10 @@ const {
   deleteBrandValidator,
 } = require("../utils/validators/brandValidator");
 
-router.post("/", createBrandValidator, createBrand);
+router.post("/", uploadBrandImage, processBrandImage, createBrandValidator, createBrand);
 router.get("/", getBrands);
 router.get("/:id", getBrandValidator, getBrand);
-router.put("/:id", updateBrandValidator, updateBrand);
+router.put("/:id", uploadBrandImage, processBrandImage, updateBrandValidator, updateBrand);
 router.delete("/:id", deleteBrandValidator, deleteBrand);
 
 module.exports = router;

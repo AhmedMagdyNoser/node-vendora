@@ -20,6 +20,9 @@ const app = express();
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
+// Middleware to serve static files from the "uploads" directory
+app.use(express.static("uploads"));
+
 // Middleware to log requests in development mode
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 

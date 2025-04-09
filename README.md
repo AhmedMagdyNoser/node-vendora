@@ -358,3 +358,156 @@ We’ve learned and applied the following features across different modules:
   - Applying custom validation logic
   - Integrating the `apiQueryBuilder` for advanced querying
   - Implementing factory methods for a cleaner architecture
+
+---
+
+# Uploading Files
+
+We will use `multer` to handle uploading files. It is a node.js middleware for handling `multipart/form-data`, which is primarily used for uploading files.
+
+To handle file uploads in Node.js, we’ll use a middleware called [`multer`](https://github.com/expressjs/multer). It's specifically designed for handling `multipart/form-data`, which is the format used when submitting forms that include files.
+
+```bash
+npm i multer
+```
+
+Basic usage example:
+
+```js
+const multer = require("multer");
+
+// Creating a middleware to handle file uploads
+const upload = multer({ dest: "uploads" }); // Files will be stored in the 'uploads' directory
+
+// Add this middleware before route handlers to handle file uploads
+
+// Upload a single file (field name: "avatar" in a form-data)
+app.post("/profile", upload.single("avatar"), (req, res) => {
+  console.log(req.file); // Uploaded file info (e.g., filename, path, mimetype, size)
+  console.log(req.body); // Other form fields
+  res.send("File uploaded successfully!");
+});
+
+// Upload multiple files (field name: "photos" in a form-data)
+app.post("/album", upload.array("photos", 12), (req, res) => {
+  console.log(req.files); // Array of uploaded files
+  console.log(req.body); // Other form fields
+  res.send("Files uploaded successfully!");
+});
+```
+
+## Handling File Uploads with Custom Configuration
+
+While the default `multer` setup is useful, we often need more control. For that, we’ll use `multer`'s **disk storage engine** along with some organized configuration.
+
+In `services/brandService.js`, we’ll define a custom upload middleware:
+
+```js
+// The disk storage object gives you full control on storing files to disk.
+const multerStorage = multer.diskStorage({
+  destination: (req, file, callback) => callback(null, "uploads/brands"), // `null` means no error.
+  filename: (req, file, callback) => {
+    const extension = file.mimetype.split("/")[1];
+    const name = `brand-${req.body.name.toLowerCase()}-${Date.now()}.${extension}`;
+    req.body.image = filename; // Save the filename to the request body to be saved in the database.
+    callback(null, name); // `null` means no error.
+  },
+});
+
+// Filter to allow only image files
+const multerFilter = (req, file, callback) => {
+  if (file.mimetype.startsWith("image"))
+    callback(null, true); // `null` means no error.
+  else callback(new ApiError(400, "Not an image! Please upload only images."), false);
+};
+
+const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
+
+// Exporting middleware for single image upload (expects a field named "image")
+exports.uploadBrandImage = upload.single("image");
+```
+
+Then in `routes/brandRoute.js`, use the middleware like this:
+
+```js
+router.post("/", uploadBrandImage, createBrandValidator, createBrand);
+```
+
+But what if we want to **compress**, **resize**, or apply other processing to the image?
+
+To do so, we’ll need to process the image **in memory** first. This can be achieved by switching to `memoryStorage` and integrating image processing tools like `sharp`.
+
+---
+
+## Moving to In-Memory Storage & Image Processing
+
+To allow image processing (e.g. resizing, compression), we’ll use `multer.memoryStorage()` instead of `diskStorage`. This stores the uploaded file **temporarily in memory** as a buffer, which we can then process using libraries like [`sharp`](https://github.com/lovell/sharp).
+
+```bash
+npm i sharp
+```
+
+Update the upload middleware and create image processing middleware
+
+```js
+// The memory storage object stores the files in memory as Buffer objects.
+const multerStorage = multer.memoryStorage();
+
+// The file filter function is used to filter the files that are uploaded.
+const multerFilter = (req, file, callback) => {
+  if (file.mimetype.startsWith("image"))
+    callback(null, true); // `null` means no error.
+  else callback(new ApiError(400, "Not an image! Please upload only images."), false);
+};
+
+const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
+
+// The upload middleware is used to handle multipart/form-data, which is used for uploading files.
+exports.uploadBrandImage = upload.single("image");
+
+// The processBrandImage middleware is used to resize the image before saving it to disk.
+exports.processBrandImage = asyncHandler(async (req, res, next) => {
+  if (!req.file) return next();
+
+  const filename = `brand-${req.body.name.toLowerCase()}-${Date.now()}.jpeg`;
+
+  // In case of memory storage, the file is stored in memory as a Buffer object:
+  await sharp(req.file.buffer)
+    .resize(1000, 1000)
+    .toFormat("jpeg")
+    .jpeg({ quality: 95 })
+    .toFile(`uploads/brands/${filename}`); // Save the image to disk.
+
+  req.body.image = filename; // Save the filename to the request body to be saved in the database.
+
+  next();
+});
+```
+
+Then use both middlewares in the route
+
+```js
+router.post(
+  "/",
+  uploadBrandImage, // Uploads the image to memory
+  processBrandImage, // Processes and saves the image to disk
+  createBrandValidator,
+  createBrand,
+);
+```
+
+> Be aware that performing image processing on the server can be resource-intensive and may slow down your application, especially if you have a lot of concurrent uploads. Consider using a cloud service like AWS S3 or Cloudinary for image storage and processing.
+
+---
+
+## Serve Static Files
+
+Add this middleware in `index.js` that allows your app to serve static files—like uploaded images—from the `uploads` folder.
+
+```js
+app.use(express.static("uploads"));
+```
+
+It makes the `uploads` folder publicly accessible. Any file inside it can now be accessed via a direct URL.
+
+For example, let's say you saved an image at `uploads/brands/123.jpeg`, you can access it from the browser at: `http://localhost:3000/brands/123.jpeg`
