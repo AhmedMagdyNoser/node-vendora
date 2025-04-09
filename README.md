@@ -498,6 +498,10 @@ router.post(
 
 > Be aware that performing image processing on the server can be resource-intensive and may slow down your application, especially if you have a lot of concurrent uploads. Consider using a cloud service like AWS S3 or Cloudinary for image storage and processing.
 
+### Organize Your Code
+
+> Now we can organize our code more effectively. Take a look at `middlewares/uploadSingleMiddleware.js`, and then explore how it can be reused across multiple routes in `routes/brandRoute.js`.
+
 ---
 
 ## Serve Static Files
