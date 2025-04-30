@@ -329,10 +329,6 @@ Take a look at `utils/factory.js` to see how this approach works. We've applied 
 
 ---
 
-Here’s a polished and more structured version of your summary:
-
----
-
 ## So Far
 
 We’ve learned and applied the following features across different modules:
@@ -350,20 +346,19 @@ We’ve learned and applied the following features across different modules:
   - Utilizing `asyncHandler` for cleaner async logic
   - Basics of Mongoose population
 
-- **Brands**
-
-  - Implementing factory methods for a cleaner architecture
-
 - **Products**
+
   - Applying custom validation logic
   - Integrating the `apiQueryBuilder` for advanced querying
+  - Implementing factory methods for a cleaner architecture
+
+- **Brands**
+
   - Implementing factory methods for a cleaner architecture
 
 ---
 
 # Uploading Files
-
-We will use `multer` to handle uploading files. It is a node.js middleware for handling `multipart/form-data`, which is primarily used for uploading files.
 
 To handle file uploads in Node.js, we’ll use a middleware called [`multer`](https://github.com/expressjs/multer). It's specifically designed for handling `multipart/form-data`, which is the format used when submitting forms that include files.
 
@@ -409,7 +404,7 @@ const multerStorage = multer.diskStorage({
   filename: (req, file, callback) => {
     const extension = file.mimetype.split("/")[1];
     const name = `brand-${req.body.name.toLowerCase()}-${Date.now()}.${extension}`;
-    req.body.image = filename; // Save the filename to the request body to be saved in the database.
+    req.body.image = name; // Save the file name to the request body to be saved in the database.
     callback(null, name); // `null` means no error.
   },
 });
