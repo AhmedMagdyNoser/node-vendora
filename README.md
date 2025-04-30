@@ -493,9 +493,13 @@ router.post(
 
 > Be aware that performing image processing on the server can be resource-intensive and may slow down your application, especially if you have a lot of concurrent uploads. Consider using a cloud service like AWS S3 or Cloudinary for image storage and processing.
 
-### Organize Your Code
+### Organize Your Code & Handle Deleting Images
 
-> Now that we've structured our code more effectively, take a look at `middlewares/uploadSingleMiddleware.js` to see how the image upload middleware is defined and reused across multiple routes in `routes/brandRoute.js`. Also, explore `services/brandService.js` to understand how the `processBrandImage` middleware is implemented, along with the `deleteBrandImage` function for handling image removal.
+> Now that we've modularized and structured our code more effectively, take a look at how key parts work together: the `middlewares/uploadSingleImageMiddleware.js` file defines a reusable middleware for handling single image uploads, which is applied across multiple routes in `routes/brandRoute.js`; the `processBrandImage` middleware in `services/brandService.js` processes and saves uploaded images using `sharp`, while the `deleteBrandImage` function ensures old images are removed during updates or deletions; finally, the `utils/factory.js` utility has been enhanced to support `preTask` hooks, allowing us to inject custom logic - like image cleanup - before performing update or delete operations.
+
+---
+
+_There is only one problem: We don't need to save files in case of handlers (creating or updating) failures._
 
 ---
 

@@ -296,13 +296,19 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"ZARA\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Apple",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/H:/Gallery/Wallpapers/(28).jpg"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{LH}}/api/v1/brands",
@@ -373,16 +379,22 @@
 						"method": "PUT",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Samsung\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "HTC",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/H:/Gallery/Wallpapers/(5).jpg"
 								}
-							}
+							]
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/brands/67a833a60b3ac4db80adc98f",
+							"raw": "{{LH}}/api/v1/brands/6811e5a9192d8aa39be03414",
 							"host": [
 								"{{LH}}"
 							],
@@ -390,7 +402,7 @@
 								"api",
 								"v1",
 								"brands",
-								"67a833a60b3ac4db80adc98f"
+								"6811e5a9192d8aa39be03414"
 							]
 						}
 					},
@@ -411,7 +423,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/brands/67a833a60b3ac4db80adc98f",
+							"raw": "{{LH}}/api/v1/brands/6811e5a9192d8aa39be03414",
 							"host": [
 								"{{LH}}"
 							],
@@ -419,7 +431,7 @@
 								"api",
 								"v1",
 								"brands",
-								"67a833a60b3ac4db80adc98f"
+								"6811e5a9192d8aa39be03414"
 							]
 						}
 					},
@@ -437,7 +449,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"ZARA Shirt M1\",\r\n    \"description\": \"Description of ZARA Shirt M1.\",\r\n    \"price\": 1500,\r\n    \"priceAfterDiscount\": 1000,\r\n    \"brand\": \"67a854e8b5700587bafa91e6\",\r\n    \"category\": \"67a5d9bf1fc954d01a631d5d\",\r\n    \"subcategory\": \"67a5f0b127b2993589ae7391\",\r\n    \"quantity\": 15\r\n}",
+							"raw": "{\r\n    \"title\": \"ZARA Shirt M1\",\r\n    \"description\": \"Description of ZARA Shirt M1.\",\r\n    \"price\": 1500,\r\n    \"priceAfterDiscount\": 1000,\r\n    // \"brand\": \"67a854e8b5700587bafa91e6\",\r\n    \"category\": \"67f396d7a4182c44cf949ccd\",\r\n    \"subcategory\": \"67f39740a4182c44cf949cd2\",\r\n    \"quantity\": 15\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -464,7 +476,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{LH}}/api/v1/products?page=1&limit=15&price[gt]=500&sort=-price&fields=title,price",
+							"raw": "{{LH}}/api/v1/products?page=1&limit=15",
 							"host": [
 								"{{LH}}"
 							],
@@ -484,7 +496,8 @@
 								},
 								{
 									"key": "price[gt]",
-									"value": "500"
+									"value": "500",
+									"disabled": true
 								},
 								{
 									"key": "price[lt]",
@@ -493,15 +506,17 @@
 								},
 								{
 									"key": "sort",
-									"value": "-price"
+									"value": "-price",
+									"disabled": true
 								},
 								{
 									"key": "fields",
-									"value": "title,price"
+									"value": "title,price",
+									"disabled": true
 								},
 								{
 									"key": "keyword",
-									"value": "dress",
+									"value": "Dress",
 									"disabled": true
 								}
 							]
@@ -544,7 +559,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/products/67a8569a3bed8047865cd34a",
+							"raw": "{{LH}}/api/v1/products/6811e76a192d8aa39be03432",
 							"host": [
 								"{{LH}}"
 							],
@@ -552,7 +567,7 @@
 								"api",
 								"v1",
 								"products",
-								"67a8569a3bed8047865cd34a"
+								"6811e76a192d8aa39be03432"
 							]
 						}
 					},
@@ -573,7 +588,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/products/67a856a53bed8047865cd34c",
+							"raw": "{{LH}}/api/v1/products/6811e76a192d8aa39be03432",
 							"host": [
 								"{{LH}}"
 							],
@@ -581,7 +596,7 @@
 								"api",
 								"v1",
 								"products",
-								"67a856a53bed8047865cd34c"
+								"6811e76a192d8aa39be03432"
 							]
 						}
 					},

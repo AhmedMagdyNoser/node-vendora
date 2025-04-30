@@ -23,9 +23,13 @@ exports.processBrandImage = asyncHandler(async (req, res, next) => {
   next();
 });
 
-const deleteBrandImage = asyncHandler(async (brand) => {
-  if (brand.image) await fs.promises.unlink(`uploads/brands/${brand.image}`);
-});
+const deleteBrandImage = (status) =>
+  asyncHandler(async (req, res, next, brand) => {
+    // If the status is updating and there is a new image, delete the old image if it exists.
+    if (status === "updating" && req.file && brand.image) await fs.promises.unlink(`uploads/brands/${brand.image}`);
+    // If the status is deleting, delete the image if it exists.
+    if (status === "deleting" && brand.image) await fs.promises.unlink(`uploads/brands/${brand.image}`);
+  });
 
 // =============================================================
 
@@ -35,6 +39,6 @@ exports.getBrands = factory.getAllDocuments(BrandModal, { searchableFields: ["na
 
 exports.getBrand = factory.getDocument(BrandModal);
 
-exports.updateBrand = factory.updateDocument(BrandModal, { fieldToSlugify: "name" });
+exports.updateBrand = factory.updateDocument(BrandModal, { fieldToSlugify: "name", preTask: deleteBrandImage("updating") });
 
-exports.deleteBrand = factory.deleteDocument(BrandModal, { preDelete: deleteBrandImage });
+exports.deleteBrand = factory.deleteDocument(BrandModal, { preTask: deleteBrandImage("deleting") });
