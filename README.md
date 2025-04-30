@@ -553,6 +553,18 @@ exports.updateBrand = factory.updateDocument(BrandModal, {
 exports.deleteBrand = factory.deleteDocument(BrandModal, { preTask: deleteBrandImage("deleting") });
 ```
 
+### Returning Full Image URL in API Responses
+
+To automatically include the full URL of the brand image when sending the brand data in responses, update the `toJSON` method in your `models/brandModel.js`. This method is called whenever the document is converted to JSON — such as when returning it in an API response.
+
+```js
+brandSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  if (obj.image) obj.image = `${process.env.BASE_URL}/brands/${obj.image}`;
+  return obj;
+};
+```
+
 ## Serve Static Files
 
 Add this middleware in `index.js` that allows your app to serve static files—like uploaded images—from the `uploads` folder.

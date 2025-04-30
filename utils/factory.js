@@ -67,7 +67,7 @@ exports.deleteDocument = (Model, options = {}) =>
       document = await Model.findById(id);
       if (!document) return next(new ApiError(404, notFoundMsg(id)));
       await options.preTask(req, res, next, document);
-      await document.deleteOne();
+      document = await Model.findByIdAndDelete(id);
     } else {
       document = await Model.findByIdAndDelete(id);
       if (!document) return next(new ApiError(404, notFoundMsg(id)));
