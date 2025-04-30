@@ -12,9 +12,10 @@ const notFoundMsg = (id) => `Document with ID: \`${id}\` does not exist.`;
 // =============================================================
 
 exports.createDocument = (Model, options = {}) =>
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     if (options.fieldToSlugify) slugifyField(req, options.fieldToSlugify);
     const document = await Model.create(req.body);
+    if (options.postTask) await options.postTask(req, res, next, document);
     res.status(201).json({ message: "Document created successfully.", data: document });
   });
 
@@ -54,6 +55,7 @@ exports.updateDocument = (Model, options = {}) =>
       document = await Model.findByIdAndUpdate(id, req.body, { new: true });
       if (!document) return next(new ApiError(404, notFoundMsg(id)));
     }
+    if (options.postTask) await options.postTask(req, res, next, document);
     res.status(200).json({ message: "Document updated successfully.", data: document });
   });
 

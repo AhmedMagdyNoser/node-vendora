@@ -493,15 +493,65 @@ router.post(
 
 > Be aware that performing image processing on the server can be resource-intensive and may slow down your application, especially if you have a lot of concurrent uploads. Consider using a cloud service like AWS S3 or Cloudinary for image storage and processing.
 
-### Organize Your Code & Handle Deleting Images
+### Organize Your Code
 
-> Now that we've modularized and structured our code more effectively, take a look at how key parts work together: the `middlewares/uploadSingleImageMiddleware.js` file defines a reusable middleware for handling single image uploads, which is applied across multiple routes in `routes/brandRoute.js`; the `processBrandImage` middleware in `services/brandService.js` processes and saves uploaded images using `sharp`, while the `deleteBrandImage` function ensures old images are removed during updates or deletions; finally, the `utils/factory.js` utility has been enhanced to support `preTask` hooks, allowing us to inject custom logic - like image cleanup - before performing update or delete operations.
+Now that we've modularized and structured our code more effectively, take a look at how key parts work together: the `middlewares/uploadSingleImageMiddleware.js` file defines a reusable middleware for handling single image uploads, which is applied across multiple routes in `routes/brandRoute.js`.
 
----
+### Handling Images the Right Way
 
-_There is only one problem: We don't need to save files in case of handlers (creating or updating) failures._
+To avoid saving images when something goes wrong (like validation errors), we changed how we handle image uploads. Now, instead of saving the image to disk right after uploading it, we first process it and keep it in memory using the `processBrandImage` middleware. Then, if everything goes well (like the brand is created or updated successfully), we save the image to disk using a special `postTask` function. This makes sure we only save images when the operation actually succeeds. Also, to keep things clean, we use a `preTask` function to delete the old image before updating or deleting a brand — so we don’t leave extra files on the server. These `preTask` and `postTask` functions are passed into our generic functions in `factory.js`, which helps us keep the code organized and reuse the same logic in different places.
 
----
+So the final implementation of `services/brandService.js` will be like that:
+
+```js
+// This middleware is used to process the image and create the filename to be saved in the database.
+exports.processBrandImage = asyncHandler(async (req, res, next) => {
+  if (!req.file) return next();
+  // Generate a unique filename for the image
+  const filename = `brand-${slugify(req.body.name, { lower: true })}-${Date.now()}.jpeg`;
+  // Process the image and store it in memory
+  const buffer = await sharp(req.file.buffer).resize(1000, 1000).toFormat("jpeg").jpeg({ quality: 95 }).toBuffer();
+  // Store the processed image and filename in the request object
+  req.image = { buffer, filename };
+  // Set the image filename in the request body for database storage
+  req.body.image = filename;
+  next();
+});
+
+// A function to save the processed image
+const saveBrandImage = asyncHandler(async (req, res, next, brand) => {
+  if (!req.image) return;
+  await sharp(req.image.buffer).toFile(`uploads/brands/${req.image.filename}`);
+});
+
+// A function to delete the image
+const deleteBrandImage = (status) =>
+  asyncHandler(async (req, res, next, brand) => {
+    // If the status is updating and there is a new image, delete the old image if it exists.
+    if (status === "updating" && req.file && brand.image) await fs.promises.unlink(`uploads/brands/${brand.image}`);
+    // If the status is deleting, delete the image if it exists.
+    if (status === "deleting" && brand.image) await fs.promises.unlink(`uploads/brands/${brand.image}`);
+  });
+
+// =============================================================
+
+exports.createBrand = factory.createDocument(BrandModal, {
+  fieldToSlugify: "name",
+  postTask: saveBrandImage,
+});
+
+exports.getBrands = factory.getAllDocuments(BrandModal, { searchableFields: ["name"] });
+
+exports.getBrand = factory.getDocument(BrandModal);
+
+exports.updateBrand = factory.updateDocument(BrandModal, {
+  fieldToSlugify: "name",
+  preTask: deleteBrandImage("updating"),
+  postTask: saveBrandImage,
+});
+
+exports.deleteBrand = factory.deleteDocument(BrandModal, { preTask: deleteBrandImage("deleting") });
+```
 
 ## Serve Static Files
 
