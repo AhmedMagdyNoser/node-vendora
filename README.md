@@ -584,4 +584,16 @@ To upload multiple files, you have two options:
 - Use `.array(fieldName, maxCount)` if you're uploading multiple files under a single field as mentioned earlier.
 - Or use `.fields(fields)` to handle a combination of single and multiple file fields in the same request.
 
-See this in action in `middlewares/uploadImagesMiddleware.js`.
+See this in `middlewares/uploadImagesMiddleware.js`.
+
+---
+
+## Product Image Upload
+
+Now, We add file uploading support to the product module.
+
+Check the following files: `models/productModel.js`, `routes/productRoute.js`, and `services/productService.js`.
+
+You'll notice some small differences, as each product includes a _cover image_ and an _array of additional images_.
+
+Be sure to read the note in `services/productService.js` regarding image array updates during product edits.

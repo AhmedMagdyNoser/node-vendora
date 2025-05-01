@@ -394,7 +394,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/brands/6811e5a9192d8aa39be03414",
+							"raw": "{{LH}}/api/v1/brands/68133c56cd9dbc49a6969c97",
 							"host": [
 								"{{LH}}"
 							],
@@ -402,7 +402,7 @@
 								"api",
 								"v1",
 								"brands",
-								"6811e5a9192d8aa39be03414"
+								"68133c56cd9dbc49a6969c97"
 							]
 						}
 					},
@@ -448,13 +448,65 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"ZARA Shirt M1\",\r\n    \"description\": \"Description of ZARA Shirt M1.\",\r\n    \"price\": 1500,\r\n    \"priceAfterDiscount\": 1000,\r\n    // \"brand\": \"67a854e8b5700587bafa91e6\",\r\n    \"category\": \"67f396d7a4182c44cf949ccd\",\r\n    \"subcategory\": \"67f39740a4182c44cf949cd2\",\r\n    \"quantity\": 15\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "ZARA Shirt M3",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Description of ZARA Shirt M3",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "2500",
+									"type": "text"
+								},
+								{
+									"key": "priceAfterDiscount",
+									"value": "1500",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "coverImage",
+									"type": "file",
+									"src": "/H:/Gallery/Wallpapers/(30).jpg"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/H:/Gallery/Wallpapers/(28).jpg",
+										"/H:/Gallery/Wallpapers/(25).jpg",
+										"/H:/Gallery/Wallpapers/(5).jpg"
+									]
+								},
+								{
+									"key": "brand",
+									"value": "67f396d7a4182c44cf94938a",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "67f396d7a4182c44cf949ccd",
+									"type": "text"
+								},
+								{
+									"key": "subcategory",
+									"value": "67f39740a4182c44cf949cd2",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "25",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{LH}}/api/v1/products",
@@ -545,21 +597,73 @@
 					"response": []
 				},
 				{
-					"name": "update",
+					"name": "Update",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"ZARA Shirt M1\",\r\n    \"description\": \"Description of ZARA Shirt M1.\",\r\n    \"price\": 1500,\r\n    \"priceAfterDiscount\": 1000,\r\n    \"brand\": \"67a854e8b5700587bafa91e6\",\r\n    \"category\": \"67a5d9bf1fc954d01a631d5d\",\r\n    \"subcategory\": \"67a5f0b127b2993589ae7391\",\r\n    \"quantity\": 12\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "ZARA Shirt M5",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Description of ZARA Shirt M3",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "3500",
+									"type": "text"
+								},
+								{
+									"key": "priceAfterDiscount",
+									"value": "1500",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "coverImage",
+									"type": "file",
+									"src": "/H:/Gallery/Wallpapers/(5).jpg"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/H:/Gallery/Wallpapers/(28).jpg",
+										"/H:/Gallery/Wallpapers/(25).jpg",
+										"/H:/Gallery/Wallpapers/(30).jpg"
+									]
+								},
+								{
+									"key": "brand",
+									"value": "67f396d7a4182c44cf94938a",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "67f396d7a4182c44cf949ccd",
+									"type": "text"
+								},
+								{
+									"key": "subcategory",
+									"value": "67f39740a4182c44cf949cd2",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "25",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/products/6811e76a192d8aa39be03432",
+							"raw": "{{LH}}/api/v1/products/6813a3c52443ea65e71b1e33",
 							"host": [
 								"{{LH}}"
 							],
@@ -567,7 +671,7 @@
 								"api",
 								"v1",
 								"products",
-								"6811e76a192d8aa39be03432"
+								"6813a3c52443ea65e71b1e33"
 							]
 						}
 					},
