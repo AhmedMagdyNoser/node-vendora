@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { uploadSingleImage } = require("../middlewares/uploadImageMiddleware");
+const { uploadSingleImage } = require("../middlewares/uploadImagesMiddleware");
 
 const {
   createBrand,

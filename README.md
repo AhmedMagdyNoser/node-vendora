@@ -495,7 +495,7 @@ router.post(
 
 ### Organize Your Code
 
-Now that we've modularized and structured our code more effectively, take a look at how key parts work together: the `middlewares/uploadImageMiddleware.js` file defines a reusable middleware for handling single image uploads, which is applied across multiple routes in `routes/brandRoute.js`.
+Now that we've modularized and structured our code more effectively, take a look at how key parts work together: the `middlewares/uploadImagesMiddleware.js` file defines a reusable middleware for handling single image uploads, which is applied across multiple routes in `routes/brandRoute.js`.
 
 ### Handling Images the Right Way
 
@@ -584,4 +584,4 @@ To upload multiple files, you have two options:
 - Use `.array(fieldName, maxCount)` if you're uploading multiple files under a single field as mentioned earlier.
 - Or use `.fields(fields)` to handle a combination of single and multiple file fields in the same request.
 
-See this in action in `middlewares/uploadImageMiddleware.js`.
+See this in action in `middlewares/uploadImagesMiddleware.js`.
