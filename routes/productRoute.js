@@ -31,7 +31,18 @@ router.post(
 
 router.get("/", getProducts);
 router.get("/:id", getProductValidator, getProduct);
-router.put("/:id", updateProductValidator, updateProduct);
+
+router.put(
+  "/:id",
+  uploadMixedImages([
+    { name: "coverImage", maxCount: 1 },
+    { name: "images", maxCount: 5 },
+  ]),
+  processProductImages,
+  updateProductValidator,
+  updateProduct,
+);
+
 router.delete("/:id", deleteProductValidator, deleteProduct);
 
 module.exports = router;

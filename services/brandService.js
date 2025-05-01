@@ -36,10 +36,7 @@ const deleteBrandImage = (status) =>
 
 // =============================================================
 
-exports.createBrand = factory.createDocument(BrandModal, {
-  fieldToSlugify: "name",
-  postTask: saveBrandImage,
-});
+exports.createBrand = factory.createDocument(BrandModal, { fieldToSlugify: "name", postTask: saveBrandImage });
 
 exports.getBrands = factory.getAllDocuments(BrandModal, { searchableFields: ["name"] });
 

@@ -10,8 +10,8 @@ exports.processProductImages = asyncHandler(async (req, res, next) => {
   if (!req.files) return next();
 
   // Processing the cover image
-  const coverImage = req.files.coverImage[0];
-  if (coverImage) {
+  if (req.files.coverImage) {
+    const coverImage = req.files.coverImage[0];
     const filename = `product-${slugify(req.body.title, { lower: true })}-cover-${Date.now()}.jpeg`;
     const buffer = await sharp(coverImage.buffer).resize(1000, 1000).toFormat("jpeg").jpeg({ quality: 95 }).toBuffer();
     req.coverImage = { buffer, filename };
@@ -19,9 +19,9 @@ exports.processProductImages = asyncHandler(async (req, res, next) => {
   }
 
   // Processing the other images
-  const images = req.files.images;
-  if (images) {
-    // We use `Promise.all` and `await` to ensure that all images are fully processed before continuing.
+  if (req.files.images) {
+    const images = req.files.images;
+    // Use `await Promise.all` to ensure that all images are fully processed before continuing.
     req.images = await Promise.all(
       images.map(async (image, index) => {
         const filename = `product-${slugify(req.body.title, { lower: true })}-${Date.now()}-${index + 1}.jpeg`;
@@ -29,11 +29,9 @@ exports.processProductImages = asyncHandler(async (req, res, next) => {
         return { buffer, filename };
       }),
     );
-    // We map the filenames to the request body to be saved in the database.
+    // Map the filenames to the request body to be saved in the database.
     req.body.images = req.images.map((image) => image.filename);
   }
-
-  console.log({ "req.body": req.body, "req.coverImage": req.coverImage, "req.images": req.images });
 
   next();
 });
@@ -50,12 +48,27 @@ const saveProductImages = asyncHandler(async (req, res, next, product) => {
 // A function to delete the images
 const deleteProductImages = (status) =>
   asyncHandler(async (req, res, next, product) => {
+    if (status === "updating") {
+      if (req.coverImage && product.coverImage) await fs.promises.unlink(`uploads/products/${product.coverImage}`);
+      if (req.images && req.images.length > 0 && product.images && product.images.length > 0)
+        await Promise.all(product.images.map(async (image) => await fs.promises.unlink(`uploads/products/${image}`)));
+    }
+
     if (status === "deleting") {
       if (product.coverImage) await fs.promises.unlink(`uploads/products/${product.coverImage}`);
       if (product.images && product.images.length > 0)
         await Promise.all(product.images.map(async (image) => await fs.promises.unlink(`uploads/products/${image}`)));
     }
   });
+
+/*
+⚠️ Note: This implementation has a known limitation when UPDATING the `images` array.
+If new images are sent in the request, all existing images will be deleted — even if only one image is sent.
+Possible solutions include:
+1. Sending the indexes of images to delete.
+2. Sending the filenames of images to keep.
+However, to keep this tutorial simple and focused, we will not handle these cases here.
+*/
 
 // =============================================================
 
@@ -65,6 +78,10 @@ exports.getProducts = factory.getAllDocuments(ProductModal, { searchableFields: 
 
 exports.getProduct = factory.getDocument(ProductModal);
 
-exports.updateProduct = factory.updateDocument(ProductModal, { fieldToSlugify: "title" });
+exports.updateProduct = factory.updateDocument(ProductModal, {
+  fieldToSlugify: "title",
+  preTask: deleteProductImages("updating"),
+  postTask: saveProductImages,
+});
 
 exports.deleteProduct = factory.deleteDocument(ProductModal, { preTask: deleteProductImages("deleting") });
