@@ -495,7 +495,7 @@ router.post(
 
 ### Organize Your Code
 
-Now that we've modularized and structured our code more effectively, take a look at how key parts work together: the `middlewares/uploadSingleImageMiddleware.js` file defines a reusable middleware for handling single image uploads, which is applied across multiple routes in `routes/brandRoute.js`.
+Now that we've modularized and structured our code more effectively, take a look at how key parts work together: the `middlewares/uploadImageMiddleware.js` file defines a reusable middleware for handling single image uploads, which is applied across multiple routes in `routes/brandRoute.js`.
 
 ### Handling Images the Right Way
 
@@ -576,3 +576,12 @@ app.use(express.static("uploads"));
 It makes the `uploads` folder publicly accessible. Any file inside it can now be accessed via a direct URL.
 
 For example, let's say you saved an image at `uploads/brands/123.jpeg`, you can access it from the browser at: `http://localhost:3000/brands/123.jpeg`
+
+## Uploading Multiple Files
+
+To upload multiple files, you have two options:
+
+- Use `.array(fieldName, maxCount)` if you're uploading multiple files under a single field as mentioned earlier.
+- Or use `.fields(fields)` to handle a combination of single and multiple file fields in the same request.
+
+See this in action in `middlewares/uploadImageMiddleware.js`.
