@@ -19,8 +19,8 @@ const productSchema = new mongoose.Schema(
       min: [1, "Product price must be at least 1."],
       max: [9999, "Product price must be at most 9999."],
     },
-    coverImage: String,
-    images: [String],
+    coverImage: { type: String, required: [true, "Product cover image is required."] },
+    images: { type: [String], default: [] },
     brand: { type: mongoose.Schema.Types.ObjectId, ref: "Brand" },
     category: {
       type: mongoose.Schema.Types.ObjectId,
@@ -46,5 +46,12 @@ const productSchema = new mongoose.Schema(
   },
   { timestamps: true, versionKey: false },
 );
+
+productSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  if (obj.coverImage) obj.coverImage = `${process.env.BASE_URL}/products/${obj.coverImage}`;
+  if (obj.images) obj.images = obj.images.map((image) => `${process.env.BASE_URL}/products/${image}`);
+  return obj;
+};
 
 module.exports = mongoose.model("Product", productSchema);

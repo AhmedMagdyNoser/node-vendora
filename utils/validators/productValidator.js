@@ -20,6 +20,19 @@ exports.createProductValidator = [
       if (value > req.body.price) throw new Error("Product price after discount must be less than product price");
       else return true;
     }),
+  body("coverImage")
+    .notEmpty()
+    .withMessage("Product cover image is required.")
+    .isString()
+    .withMessage("Product cover image must be a string."),
+  body("images")
+    .optional()
+    .isArray()
+    .withMessage("Product images must be an array.")
+    .custom((value) => {
+      if (value.length > 5) throw new Error("Product images must be less than or equal to 5.");
+      else return true;
+    }),
   body("quantity")
     .notEmpty()
     .withMessage("Product quantity is required.")
@@ -80,6 +93,15 @@ exports.updateProductValidator = [
     .withMessage("Price after discount must be a number.")
     .custom((value, { req }) => {
       if (value > req.body.price) throw new Error("Product price after discount must be less than product price");
+      else return true;
+    }),
+  body("coverImage").optional().isString().withMessage("Product cover image must be a string."),
+  body("images")
+    .optional()
+    .isArray()
+    .withMessage("Product images must be an array.")
+    .custom((value) => {
+      if (value.length > 5) throw new Error("Product images must be less than or equal to 5.");
       else return true;
     }),
   body("quantity")

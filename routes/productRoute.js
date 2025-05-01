@@ -1,6 +1,13 @@
 const router = require("express").Router();
 
-const { createProduct, getProducts, getProduct, updateProduct, deleteProduct } = require("../services/productService");
+const {
+  createProduct,
+  getProducts,
+  getProduct,
+  updateProduct,
+  deleteProduct,
+  processProductImages,
+} = require("../services/productService");
 
 const {
   createProductValidator,
@@ -9,7 +16,19 @@ const {
   deleteProductValidator,
 } = require("../utils/validators/productValidator");
 
-router.post("/", createProductValidator, createProduct);
+const { uploadMixedImages } = require("../middlewares/uploadImagesMiddleware");
+
+router.post(
+  "/",
+  uploadMixedImages([
+    { name: "coverImage", maxCount: 1 },
+    { name: "images", maxCount: 5 },
+  ]),
+  processProductImages,
+  createProductValidator,
+  createProduct,
+);
+
 router.get("/", getProducts);
 router.get("/:id", getProductValidator, getProduct);
 router.put("/:id", updateProductValidator, updateProduct);
