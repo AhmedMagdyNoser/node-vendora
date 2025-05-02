@@ -8,7 +8,7 @@ const categoryRoute = require("./routes/categoryRoute");
 const subcategoryRoute = require("./routes/subcategoryRoute");
 const brandRoute = require("./routes/brandRoute");
 const productRoute = require("./routes/productRoute");
-
+const userRoute = require("./routes/userRoute");
 dotenv.config({ path: "./config.env" });
 
 // Connect to MongoDB
@@ -32,6 +32,7 @@ app.use("/api/v1/categories", categoryRoute);
 app.use("/api/v1/subcategories", subcategoryRoute);
 app.use("/api/v1/brands", brandRoute);
 app.use("/api/v1/products", productRoute);
+app.use("/api/v1/users", userRoute);
 
 app.use("*", (req, res, next) => {
   next(new ApiError(404, `This route does not exist: ${req.originalUrl}`));
