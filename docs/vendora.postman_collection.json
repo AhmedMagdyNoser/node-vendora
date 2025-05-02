@@ -709,6 +709,203 @@
 			]
 		},
 		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Ayman",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ayman@outlook.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "01123456798",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/H:/Gallery/Wallpapers/(28).jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/users",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LH}}/api/v1/users?page=1&limit=15",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "15"
+								},
+								{
+									"key": "keyword",
+									"value": "gmail",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LH}}/api/v1/users/67a833a60b3ac4db80adc98f",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"67a833a60b3ac4db80adc98f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Ayman",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ayman@outlook.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "01123456780",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/H:/Gallery/Wallpapers/(5).jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/users/68153f2be4834df8d3e18db7",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"68153f2be4834df8d3e18db7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LH}}/api/v1/users/6811e5a9192d8aa39be03414",
+							"host": [
+								"{{LH}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"6811e5a9192d8aa39be03414"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "App",
 			"request": {
 				"method": "GET",

@@ -597,3 +597,16 @@ Check the following files: `models/productModel.js`, `routes/productRoute.js`, a
 You'll notice some small differences, as each product includes a _cover image_ and an _array of additional images_.
 
 Be sure to read the note in `services/productService.js` regarding image array updates during product edits.
+
+---
+
+## User Module
+
+The User module is implemented using the same factory-based approach, along with similar image handling logic. CRUD operations are defined in a modular and reusable way.
+Refer to `models/userModel.js`, `routes/userRoute.js`, `validators/userValidator.js`, and `services/userService.js`.
+
+Key highlights:
+
+- Unique field validation (e.g., email and phone) is handled carefully during both creation and updates — see `validators/userValidator.js` for the approach and notice the idea in the `updateUserValidator`.
+- Passwords are hashed securely before being saved to the database.
+- Passwords are excluded from API responses using the Mongoose `select` option and a custom `.toJSON()` transformation.
