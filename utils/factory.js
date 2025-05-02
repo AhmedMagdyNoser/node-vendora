@@ -14,6 +14,7 @@ const notFoundMsg = (id) => `Document with ID: \`${id}\` does not exist.`;
 exports.createDocument = (Model, options = {}) =>
   asyncHandler(async (req, res, next) => {
     if (options.fieldToSlugify) slugifyField(req, options.fieldToSlugify);
+    if (options.preTask) await options.preTask(req, res, next);
     const document = await Model.create(req.body);
     if (options.postTask) await options.postTask(req, res, next, document);
     res.status(201).json({ message: "Document created successfully.", data: document });

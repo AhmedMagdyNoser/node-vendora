@@ -1,6 +1,7 @@
 const fs = require("fs");
 const sharp = require("sharp");
 const slugify = require("slugify");
+const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler");
 const UserModal = require("../models/userModel");
 const factory = require("../utils/factory");
@@ -20,7 +21,7 @@ exports.processUserImage = asyncHandler(async (req, res, next) => {
 });
 
 // A function to save the processed image
-const saveUserImage = asyncHandler(async (req, res, next, user) => {
+const saveUserImage = asyncHandler(async (req, res, next) => {
   if (!req.image) return;
   await sharp(req.image.buffer).toFile(`uploads/users/${req.image.filename}`);
 });
@@ -34,14 +35,28 @@ const deleteUserImage = (status) =>
     if (status === "deleting" && user.image) await fs.promises.unlink(`uploads/users/${user.image}`);
   });
 
+// A function to hash the password
+const hashPassword = asyncHandler(async (req, res, next) => {
+  if (req.body.password) req.body.password = await bcrypt.hash(req.body.password, 12);
+});
+
 // =============================================================
 
-exports.createUser = factory.createDocument(UserModal, { postTask: saveUserImage });
+exports.createUser = factory.createDocument(UserModal, {
+  preTask: hashPassword,
+  postTask: saveUserImage,
+});
 
 exports.getUsers = factory.getAllDocuments(UserModal, { searchableFields: ["name", "email", "phone"] });
 
 exports.getUser = factory.getDocument(UserModal);
 
-exports.updateUser = factory.updateDocument(UserModal, { preTask: deleteUserImage("updating"), postTask: saveUserImage });
+exports.updateUser = factory.updateDocument(UserModal, {
+  preTask: asyncHandler(async (req, res, next, user) => {
+    await deleteUserImage("updating")(req, res, next, user);
+    await hashPassword(req, res, next);
+  }),
+  postTask: saveUserImage,
+});
 
 exports.deleteUser = factory.deleteDocument(UserModal, { preTask: deleteUserImage("deleting") });

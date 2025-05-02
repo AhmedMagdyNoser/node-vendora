@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema(
 userSchema.methods.toJSON = function () {
   const obj = this.toObject();
   if (obj.image) obj.image = `${process.env.BASE_URL}/users/${obj.image}`;
+  if (obj.password) delete obj.password; // (delete obj.password): don't return the password in the response (i. e. in case of creating)
   return obj;
 };
 
