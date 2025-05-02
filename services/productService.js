@@ -70,6 +70,13 @@ Possible solutions include:
 However, to keep this tutorial simple and focused, we will not handle these cases here.
 */
 
+/*
+💡 Tip: For better scalability and flexibility, consider moving image upload and processing logic to separate routes and controllers.
+This approach offers:
+1. Independent handling of image uploads, updates, and deletions.
+2. Cleaner, modular code that's easier to maintain and extend.
+*/
+
 // =============================================================
 
 exports.createProduct = factory.createDocument(ProductModal, { fieldToSlugify: "title", postTask: saveProductImages });
