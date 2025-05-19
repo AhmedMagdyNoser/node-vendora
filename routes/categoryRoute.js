@@ -13,12 +13,14 @@ const {
   getCategoryValidator,
   updateCategoryValidator,
   deleteCategoryValidator,
-} = require("../utils/validators/categoryValidator");
+} = require("../validators/categoryValidator");
 
-router.post("/", createCategoryValidator, createCategory);
+const { authenticate, allowTo } = require("../middlewares/protectionMiddlewares");
+
+router.post("/", authenticate, allowTo("admin"), createCategoryValidator, createCategory);
 router.get("/", getCategories);
 router.get("/:id", getCategoryValidator, getCategory);
-router.put("/:id", updateCategoryValidator, updateCategory);
-router.delete("/:id", deleteCategoryValidator, deleteCategory);
+router.put("/:id", authenticate, allowTo("admin"), updateCategoryValidator, updateCategory);
+router.delete("/:id", authenticate, allowTo("admin"), deleteCategoryValidator, deleteCategory);
 
 module.exports = router;

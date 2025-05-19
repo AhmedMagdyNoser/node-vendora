@@ -3,7 +3,7 @@ const sharp = require("sharp");
 const slugify = require("slugify");
 const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler");
-const UserModal = require("../models/userModel");
+const UserModel = require("../models/userModel");
 const factory = require("../utils/factory");
 
 // This middleware is used to process the image and create the filename to be saved in the database.
@@ -21,7 +21,7 @@ exports.processUserImage = asyncHandler(async (req, res, next) => {
 });
 
 // A function to save the processed image
-const saveUserImage = asyncHandler(async (req, res, next) => {
+const saveUserImage = asyncHandler(async (req) => {
   if (!req.image) return;
   await sharp(req.image.buffer).toFile(`uploads/users/${req.image.filename}`);
 });
@@ -36,22 +36,22 @@ const deleteUserImage = (status) =>
   });
 
 // A function to hash the password
-const hashPassword = asyncHandler(async (req, res, next) => {
+const hashPassword = asyncHandler(async (req) => {
   if (req.body.password) req.body.password = await bcrypt.hash(req.body.password, 12);
 });
 
 // =============================================================
 
-exports.createUser = factory.createDocument(UserModal, {
+exports.createUser = factory.createDocument(UserModel, {
   preTask: hashPassword,
   postTask: saveUserImage,
 });
 
-exports.getUsers = factory.getAllDocuments(UserModal, { searchableFields: ["name", "email", "phone"] });
+exports.getUsers = factory.getAllDocuments(UserModel, { searchableFields: ["name", "email", "phone"] });
 
-exports.getUser = factory.getDocument(UserModal);
+exports.getUser = factory.getDocument(UserModel);
 
-exports.updateUser = factory.updateDocument(UserModal, {
+exports.updateUser = factory.updateDocument(UserModel, {
   preTask: asyncHandler(async (req, res, next, user) => {
     await deleteUserImage("updating")(req, res, next, user);
     await hashPassword(req, res, next);
@@ -59,4 +59,4 @@ exports.updateUser = factory.updateDocument(UserModal, {
   postTask: saveUserImage,
 });
 
-exports.deleteUser = factory.deleteDocument(UserModal, { preTask: deleteUserImage("deleting") });
+exports.deleteUser = factory.deleteDocument(UserModel, { preTask: deleteUserImage("deleting") });

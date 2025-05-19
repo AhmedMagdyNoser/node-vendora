@@ -14,12 +14,15 @@ const {
   getProductValidator,
   updateProductValidator,
   deleteProductValidator,
-} = require("../utils/validators/productValidator");
+} = require("../validators/productValidator");
 
-const { uploadMixedImages } = require("../middlewares/uploadImagesMiddleware");
+const { uploadMixedImages } = require("../middlewares/uploadImagesMiddlewares");
+const { authenticate, allowTo } = require("../middlewares/protectionMiddlewares");
 
 router.post(
   "/",
+  authenticate,
+  allowTo("admin"),
   uploadMixedImages([
     { name: "coverImage", maxCount: 1 },
     { name: "images", maxCount: 5 },
@@ -34,6 +37,8 @@ router.get("/:id", getProductValidator, getProduct);
 
 router.put(
   "/:id",
+  authenticate,
+  allowTo("admin"),
   uploadMixedImages([
     { name: "coverImage", maxCount: 1 },
     { name: "images", maxCount: 5 },
@@ -43,6 +48,6 @@ router.put(
   updateProduct,
 );
 
-router.delete("/:id", deleteProductValidator, deleteProduct);
+router.delete("/:id", authenticate, allowTo("admin"), deleteProductValidator, deleteProduct);
 
 module.exports = router;

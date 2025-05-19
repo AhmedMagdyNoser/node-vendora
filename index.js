@@ -1,18 +1,15 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
-const connectDB = require("./config/dbconnection");
-const ApiError = require("./utils/apiError");
+const mountRoutes = require("./routes");
+const connectToDatabase = require("./config/db");
+const globalErrorHandler = require("./middlewares/errorHandlerMiddleware");
 
-const categoryRoute = require("./routes/categoryRoute");
-const subcategoryRoute = require("./routes/subcategoryRoute");
-const brandRoute = require("./routes/brandRoute");
-const productRoute = require("./routes/productRoute");
-const userRoute = require("./routes/userRoute");
+// Load environment variables from config.env file
 dotenv.config({ path: "./config.env" });
 
 // Connect to MongoDB
-connectDB();
+connectToDatabase();
 
 // Create an Express app
 const app = express();
@@ -23,30 +20,14 @@ app.use(express.json());
 // Middleware to serve static files from the "uploads" directory
 app.use(express.static("uploads"));
 
-// Middleware to log requests in development mode
-if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
+// Middleware to log requests
+app.use(morgan("dev"));
 
 // Route handlers
-app.get("/", (req, res) => res.send("App is running"));
-app.use("/api/v1/categories", categoryRoute);
-app.use("/api/v1/subcategories", subcategoryRoute);
-app.use("/api/v1/brands", brandRoute);
-app.use("/api/v1/products", productRoute);
-app.use("/api/v1/users", userRoute);
+mountRoutes(app);
 
-app.use("*", (req, res, next) => {
-  next(new ApiError(404, `This route does not exist: ${req.originalUrl}`));
-});
-
-// Global error handler (A middleware with 4 parameters) (express will understand that this is the error handler)
-app.use((err, req, res, next) => {
-  res.status(err.statusCode || 500).json({
-    status: err.status || "error",
-    statusCode: err.statusCode || 500,
-    message: err.message,
-    ...(process.env.NODE_ENV === "development" ? { stack: err.stack } : {}),
-  });
-});
+// Middleware to handle global errors
+app.use(globalErrorHandler);
 
 // Start the server
 const PORT = process.env.PORT || 5145;

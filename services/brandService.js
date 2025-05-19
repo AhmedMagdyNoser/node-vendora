@@ -2,7 +2,7 @@ const fs = require("fs");
 const sharp = require("sharp");
 const slugify = require("slugify");
 const asyncHandler = require("express-async-handler");
-const BrandModal = require("../models/brandModel");
+const BrandModel = require("../models/brandModel");
 const factory = require("../utils/factory");
 
 // This middleware is used to process the image and create the filename to be saved in the database.
@@ -20,7 +20,7 @@ exports.processBrandImage = asyncHandler(async (req, res, next) => {
 });
 
 // A function to save the processed image
-const saveBrandImage = asyncHandler(async (req, res, next, brand) => {
+const saveBrandImage = asyncHandler(async (req) => {
   if (!req.image) return;
   await sharp(req.image.buffer).toFile(`uploads/brands/${req.image.filename}`);
 });
@@ -36,16 +36,16 @@ const deleteBrandImage = (status) =>
 
 // =============================================================
 
-exports.createBrand = factory.createDocument(BrandModal, { fieldToSlugify: "name", postTask: saveBrandImage });
+exports.createBrand = factory.createDocument(BrandModel, { fieldToSlugify: "name", postTask: saveBrandImage });
 
-exports.getBrands = factory.getAllDocuments(BrandModal, { searchableFields: ["name"] });
+exports.getBrands = factory.getAllDocuments(BrandModel, { searchableFields: ["name"] });
 
-exports.getBrand = factory.getDocument(BrandModal);
+exports.getBrand = factory.getDocument(BrandModel);
 
-exports.updateBrand = factory.updateDocument(BrandModal, {
+exports.updateBrand = factory.updateDocument(BrandModel, {
   fieldToSlugify: "name",
   preTask: deleteBrandImage("updating"),
   postTask: saveBrandImage,
 });
 
-exports.deleteBrand = factory.deleteDocument(BrandModal, { preTask: deleteBrandImage("deleting") });
+exports.deleteBrand = factory.deleteDocument(BrandModel, { preTask: deleteBrandImage("deleting") });

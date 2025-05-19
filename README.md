@@ -1,126 +1,154 @@
 # Node.js Summary
 
-## Initializing a Node.js Project
-
-To create a `package.json` file, run:
-
-```bash
-npm init --y
-```
-
-## Installing Express
-
-```bash
-npm i express
-```
+Before we begin, please note the following:
 
 > In this tutorial, we’ll use CommonJS modules, but you’re free to use ES Modules instead. ES Modules are the modern standard, while CommonJS remains the legacy default in Node.js.
 
-Create a `index.js` in the root directory and add this basic Express server setup:
+> In some sections, you might need to refer to the original project code or official documentation for a deeper understanding.
+
+## Initialize Your Node.js & Express App
+
+Begin by creating a new folder for your project and navigating into it. Then, initialize a new Node.js project with the following command:
+
+```bash
+npm init -y
+```
+
+The `-y` flag automatically accepts all default settings, generating a `package.json` file that manages your project's dependencies and configurations.
+
+Next, install **Express**, the minimalist web framework for Node.js:
+
+```bash
+npm install express
+```
+
+Now, create a file named `index.js` in the root of your project and set up a basic Express server:
 
 ```js
 const express = require("express");
 const app = express();
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-app.listen(5145, () => {
-  console.log("Listening on port 5145");
-});
+app.use(express.json()); // Middleware to parse JSON request bodies
+app.get("/", (req, res) => res.send("Hello World!")); // API endpoint
+app.listen(5145, () => console.log("Server is running on port 5145"));
 ```
 
-To start the server, run the command:
+To run the server, use:
 
 ```bash
 node index.js
 ```
 
-## Installing Nodemon (for automatic server restarts)
+You should see the message `Server is running on port 5145` in your terminal, and visiting `http://localhost:5145` in your browser will display “Hello World!”.
 
-```bash
-npm i -g nodemon
-```
+## Environment Variables Setup
 
-In `package.json`, add the following script:
-
-```json
-"scripts": { "dev": "nodemon server.js" }
-```
-
-Start the server using:
-
-```bash
-npm run dev
-```
-
-## Environment Variables
-
-Create a `config.env` file (and ignore it in `.gitignore`) and add:
+1. Create a `config.env` file in the root directory (and ignore it in `.gitignore`) and add the following content:
 
 ```
 PORT=5145
 ```
 
-Install `dotenv` (to read .env files):
+2. Install `dotenv` to read environment variables from the `.env` file:
 
 ```bash
-npm i dotenv
+npm install dotenv
 ```
 
-Load environment variables in `index.js`:
+3. Load environment variables in `index.js` by adding the following:
 
 ```js
 const dotenv = require("dotenv");
 dotenv.config({ path: "config.env" });
-
 const PORT = process.env.PORT || 5145;
 ```
 
-## Logging with Morgan
+By using environment variables, you make your app more flexible and secure across different environments.
 
-Install `morgan`:
+## Nodemon & Scripts
+
+To enable automatic server restarts during development, follow these steps:
+
+1. Install Nodemon globally to watch for file changes and restart the server automatically:
 
 ```bash
-npm i morgan
+npm install -g nodemon
 ```
 
-Use Morgan middleware:
+2. Install `cross-env` - as a development dependency - to set environment variables across different platforms (useful for cross-platform compatibility):
+
+```bash
+npm install -D cross-env
+```
+
+3. Update `package.json` by adding the following scripts for development and production environments:
+
+```json
+"scripts": {
+  "dev": "cross-env ENVIRONMENT=development nodemon index.js",
+  "prod": "cross-env ENVIRONMENT=production node index.js"
+}
+```
+
+Here, the command `cross-env ENVIRONMENT=development nodemon index.js` sets the `ENVIRONMENT` variable to `development` and starts the server with Nodemon. This environment variable can later be used to customize behavior based on whether you're running in a development or production environment.
+
+4. Start the server in development mode by running:
+
+```bash
+npm run dev
+```
+
+Now, the server will automatically restart on changes, making development smoother and faster.
+
+## Logging with Morgan
+
+Let’s make your server a little chatty with some request logging!
+
+1. First, install **morgan**:
+
+```bash
+npm install morgan
+```
+
+2. Then, tell your server to use **morgan** as middleware to log requests. It’ll print details in the console.
 
 ```js
 const morgan = require("morgan");
-app.use(morgan("dev"));
+app.use(morgan("dev")); // "dev" is a predefined format for logging
 ```
+
+Now, every request will get a nice little log. Perfect for debugging and knowing exactly what's happening at all times!
 
 ## Database Connection with Mongoose
 
-Install `mongoose`:
-
 ```bash
-npm i mongoose
+npm install mongoose
 ```
 
-Connect to MongoDB:
+Create a connection function for better organization in `config/db.js`:
 
 ```js
 const mongoose = require("mongoose");
 
-mongoose
-  .connect(process.env.DB_URI) // Add it in the `config.env`
-  .then(() => console.log("DB Connected."))
-  .catch((err) => console.log(`DB Connection Error: ${err}`));
+module.exports = async () => {
+  try {
+    await mongoose.connect(process.env.DB_URI); // Add Database URI to config.env
+    console.log("DB Connected");
+  } catch (err) {
+    console.error(`DB Connection Error: ${err}`);
+  }
+};
 ```
 
-## Express Middleware
-
-Enable JSON parsing:
+Import this function into `index.js` and run it to establish the connection:
 
 ```js
-app.use(express.json()); // Middleware to parse JSON request bodies
+const connectToDatabse = require("./config/db");
+connectToDatabse();
 ```
 
-## Creating a Mongoose Model
+This way, your app will connect to MongoDB and let you know if it’s all set or if something went wrong.
 
-Define a category schema:
+## Creating a Model with CRUD Endpoints
 
 ```js
 const categorySchema = new mongoose.Schema({
@@ -129,127 +157,367 @@ const categorySchema = new mongoose.Schema({
 });
 
 const CategoryModel = mongoose.model("Category", categorySchema);
-```
 
-## Creating a Category (POST Request)
+// -----
 
-```js
-app.post("/", (req, res) => {
-  const { name, description } = req.body;
-  const category = new CategoryModel({ name, description });
+// Create a new category (POST /categories)
+app.post("/categories", async (req, res) => {
+  try {
+    const { name, description } = req.body;
+    const category = await CategoryModel.create({ name, description });
+    res.status(201).json(category);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to create category." });
+  }
+});
 
-  category
-    .save()
-    .then(() => res.status(201).json(category))
-    .catch(() => res.status(500).json({ message: "Error creating category" }));
+// Get all categories (GET /categories)
+app.get("/categories", async (req, res) => {
+  try {
+    const categories = await CategoryModel.find();
+    res.json(categories);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch categories." });
+  }
+});
+
+// Get one category by ID (GET /categories/:id)
+app.get("/categories/:id", async (req, res) => {
+  try {
+    const category = await CategoryModel.findById(req.params.id);
+    if (!category) return res.status(404).json({ message: "Category not found." });
+    res.json(category);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch category." });
+  }
+});
+
+// Update a category by ID (PUT /categories/:id)
+app.put("/categories/:id", async (req, res) => {
+  try {
+    const { name, description } = req.body;
+    const category = await CategoryModel.findByIdAndUpdate(req.params.id, { name, description }, { new: true });
+    if (!category) return res.status(404).json({ message: "Category not found." });
+    res.json(category);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to update category." });
+  }
+});
+
+// Delete a category by ID (DELETE /categories/:id)
+app.delete("/categories/:id", async (req, res) => {
+  try {
+    const category = await CategoryModel.findByIdAndDelete(req.params.id);
+    if (!category) return res.status(404).json({ message: "Category not found." });
+    res.status(204).json({ message: "Category deleted." });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to delete category." });
+  }
 });
 ```
 
----
+### Pagination
 
-# CRUD and Folder Structure
-
-Starting to create the folder structure and implementing CRUD routes.
-
----
-
-## Pagination
-
-### Without Pagination
+To implement pagination, you can modify the `GET /categories` endpoint to accept `page` and `limit` query parameters. Here's how you can do it:
 
 ```js
-exports.getCategories = async (req, res) => {
-  try {
-    const categories = await CategoryModel.find();
-    res.status(200).json({ results: categories.length, data: categories });
-  } catch (err) {
-    res.status(500).json({ message: `Error fetching categories: ${err}` });
-  }
-};
-```
-
-### With Pagination
-
-```js
-exports.getCategories = async (req, res) => {
+// Get all categories with pagination (GET /categories?page=1&limit=10)
+app.get("/categories", async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
     const categories = await CategoryModel.find().skip(skip).limit(limit);
-    res.status(200).json({ page, limit, results: categories.length, data: categories });
+    res.status(200).json({ page, limit, data: categories });
   } catch (err) {
-    res.status(500).json({ message: `Error fetching categories: ${err}` });
+    res.status(500).json({ message: "Failed to fetch categories." });
+  }
+});
+```
+
+## Project Structure
+
+We’ll adopt a structured and modular project layout. The following directories will be created in the root of the project for a scalable and maintainable API:
+
+- `models` – Contains all database schemas and Mongoose models that define how data is structured and stored.
+- `routes` – Defines all application endpoints and maps them to their corresponding functions.
+- `validators` – Includes logic for validating incoming request data to ensure consistency and security.
+- `services` – Encapsulates business logic and handles how requests are processed and responses are generated.
+
+While additional directories like `middlewares`, `utils`, and `config` are also common in a well-structured app, the above folders form the core foundation for organizing all API-related code.
+
+## Express Validator
+
+We’ll use **express-validator** to check and clean user input in our API.
+
+```bash
+npm install express-validator
+```
+
+Inside the `validators` folder, create separate files to add validation rules for each route.
+
+Also, add a middleware (e.g., `middlewares/validatorMiddleware.js`) to handle any validation errors and send a clear response if the input is invalid.
+
+### Common Validation Rules
+
+1. General Strings
+
+   - `trim()` - Or remove it if not needed
+   - `notEmpty().withMessage("...")`
+   - `isLength({ min: X, max: Y }).withMessage("...")` - If length is important
+
+2. Emails
+
+   - `trim()`
+   - `notEmpty().withMessage("...")`
+   - `toLowerCase()`
+   - `isEmail().withMessage("...")`
+
+3. Phone numbers
+
+   - `trim()`
+   - `notEmpty().withMessage("...")`
+   - `isMobilePhone("...").withMessage("...")`
+
+4. Passwords
+
+   - `notEmpty().withMessage("...")`
+   - `isStrongPassword({ ... }).withMessage("...")` - If you want to enforce a strong password policy
+
+5. Mongo IDs
+
+   - `notEmpty().withMessage("...")`
+   - `isMongoId().withMessage("...")`
+
+6. Numbers
+
+   - `notEmpty().withMessage("...")`
+   - `isNumeric().withMessage("...")`
+   - `isInt().withMessage("...")` - If it should be an integer
+   - `isInt({ min: X, max: Y }).withMessage("...")` - For integer ranges
+   - `isFloat({ min: X, max: Y }).withMessage("...")` - For float ranges
+
+7. Arrays
+
+   - `notEmpty().withMessage("...")`
+   - `isArray().withMessage("...")`
+   - `isArray({ min: X, max: Y }).withMessage("...")` - For array length
+
+### Optional Fields
+
+When a field isn’t required, prefix its validation chain with `optional()`. This tells **express-validator** to skip all subsequent checks for that field if its value is `undefined` or missing from the request. In this case:
+
+- You can **remove** `notEmpty().withMessage()` entirely.
+
+- For **optional general strings**, you can:
+
+  - **Keep** `notEmpty().withMessage()` but rephrase the message to be more user-friendly (e.g., `"Title cannot be an empty string"` instead of `"Title is required"`),
+  - Or **remove** `notEmpty().withMessage()` if empty strings are acceptable.
+
+This keeps your validations both flexible and clear.
+
+### Short-circuiting with `bail()`
+
+Always follow a `.withMessage()` call with `.bail()`. If a validation rule fails, `bail()` immediately stops further checks on that field. This prevents multiple error messages for the same problem and speeds up your validation pipeline.
+
+### Custom Validation Logic
+
+For complex or asynchronous rules - like enforcing uniqueness - you can use `.custom()`. The callback receives the field’s value and a meta object (that includes `req` object), so you can query your database or perform any logic:
+
+When using custom validators to check conflicting values, You may need to use the operator `$ne` (not equal) to exclude the current document's ID from the search. This is useful when you want to check for uniqueness while allowing updates to the same document.
+
+```js
+.custom(async (email, { req }) => {
+  const user = await UserModel.findOne({ email, _id: { $ne: req.params.id } });
+  if (user) throw new Error("User with this email already exists.");
+}),
+```
+
+### Stripping Unwanted Fields
+
+Before passing data to the controller or factory methods, you can remove fields that shouldn’t be set manually (like `sold`, `rating`, `ratingsCount`):
+
+```js
+(req, res, next) => {
+  delete req.body.sold;
+  delete req.body.rating;
+  delete req.body.ratingsCount;
+  next();
+},
+```
+
+This helps protect internal fields from being altered by the client and keeps your data consistent.
+
+### `express-validator` Limitations
+
+A limitation of express-validator is its inability to return appropriate HTTP status codes for certain validation scenarios — for instance, custom validators that detect resource conflicts still result in a 400 Bad Request instead of the more suitable 409 Conflict.
+
+## Error Handling & Async Handler
+
+In `middlewares/errorMiddleware.js`, we created a centralized error handler middleware that manages all errors in one place, and it’s imported in `index.js`.
+
+We also made a custom error class `ApiError` in `utils/apiError.js` to better organize our error structure.
+
+### Here are different ways to handle errors:
+
+1. **Sending the error directly inside a `try/catch`:**
+
+```js
+exports.deleteCategory = async (req, res, next) => {
+  try {
+    const category = await CategoryModel.findByIdAndDelete(req.params.id);
+    if (!category) return res.status(404).json({ message: `Category not found.` });
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ message: `Error deleting category: ${err}.` });
   }
 };
 ```
 
----
+2. **Passing the error to the global error handler using `next`:**
 
-## Error Handling
-
-- See `deleteCategory` examples in `services/categoryService.js`.
-- Implement a global error handler in `index.js` + handle unhandled rejections.
-- Check `utils/apiError.js`.
-
----
-
-## ESLint with Airbnb Configurations
-
-### Install ESLint and Required Packages
-
-```sh
-npm i -D eslint eslint-config-airbnb eslint-config-prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-node eslint-plugin-prettier eslint-plugin-react prettier
+```js
+exports.deleteCategory = async (req, res, next) => {
+  try {
+    const category = await CategoryModel.findByIdAndDelete(req.params.id);
+    if (!category) return next(new Error(`Category not found.`));
+    res.status(204).send();
+  } catch (err) {
+    next(new Error(`Error deleting category: ${err}.`));
+  }
+};
 ```
 
-### Create `.eslintrc.json`
+3. **Using the `ApiError` class for better error organization:**
+
+```js
+exports.deleteCategory = async (req, res, next) => {
+  try {
+    const category = await CategoryModel.findByIdAndDelete(req.params.id);
+    if (!category) return next(new ApiError(404, `Category not found.`));
+    res.status(204).send();
+  } catch (err) {
+    next(new ApiError(500, `Error deleting category: ${err}.`));
+  }
+};
+```
+
+4. **Using `express-async-handler` to avoid explicit `try/catch` blocks, combined with the `ApiError` class:**
+
+First, install the package:
+
+```bash
+npm i express-async-handler
+```
+
+```js
+const asyncHandler = require("express-async-handler");
+
+exports.deleteCategory = asyncHandler(async (req, res, next) => {
+  const category = await CategoryModel.findByIdAndDelete(req.params.id);
+  if (!category) return next(new ApiError(404, `Category not found.`));
+  res.status(204).send();
+});
+```
+
+This last approach keeps your code clean and simple, while ensuring all errors are passed smoothly to the centralized error handler for consistent processing.
+
+## Linting with ESLint
+
+**ESLint** is a tool that checks your JavaScript code for errors and helps you follow best practices. It makes your code cleaner, more consistent, and easier to maintain.
+
+```bash
+npm install --save-dev eslint @eslint/js
+```
+
+And then create a `eslint.config.js` file in the root of your project and add the rules you want to enforce.
+
+Then, inside your `package.json`, add this under the scripts section:
 
 ```json
-{
-  "extends": ["airbnb", "prettier", "plugin:node/recommended"],
-  "plugins": ["prettier"],
-  "rules": {
-    "spaced-comment": "off",
-    "no-console": "off",
-    "consistent-return": "off",
-    "func-names": "off",
-    "object-shorthand": "off",
-    "no-process-exit": "off",
-    "no-param-reassign": "off",
-    "no-return-await": "off",
-    "no-underscore-dangle": "off",
-    "class-methods-use-this": "off",
-    "no-undef": "warn",
-    "prefer-destructuring": ["error", { "object": true, "array": false }],
-    "no-unused-vars": ["warn", { "argsIgnorePattern": "req|res|next|val" }]
-  }
-}
+  "lint": "eslint ."
 ```
 
-### Create `.prettierrc`
+Use this command to check your code for problems:
 
-```
-{
-  "tabWidth": 2,
-  "printWidth": 125,
-  "singleQuote": false
-}
+```bash
+npm run lint
 ```
 
----
+For real-time error checking as you type, install the official [**ESLint extension for VS Code**](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint).
 
-## Population
+## Formatting with Prettier
 
-- See the population example in `services/subcategoryService.js`.
+**Prettier** is a code formatter that automatically formats your code so it's neat, consistent, and easy to read—no more arguing over spaces vs tabs!
 
----
+```bash
+npm install --save-dev prettier
+```
+
+Create a `.prettierrc` file in the root of your project to customize how Prettier formats your code.
+
+Want Prettier to run automatically on save? Install the **Prettier VS Code extension** and enable “Format on Save” in your settings.
+
+## Population in Mongoose
+
+Sometimes, we store references to other documents using `ObjectId`s. But when we actually want the full data from the referenced document, we use **`populate()`**—which is like performing a `JOIN` in SQL.
+
+> Keep in mind: `populate()` triggers an extra query to the database, which can affect performance if overused.
+
+### Example: Subcategory and its Parent Category
+
+1. Without population: returns category as an ID
+
+```js
+exports.getSubcategories = asyncHandler(async (req, res) => {
+  const subcategories = await SubcategoryModel.find();
+  res.status(200).json(subcategories);
+});
+```
+
+2. With population: replaces category ID with full category document
+
+```js
+exports.getSubcategories = asyncHandler(async (req, res) => {
+  const subcategories = await SubcategoryModel.find().populate("category"); // "category" is the field name in the subcategory model
+  res.status(200).json(subcategories);
+});
+```
+
+3. Populate and select specific fields from the related category
+
+```js
+exports.getSubcategories = asyncHandler(async (req, res) => {
+  const subcategories = await SubcategoryModel.find().populate({ path: "category", select: "title description" });
+  res.status(200).json(subcategories);
+});
+```
+
+4. Exclude specific fields from the populated data
+
+```js
+exports.getSubcategories = asyncHandler(async (req, res) => {
+  const subcategories = await SubcategoryModel.find().populate({ path: "category", select: "title description -_id" });
+  res.status(200).json(subcategories);
+});
+```
+
+Another way to populate is to use **Mongoose middleware** in the `models/subcategoryModel.js` file:
+
+```js
+// Populate the category field before executing any `find` query (like find, findOne, findAndUpdate, etc.)
+subcategorySchema.pre(/^find/, function (next) {
+  this.populate("category"); // `this` refers to the current query.
+  next();
+});
+```
 
 ## Retrieval with Filtring, Searching, Pagination, Sorting, and Limiting Fields
 
 ```js
 exports.getProducts = asyncHandler(async (req, res) => {
   // Declaring the mongoose query
-  const mongooseQuery = ProductModal.find();
+  const mongooseQuery = ProductModel.find();
 
   // 1 - Handling filtering + Handling filtring using [gt, gte, lt, lte]
   // Copying the query object (to avoid mutating the original request object)
@@ -306,7 +574,7 @@ Here's how this class can be used:
 
 ```js
 exports.getProducts = asyncHandler(async (req, res) => {
-  const apiQueryBuilder = new ApiQueryBuilder(ProductModal, req.query).filter().search("title", "description");
+  const apiQueryBuilder = new ApiQueryBuilder(ProductModel, req.query).filter().search("title", "description");
   await apiQueryBuilder.countFilteredDocuments(); // Count the number of documents after applying filters (for pagination)
   apiQueryBuilder.paginate().sort().limitFields();
   const products = await apiQueryBuilder.mongooseQuery;
@@ -318,47 +586,23 @@ exports.getProducts = asyncHandler(async (req, res) => {
 });
 ```
 
----
-
 ## Factory Handlers
 
-So far, we've implemented four modules: `Categories`, `Subcategories`, `Brands`, and `Products`.  
-You'll likely notice that much of the logic across these modules is repetitive. To improve **reusability** and maintain **cleaner code**, we can extract the shared logic into a centralized factory.
+You'll likely notice that much of the logic is repetitive. To improve **reusability** and maintain **cleaner code**, we can extract the shared logic into a centralized factory.
 
-Take a look at `utils/factory.js` to see how this approach works. We've applied it in both `brandService.js` and `productService.js`, resulting in much cleaner and more maintainable code.
-
----
-
-## So Far
-
-We’ve learned and applied the following features across different modules:
-
-- **Categories**
-
-  - Project architecture fundamentals
-  - Basic validation techniques
-  - Introduction to pagination
-  - Basic error handling
-
-- **Subcategories**
-
-  - Establishing references to the parent category
-  - Utilizing `asyncHandler` for cleaner async logic
-  - Basics of Mongoose population
-
-- **Products**
-
-  - Applying custom validation logic
-  - Integrating the `apiQueryBuilder` for advanced querying
-  - Implementing factory methods for a cleaner architecture
-
-- **Brands**
-
-  - Implementing factory methods for a cleaner architecture
+Take a look at `utils/factory.js` to see how this approach works.
 
 ---
 
-# Uploading Files
+---
+
+---
+
+---
+
+---
+
+## Uploading Files
 
 To handle file uploads in Node.js, we’ll use a middleware called [`multer`](https://github.com/expressjs/multer). It's specifically designed for handling `multipart/form-data`, which is the format used when submitting forms that include files.
 
@@ -535,22 +779,22 @@ const deleteBrandImage = (status) =>
 
 // =============================================================
 
-exports.createBrand = factory.createDocument(BrandModal, {
+exports.createBrand = factory.createDocument(BrandModel, {
   fieldToSlugify: "name",
   postTask: saveBrandImage,
 });
 
-exports.getBrands = factory.getAllDocuments(BrandModal, { searchableFields: ["name"] });
+exports.getBrands = factory.getAllDocuments(BrandModel, { searchableFields: ["name"] });
 
-exports.getBrand = factory.getDocument(BrandModal);
+exports.getBrand = factory.getDocument(BrandModel);
 
-exports.updateBrand = factory.updateDocument(BrandModal, {
+exports.updateBrand = factory.updateDocument(BrandModel, {
   fieldToSlugify: "name",
   preTask: deleteBrandImage("updating"),
   postTask: saveBrandImage,
 });
 
-exports.deleteBrand = factory.deleteDocument(BrandModal, { preTask: deleteBrandImage("deleting") });
+exports.deleteBrand = factory.deleteDocument(BrandModel, { preTask: deleteBrandImage("deleting") });
 ```
 
 ### Returning Full Image URL in API Responses

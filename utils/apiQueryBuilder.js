@@ -1,6 +1,6 @@
 class ApiQueryBuilder {
   constructor(mongooseModel, requestQuery) {
-    this.mongooseModel = mongooseModel; // The mongoose model (e.g., ProductModal)
+    this.mongooseModel = mongooseModel; // The mongoose model (e.g., ProductModel)
     this.requestQuery = requestQuery; // The request query parameters (e.g., req.query)
     this.mongooseQuery = mongooseModel.find(); // The mongoose query object
     this.documentsCount = null; // To hold the count of documents

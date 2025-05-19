@@ -2,7 +2,7 @@ const fs = require("fs");
 const sharp = require("sharp");
 const slugify = require("slugify");
 const asyncHandler = require("express-async-handler");
-const ProductModal = require("../models/productModel");
+const ProductModel = require("../models/productModel");
 const factory = require("../utils/factory");
 
 // This middleware is used to process the images and create the filenames to be saved in the database.
@@ -37,7 +37,7 @@ exports.processProductImages = asyncHandler(async (req, res, next) => {
 });
 
 // A function to save the processed images
-const saveProductImages = asyncHandler(async (req, res, next, product) => {
+const saveProductImages = asyncHandler(async (req) => {
   if (req.coverImage) await sharp(req.coverImage.buffer).toFile(`uploads/products/${req.coverImage.filename}`);
   if (req.images)
     await Promise.all(
@@ -79,16 +79,16 @@ This approach offers:
 
 // =============================================================
 
-exports.createProduct = factory.createDocument(ProductModal, { fieldToSlugify: "title", postTask: saveProductImages });
+exports.createProduct = factory.createDocument(ProductModel, { fieldToSlugify: "title", postTask: saveProductImages });
 
-exports.getProducts = factory.getAllDocuments(ProductModal, { searchableFields: ["title", "description"] });
+exports.getProducts = factory.getAllDocuments(ProductModel, { searchableFields: ["title", "description"] });
 
-exports.getProduct = factory.getDocument(ProductModal);
+exports.getProduct = factory.getDocument(ProductModel);
 
-exports.updateProduct = factory.updateDocument(ProductModal, {
+exports.updateProduct = factory.updateDocument(ProductModel, {
   fieldToSlugify: "title",
   preTask: deleteProductImages("updating"),
   postTask: saveProductImages,
 });
 
-exports.deleteProduct = factory.deleteDocument(ProductModal, { preTask: deleteProductImages("deleting") });
+exports.deleteProduct = factory.deleteDocument(ProductModel, { preTask: deleteProductImages("deleting") });

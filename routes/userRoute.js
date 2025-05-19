@@ -7,9 +7,14 @@ const {
   getUserValidator,
   updateUserValidator,
   deleteUserValidator,
-} = require("../utils/validators/userValidator");
+} = require("../validators/userValidator");
 
-const { uploadSingleImage } = require("../middlewares/uploadImagesMiddleware");
+const { uploadSingleImage } = require("../middlewares/uploadImagesMiddlewares");
+const { authenticate, allowTo } = require("../middlewares/protectionMiddlewares");
+
+// Protect all routes with authentication and authorization
+router.use(authenticate);
+router.use(allowTo("admin"));
 
 router.post("/", uploadSingleImage("image"), processUserImage, createUserValidator, createUser);
 router.get("/", getUsers);

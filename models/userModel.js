@@ -2,12 +2,17 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: [true, "Name is required."] },
-    email: { type: String, required: [true, "Email is required."], lowercase: true, unique: true },
-    password: { type: String, required: [true, "Password is required."], select: false }, // (select: false): don't return the password in the response
+    name: { type: String, required: true },
+    email: { type: String, required: true, lowercase: true, unique: true },
+    password: { type: String, required: true, select: false }, // (select: false): don't return the password in the response
     role: { type: String, enum: ["user", "admin"], default: "user" },
-    phone: { type: String, unique: true },
+    phone: { type: String, unique: true, sparse: true }, // (sparse: true): ensures the index only includes documents where phone is defined and not null. (Needed for optional unique fields)
     image: { type: String },
+    // --- Security ---
+    passwordResetCode: String,
+    passwordResetCodeExpiration: Date,
+    passwordResetCodeVerified: Boolean,
+    passwordChangedAt: Date,
   },
   { timestamps: true, versionKey: false },
 );
