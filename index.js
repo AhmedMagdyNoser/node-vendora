@@ -5,8 +5,8 @@ const mountRoutes = require("./routes");
 const connectToDatabase = require("./config/db");
 const globalErrorHandler = require("./middlewares/errorHandlerMiddleware");
 
-// Load environment variables from config.env file
-dotenv.config({ path: "./config.env" });
+// Load environment variables from .env file
+dotenv.config();
 
 // Connect to MongoDB
 connectToDatabase();

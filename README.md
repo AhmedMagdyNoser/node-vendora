@@ -42,7 +42,7 @@ You should see the message `Server is running on port 5145` in your terminal, an
 
 ## Environment Variables Setup
 
-1. Create a `config.env` file in the root directory (and ignore it in `.gitignore`) and add the following content:
+1. Create a `.env` file in the root directory (and ignore it in `.gitignore`) and add the following content:
 
 ```
 PORT=5145
@@ -58,7 +58,7 @@ npm install dotenv
 
 ```js
 const dotenv = require("dotenv");
-dotenv.config({ path: "config.env" });
+dotenv.config(); // This loads the variables from .env file into process.env
 const PORT = process.env.PORT || 5145;
 ```
 
@@ -131,7 +131,7 @@ const mongoose = require("mongoose");
 
 module.exports = async () => {
   try {
-    await mongoose.connect(process.env.DB_URI); // Add Database URI to config.env
+    await mongoose.connect(process.env.DB_URI); // Add Database URI to .env
     console.log("DB Connected");
   } catch (err) {
     console.error(`DB Connection Error: ${err}`);
