@@ -7,7 +7,7 @@ const {
   updateImage,
   deleteImage,
   deleteAccount,
-} = require("../services/profileService");
+} = require("../controllers/profileController");
 
 const {
   updateProfileValidator,

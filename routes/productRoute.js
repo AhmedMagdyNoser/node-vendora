@@ -7,7 +7,7 @@ const {
   updateProduct,
   deleteProduct,
   processProductImages,
-} = require("../services/productService");
+} = require("../controllers/productController");
 
 const {
   createProductValidator,

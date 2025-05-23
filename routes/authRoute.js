@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { register, login, requestResetCode, verifyResetCode, resetPassword } = require("../services/authService");
+const { register, login, requestResetCode, verifyResetCode, resetPassword } = require("../controllers/authController");
 
 const {
   registerValidator,

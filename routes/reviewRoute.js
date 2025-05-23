@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { createReview, getReviews, getReview, updateReview, deleteReview } = require("../services/reviewService");
+const { createReview, getReviews, getReview, updateReview, deleteReview } = require("../controllers/reviewController");
 
 const {
   createReviewValidator,

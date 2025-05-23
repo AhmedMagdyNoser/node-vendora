@@ -9,7 +9,7 @@ const {
   updateBrand,
   deleteBrand,
   processBrandImage,
-} = require("../services/brandService");
+} = require("../controllers/brandController");
 
 const {
   createBrandValidator,

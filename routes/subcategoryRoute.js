@@ -6,7 +6,7 @@ const {
   getSubcategory,
   updateSubcategory,
   deleteSubcategory,
-} = require("../services/subcategoryService");
+} = require("../controllers/subcategoryController");
 
 const {
   createSubcategoryValidator,

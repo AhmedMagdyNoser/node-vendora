@@ -242,7 +242,7 @@ We’ll adopt a structured and modular project layout. The following directories
 - `models` – Contains all database schemas and Mongoose models that define how data is structured and stored.
 - `routes` – Defines all application endpoints and maps them to their corresponding functions.
 - `validators` – Includes logic for validating incoming request data to ensure consistency and security.
-- `services` – Encapsulates business logic and handles how requests are processed and responses are generated.
+- `controllers` – Handle the main logic for processing requests, interacting with models, and sending appropriate responses.
 
 While additional directories like `middlewares`, `utils`, and `config` are also common in a well-structured app, the above folders form the core foundation for organizing all API-related code.
 
@@ -639,7 +639,7 @@ app.post("/album", upload.array("photos", 12), (req, res) => {
 
 While the default `multer` setup is useful, we often need more control. For that, we’ll use `multer`'s **disk storage engine** along with some organized configuration.
 
-In `services/brandService.js`, we’ll define a custom upload middleware:
+In `controllers/brandController.js`, we’ll define a custom upload middleware:
 
 ```js
 // The disk storage object gives you full control on storing files to disk.
@@ -745,7 +745,7 @@ Now that we've modularized and structured our code more effectively, take a look
 
 To avoid saving images when something goes wrong (like validation errors), we changed how we handle image uploads. Now, instead of saving the image to disk right after uploading it, we first process it and keep it in memory using the `processBrandImage` middleware. Then, if everything goes well (like the brand is created or updated successfully), we save the image to disk using a special `postTask` function. This makes sure we only save images when the operation actually succeeds. Also, to keep things clean, we use a `preTask` function to delete the old image before updating or deleting a brand — so we don’t leave extra files on the server. These `preTask` and `postTask` functions are passed into our generic functions in `factory.js`, which helps us keep the code organized and reuse the same logic in different places.
 
-So the final implementation of `services/brandService.js` will be like that:
+So the final implementation of `controllers/brandController.js` will be like that:
 
 ```js
 // This middleware is used to process the image and create the filename to be saved in the database.
@@ -836,18 +836,18 @@ See this in `middlewares/uploadImagesMiddleware.js`.
 
 Now, We add file uploading support to the product module.
 
-Check the following files: `models/productModel.js`, `routes/productRoute.js`, and `services/productService.js`.
+Check the following files: `models/productModel.js`, `routes/productRoute.js`, and `controllers/productController.js`.
 
 You'll notice some small differences, as each product includes a _cover image_ and an _array of additional images_.
 
-Be sure to read the note in `services/productService.js` regarding image array updates during product edits.
+Be sure to read the note in `controllers/productController.js` regarding image array updates during product edits.
 
 ---
 
 ## User Module
 
 The User module is implemented using the same factory-based approach, along with similar image handling logic. CRUD operations are defined in a modular and reusable way.
-Refer to `models/userModel.js`, `routes/userRoute.js`, `validators/userValidator.js`, and `services/userService.js`.
+Refer to `models/userModel.js`, `routes/userRoute.js`, `validators/userValidator.js`, and `controllers/userController.js`.
 
 Key highlights:
 

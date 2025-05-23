@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { createUser, getUsers, getUser, updateUser, deleteUser, processUserImage } = require("../services/userService");
+const { createUser, getUsers, getUser, updateUser, deleteUser, processUserImage } = require("../controllers/userController");
 
 const {
   createUserValidator,
