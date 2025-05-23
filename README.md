@@ -427,7 +427,7 @@ This last approach keeps your code clean and simple, while ensuring all errors a
 **ESLint** is a tool that checks your JavaScript code for errors and helps you follow best practices. It makes your code cleaner, more consistent, and easier to maintain.
 
 ```bash
-npm install --save-dev eslint @eslint/js
+npm install --save-dev eslint @eslint/js eslint-plugin-n
 ```
 
 And then create a `eslint.config.js` file in the root of your project and add the rules you want to enforce.

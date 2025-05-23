@@ -1,11 +1,12 @@
-const js = require("@eslint/js");
+const jsPlugin = require("@eslint/js");
+const nPlugin = require("eslint-plugin-n");
 const linterConfig = require("eslint/config");
 
 module.exports = linterConfig.defineConfig([
   {
     files: ["**/*.js"],
     extends: ["js/recommended"],
-    plugins: { js },
+    plugins: { js: jsPlugin, n: nPlugin },
     languageOptions: {
       sourceType: "commonjs", // Tell ESLint that we're using CommonJS modules
       globals: {
@@ -20,6 +21,7 @@ module.exports = linterConfig.defineConfig([
       "no-console": "warn", // Warn on console.log, etc.
       "no-unused-vars": "warn", // Warn on unused variables
       "no-undef": "error", // Error on undefined variables
+      "n/no-missing-require": "error", // Error if require() path is incorrect
     },
   },
 ]);
