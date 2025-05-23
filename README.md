@@ -68,16 +68,16 @@ By using environment variables, you make your app more flexible and secure acros
 
 To enable automatic server restarts during development, follow these steps:
 
-1. Install Nodemon globally to watch for file changes and restart the server automatically:
+1. Install `nodemon` - as a development dependency - to watch for file changes and restart the server automatically:
 
 ```bash
-npm install -g nodemon
+npm install --save-dev nodemon
 ```
 
 2. Install `cross-env` - as a development dependency - to set environment variables across different platforms (useful for cross-platform compatibility):
 
 ```bash
-npm install -D cross-env
+npm install --save-dev cross-env
 ```
 
 3. Update `package.json` by adding the following scripts for development and production environments:
