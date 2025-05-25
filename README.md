@@ -6,6 +6,8 @@ Before we begin, please note the following:
 
 > In some sections, you might need to refer to the original project code or official documentation for a deeper understanding.
 
+---
+
 ## Initialize Your Node.js & Express App
 
 Begin by creating a new folder for your project and navigating into it. Then, initialize a new Node.js project with the following command:
@@ -40,6 +42,8 @@ node index.js
 
 You should see the message `Server is running on port 5145` in your terminal, and visiting `http://localhost:5145` in your browser will display “Hello World!”.
 
+---
+
 ## Environment Variables Setup
 
 1. Create a `.env` file in the root directory (and ignore it in `.gitignore`) and add the following content:
@@ -63,6 +67,8 @@ const PORT = process.env.PORT || 5145;
 ```
 
 By using environment variables, you make your app more flexible and secure across different environments.
+
+---
 
 ## Nodemon & Scripts
 
@@ -99,6 +105,8 @@ npm run dev
 
 Now, the server will automatically restart on changes, making development smoother and faster.
 
+---
+
 ## Logging with Morgan
 
 Let’s make your server a little chatty with some request logging!
@@ -117,6 +125,8 @@ app.use(morgan("dev")); // "dev" is a predefined format for logging
 ```
 
 Now, every request will get a nice little log. Perfect for debugging and knowing exactly what's happening at all times!
+
+---
 
 ## Database Connection with Mongoose
 
@@ -147,6 +157,8 @@ connectToDatabse();
 ```
 
 This way, your app will connect to MongoDB and let you know if it’s all set or if something went wrong.
+
+---
 
 ## Creating a Model with CRUD Endpoints
 
@@ -235,6 +247,8 @@ app.get("/categories", async (req, res) => {
 });
 ```
 
+---
+
 ## Project Structure
 
 We’ll adopt a structured and modular project layout. The following directories will be created in the root of the project for a scalable and maintainable API:
@@ -245,6 +259,8 @@ We’ll adopt a structured and modular project layout. The following directories
 - `controllers` – Handle the main logic for processing requests, interacting with models, and sending appropriate responses.
 
 While additional directories like `middlewares`, `utils`, and `config` are also common in a well-structured app, the above folders form the core foundation for organizing all API-related code.
+
+---
 
 ## Express Validator
 
@@ -352,6 +368,8 @@ This helps protect internal fields from being altered by the client and keeps yo
 
 A limitation of express-validator is its inability to return appropriate HTTP status codes for certain validation scenarios — for instance, custom validators that detect resource conflicts still result in a 400 Bad Request instead of the more suitable 409 Conflict.
 
+---
+
 ## Error Handling & Async Handler
 
 In `middlewares/errorMiddleware.js`, we created a centralized error handler middleware that manages all errors in one place, and it’s imported in `index.js`.
@@ -422,6 +440,8 @@ exports.deleteCategory = asyncHandler(async (req, res, next) => {
 
 This last approach keeps your code clean and simple, while ensuring all errors are passed smoothly to the centralized error handler for consistent processing.
 
+---
+
 ## Linting with ESLint
 
 **ESLint** is a tool that checks your JavaScript code for errors and helps you follow best practices. It makes your code cleaner, more consistent, and easier to maintain.
@@ -446,6 +466,8 @@ npm run lint
 
 For real-time error checking as you type, install the official [**ESLint extension for VS Code**](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint).
 
+---
+
 ## Formatting with Prettier
 
 **Prettier** is a code formatter that automatically formats your code so it's neat, consistent, and easy to read—no more arguing over spaces vs tabs!
@@ -457,6 +479,8 @@ npm install --save-dev prettier
 Create a `.prettierrc` file in the root of your project to customize how Prettier formats your code.
 
 Want Prettier to run automatically on save? Install the **Prettier VS Code extension** and enable “Format on Save” in your settings.
+
+---
 
 ## Population in Mongoose
 
@@ -511,6 +535,8 @@ subcategorySchema.pre(/^find/, function (next) {
   next();
 });
 ```
+
+---
 
 ## Retrieval with Filtring, Searching, Pagination, Sorting, and Limiting Fields
 
@@ -586,6 +612,8 @@ exports.getProducts = asyncHandler(async (req, res) => {
 });
 ```
 
+---
+
 ## Factory Handlers
 
 You'll likely notice that much of the logic is repetitive. To improve **reusability** and maintain **cleaner code**, we can extract the shared logic into a centralized factory.
@@ -594,15 +622,7 @@ Take a look at `utils/factory.js` to see how this approach works.
 
 ---
 
----
-
----
-
----
-
----
-
-## Uploading Files
+## Handling Files
 
 To handle file uploads in Node.js, we’ll use a middleware called [`multer`](https://github.com/expressjs/multer). It's specifically designed for handling `multipart/form-data`, which is the format used when submitting forms that include files.
 
@@ -635,11 +655,13 @@ app.post("/album", upload.array("photos", 12), (req, res) => {
 });
 ```
 
-## Handling File Uploads with Custom Configuration
+---
+
+## Handling Files with Disk Storage
 
 While the default `multer` setup is useful, we often need more control. For that, we’ll use `multer`'s **disk storage engine** along with some organized configuration.
 
-In `controllers/brandController.js`, we’ll define a custom upload middleware:
+For example, in the brand contorller, you may define a custom upload middleware:
 
 ```js
 // The disk storage object gives you full control on storing files to disk.
@@ -666,7 +688,7 @@ const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
 exports.uploadBrandImage = upload.single("image");
 ```
 
-Then in `routes/brandRoute.js`, use the middleware like this:
+Then use the middleware like this:
 
 ```js
 router.post("/", uploadBrandImage, createBrandValidator, createBrand);
@@ -678,7 +700,7 @@ To do so, we’ll need to process the image **in memory** first. This can be ach
 
 ---
 
-## Moving to In-Memory Storage & Image Processing
+## Handling Files with Memory Storage
 
 To allow image processing (e.g. resizing, compression), we’ll use `multer.memoryStorage()` instead of `diskStorage`. This stores the uploaded file **temporarily in memory** as a buffer, which we can then process using libraries like [`sharp`](https://github.com/lovell/sharp).
 
@@ -737,65 +759,22 @@ router.post(
 
 > Be aware that performing image processing on the server can be resource-intensive and may slow down your application, especially if you have a lot of concurrent uploads. Consider using a cloud service like AWS S3 or Cloudinary for image storage and processing.
 
-### Organize Your Code
+### Important Notes
 
-Now that we've modularized and structured our code more effectively, take a look at how key parts work together: the `middlewares/uploadImagesMiddleware.js` file defines a reusable middleware for handling single image uploads, which is applied across multiple routes in `routes/brandRoute.js`.
+To upload multiple files, you have two options:
 
-### Handling Images the Right Way
+- Use `.array(fieldName, maxCount)` if you're uploading multiple files under a single field as mentioned earlier.
+- Or use `.fields(fields)` to handle a combination of single and multiple file fields in the same request.
 
-To avoid saving images when something goes wrong (like validation errors), we changed how we handle image uploads. Now, instead of saving the image to disk right after uploading it, we first process it and keep it in memory using the `processBrandImage` middleware. Then, if everything goes well (like the brand is created or updated successfully), we save the image to disk using a special `postTask` function. This makes sure we only save images when the operation actually succeeds. Also, to keep things clean, we use a `preTask` function to delete the old image before updating or deleting a brand — so we don’t leave extra files on the server. These `preTask` and `postTask` functions are passed into our generic functions in `factory.js`, which helps us keep the code organized and reuse the same logic in different places.
+We can modularize and structure our code more effectively, take a look at how key parts work together: the `middlewares/uploadImagesMiddlewares.js` file defines a reusable middleware for handling single, multiple, and mixed images uploads, which is applied across multiple routes.
 
-So the final implementation of `controllers/brandController.js` will be like that:
+To avoid saving images when something goes wrong (like validation errors), we changed how we handle image uploads. Now, instead of saving the image to disk right after uploading it, we first process it and keep it in memory using the processing middleware (like `processBrandImage` middleware). Then, if everything goes well (like the brand is created or updated successfully), we save the image to disk using a special `postTask` function. This makes sure we only save images when the operation actually succeeds. Also, to keep things clean, we use a `preTask` function to delete the old image before updating or deleting a document — so we don’t leave extra files on the server. These `preTask` and `postTask` functions are passed into our generic functions in `factory.js`, which helps us keep the code organized and reuse the same logic in different places.
 
-```js
-// This middleware is used to process the image and create the filename to be saved in the database.
-exports.processBrandImage = asyncHandler(async (req, res, next) => {
-  if (!req.file) return next();
-  // Generate a unique filename for the image
-  const filename = `brand-${slugify(req.body.name, { lower: true })}-${Date.now()}.jpeg`;
-  // Process the image and store it in memory
-  const buffer = await sharp(req.file.buffer).resize(1000, 1000).toFormat("jpeg").jpeg({ quality: 95 }).toBuffer();
-  // Store the processed image and filename in the request object
-  req.image = { buffer, filename };
-  // Set the image filename in the request body for database storage
-  req.body.image = filename;
-  next();
-});
+You can explore code to see the final implementaion.
 
-// A function to save the processed image
-const saveBrandImage = asyncHandler(async (req, res, next, brand) => {
-  if (!req.image) return;
-  await sharp(req.image.buffer).toFile(`uploads/brands/${req.image.filename}`);
-});
+Read the note in `controllers/productController.js` regarding image array updates during product edits.
 
-// A function to delete the image
-const deleteBrandImage = (status) =>
-  asyncHandler(async (req, res, next, brand) => {
-    // If the status is updating and there is a new image, delete the old image if it exists.
-    if (status === "updating" && req.file && brand.image) await fs.promises.unlink(`uploads/brands/${brand.image}`);
-    // If the status is deleting, delete the image if it exists.
-    if (status === "deleting" && brand.image) await fs.promises.unlink(`uploads/brands/${brand.image}`);
-  });
-
-// =============================================================
-
-exports.createBrand = factory.createDocument(BrandModel, {
-  fieldToSlugify: "name",
-  postTask: saveBrandImage,
-});
-
-exports.getBrands = factory.getAllDocuments(BrandModel, { searchableFields: ["name"] });
-
-exports.getBrand = factory.getDocument(BrandModel);
-
-exports.updateBrand = factory.updateDocument(BrandModel, {
-  fieldToSlugify: "name",
-  preTask: deleteBrandImage("updating"),
-  postTask: saveBrandImage,
-});
-
-exports.deleteBrand = factory.deleteDocument(BrandModel, { preTask: deleteBrandImage("deleting") });
-```
+---
 
 ### Returning Full Image URL in API Responses
 
@@ -809,6 +788,8 @@ brandSchema.methods.toJSON = function () {
 };
 ```
 
+---
+
 ## Serve Static Files
 
 Add this middleware in `index.js` that allows your app to serve static files—like uploaded images—from the `uploads` folder.
@@ -820,27 +801,6 @@ app.use(express.static("uploads"));
 It makes the `uploads` folder publicly accessible. Any file inside it can now be accessed via a direct URL.
 
 For example, let's say you saved an image at `uploads/brands/123.jpeg`, you can access it from the browser at: `http://localhost:3000/brands/123.jpeg`
-
-## Uploading Multiple Files
-
-To upload multiple files, you have two options:
-
-- Use `.array(fieldName, maxCount)` if you're uploading multiple files under a single field as mentioned earlier.
-- Or use `.fields(fields)` to handle a combination of single and multiple file fields in the same request.
-
-See this in `middlewares/uploadImagesMiddleware.js`.
-
----
-
-## Product Image Upload
-
-Now, We add file uploading support to the product module.
-
-Check the following files: `models/productModel.js`, `routes/productRoute.js`, and `controllers/productController.js`.
-
-You'll notice some small differences, as each product includes a _cover image_ and an _array of additional images_.
-
-Be sure to read the note in `controllers/productController.js` regarding image array updates during product edits.
 
 ---
 
