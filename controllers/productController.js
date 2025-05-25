@@ -5,7 +5,6 @@ const asyncHandler = require("express-async-handler");
 const ProductModel = require("../models/productModel");
 const factory = require("../utils/factory");
 
-// This middleware is used to process the images and create the filenames to be saved in the database.
 exports.processProductImages = asyncHandler(async (req, res, next) => {
   if (!req.files) return next();
 
@@ -36,7 +35,6 @@ exports.processProductImages = asyncHandler(async (req, res, next) => {
   next();
 });
 
-// A function to save the processed images
 const saveProductImages = asyncHandler(async (req) => {
   if (req.coverImage) await sharp(req.coverImage.buffer).toFile(`uploads/products/${req.coverImage.filename}`);
   if (req.images)
@@ -45,7 +43,6 @@ const saveProductImages = asyncHandler(async (req) => {
     );
 });
 
-// A function to delete the images
 const deleteProductImages = (status) =>
   asyncHandler(async (req, res, next, product) => {
     if (status === "updating") {
@@ -62,19 +59,20 @@ const deleteProductImages = (status) =>
   });
 
 /*
-⚠️ Note: This implementation has a known limitation when UPDATING the `images` array.
+
+Note: This implementation has a known limitation when UPDATING the `images` array.
 If new images are sent in the request, all existing images will be deleted — even if only one image is sent.
 Possible solutions include:
-1. Sending the indexes of images to delete.
-2. Sending the filenames of images to keep.
+  1. Sending the indexes of images to delete.
+  2. Sending the filenames of images to keep.
 However, to keep this tutorial simple and focused, we will not handle these cases here.
-*/
 
-/*
-💡 Tip: For better scalability and flexibility, consider moving image upload and processing logic to separate routes and controllers.
-This approach offers:
-1. Independent handling of image uploads, updates, and deletions.
-2. Cleaner, modular code that's easier to maintain and extend.
+-----
+
+Tip: For better scalability and flexibility, consider moving image upload and processing logic to separate routes and controllers for:
+  1. Independent handling of images.
+  2. Cleaner, modular code that's easier to maintain and extend.
+
 */
 
 // =============================================================

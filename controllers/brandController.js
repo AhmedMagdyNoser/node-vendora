@@ -5,7 +5,6 @@ const asyncHandler = require("express-async-handler");
 const BrandModel = require("../models/brandModel");
 const factory = require("../utils/factory");
 
-// This middleware is used to process the image and create the filename to be saved in the database.
 exports.processBrandImage = asyncHandler(async (req, res, next) => {
   if (!req.file) return next();
   // Generate a unique filename for the image
@@ -19,13 +18,11 @@ exports.processBrandImage = asyncHandler(async (req, res, next) => {
   next();
 });
 
-// A function to save the processed image
 const saveBrandImage = asyncHandler(async (req) => {
   if (!req.image) return;
   await sharp(req.image.buffer).toFile(`uploads/brands/${req.image.filename}`);
 });
 
-// A function to delete the image
 const deleteBrandImage = (status) =>
   asyncHandler(async (req, res, next, brand) => {
     // If the status is updating and there is a new image, delete the old image if it exists.

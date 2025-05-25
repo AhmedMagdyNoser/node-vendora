@@ -778,9 +778,12 @@ Read the note in `controllers/productController.js` regarding image array update
 
 ### Returning Full Image URL in API Responses
 
-To automatically include the full URL of the brand image when sending the brand data in responses, update the `toJSON` method in your `models/brandModel.js`. This method is called whenever the document is converted to JSON — such as when returning it in an API response.
+To automatically include the full URL of the image when sending the data in responses, update the `toJSON` method in the schema. This method is called whenever the document is converted to JSON — such as when returning it in an API response.
+
+For example,
 
 ```js
+// Transform the image field to include the full URL whenever the document is converted to JSON (which happens when sending the response).
 brandSchema.methods.toJSON = function () {
   const obj = this.toObject();
   if (obj.image) obj.image = `${process.env.BASE_URL}/brands/${obj.image}`;

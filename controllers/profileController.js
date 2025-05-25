@@ -6,7 +6,6 @@ const asyncHandler = require("express-async-handler");
 const UserModel = require("../models/userModel");
 const ApiError = require("../utils/apiError");
 
-// This middleware is used to process the image and create the filename to be saved in the database.
 exports.processImage = asyncHandler(async (req, res, next) => {
   if (!req.file) return next();
   const filename = `user-${slugify(req.user.name, { lower: true })}-${Date.now()}.jpeg`;
@@ -16,14 +15,9 @@ exports.processImage = asyncHandler(async (req, res, next) => {
   next();
 });
 
-// A function to delete user image for disk.
 const deleteUserImage = async (imageName) => {
   if (!imageName) return;
-  try {
-    await fs.promises.unlink(`uploads/users/${imageName}`);
-  } catch (error) {
-    console.error("Error deleting image:", error);
-  }
+  await fs.promises.unlink(`uploads/users/${imageName}`);
 };
 
 // =============================================================

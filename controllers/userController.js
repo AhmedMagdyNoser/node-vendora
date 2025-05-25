@@ -6,7 +6,6 @@ const asyncHandler = require("express-async-handler");
 const UserModel = require("../models/userModel");
 const factory = require("../utils/factory");
 
-// This middleware is used to process the image and create the filename to be saved in the database.
 exports.processUserImage = asyncHandler(async (req, res, next) => {
   if (!req.file) return next();
   // Generate a unique filename for the image
@@ -20,13 +19,11 @@ exports.processUserImage = asyncHandler(async (req, res, next) => {
   next();
 });
 
-// A function to save the processed image
 const saveUserImage = asyncHandler(async (req) => {
   if (!req.image) return;
   await sharp(req.image.buffer).toFile(`uploads/users/${req.image.filename}`);
 });
 
-// A function to delete the image
 const deleteUserImage = (status) =>
   asyncHandler(async (req, res, next, user) => {
     // If the status is updating and there is a new image, delete the old image if it exists.
@@ -35,7 +32,6 @@ const deleteUserImage = (status) =>
     if (status === "deleting" && user.image) await fs.promises.unlink(`uploads/users/${user.image}`);
   });
 
-// A function to hash the password
 const hashPassword = asyncHandler(async (req) => {
   if (req.body.password) req.body.password = await bcrypt.hash(req.body.password, 12);
 });
