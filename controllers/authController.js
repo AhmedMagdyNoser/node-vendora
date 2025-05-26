@@ -11,6 +11,8 @@ const generateToken = (_id) =>
     expiresIn: process.env.JWT_EXPIRATION_TIME,
   });
 
+const createHash = (string) => crypto.createHash("sha256").update(string).digest("hex");
+
 // =============================================================
 
 exports.register = asyncHandler(async (req, res) => {
@@ -34,10 +36,8 @@ exports.requestResetCode = asyncHandler(async (req, res, next) => {
   const user = await UserModel.findOne({ email });
   if (!user) return next(new ApiError(404, "We couldn't find an account with that email address."));
   const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
-  const hashedResetCode = crypto.createHash("sha256").update(resetCode).digest("hex");
-  user.passwordResetCode = hashedResetCode;
-  user.passwordResetCodeExpiration = Date.now() + 10 * 60 * 1000; // 10 Minutes
-  user.passwordResetCodeVerified = false;
+  user.security.passwordResetCode = createHash(resetCode);
+  user.security.passwordResetCodeExpiration = Date.now() + 10 * 60 * 1000; // 10 Minutes
   await user.save();
   await sendEmail(
     email,
@@ -46,7 +46,7 @@ exports.requestResetCode = asyncHandler(async (req, res, next) => {
       <h1>Password Reset Request</h1>
       <p>Hello ${user.name},</p>
       <p>We received a request to reset your password. Your reset code is:</p>
-      <h2 style="color: #4CAF50; font-size: 24px; text-align: center; padding: 10px; background: #f5f5f5; border-radius: 5px;">${resetCode}</h2>
+      <h2 style="color: #358538; font-size: 24px; text-align: center; padding: 10px; background: #f5f5f5; border-radius: 5px;">${resetCode}</h2>
       <p>This code will expire in 10 minutes for security reasons.</p>
       <p>If you didn't request this password reset, please ignore this email.</p>
       <p>Best regards, <br>Vendora</p>
@@ -56,33 +56,31 @@ exports.requestResetCode = asyncHandler(async (req, res, next) => {
 });
 
 exports.verifyResetCode = asyncHandler(async (req, res, next) => {
-  const { email, code } = req.body;
-  const user = await UserModel.findOne({ email });
+  const { email, resetCode } = req.body;
+  const user = await UserModel.findOne({ email }).select(
+    "+security.passwordResetCode +security.passwordResetCodeExpiration",
+  );
   if (!user) return next(new ApiError(404, "We couldn't find an account with that email address."));
-  if (!user.passwordResetCode || !user.passwordResetCodeExpiration)
+  if (!user.security.passwordResetCode || !user.security.passwordResetCodeExpiration)
     return next(new ApiError(400, "No password reset request was made. Please request a reset code first."));
-  if (Date.now() > user.passwordResetCodeExpiration)
+  if (Date.now() > user.security.passwordResetCodeExpiration)
     return next(new ApiError(400, "The reset code has expired. Please request a new one."));
-  const hashedResetCode = crypto.createHash("sha256").update(code).digest("hex");
-  if (hashedResetCode !== user.passwordResetCode)
+  if (createHash(resetCode) !== user.security.passwordResetCode)
     return next(new ApiError(400, "Invalid reset code. Please check the code and try again."));
-  user.passwordResetCodeVerified = true;
   await user.save();
-  res.status(200).json({ message: "Reset code verified successfully. You can now set your new password." });
+  const resetToken = jwt.sign({ _id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "15m" });
+  res.status(200).json({ message: "Reset code verified successfully. You can now set your new password.", resetToken });
 });
 
 exports.resetPassword = asyncHandler(async (req, res, next) => {
-  const { email, password } = req.body;
-  const user = await UserModel.findOne({ email });
-  if (!user) return next(new ApiError(404, "We couldn't find an account with that email address."));
-  if (!user.passwordResetCodeVerified)
-    return next(new ApiError(400, "Please verify your reset code before setting a new password."));
+  const { resetToken, password } = req.body;
+  const decoded = jwt.verify(resetToken, process.env.JWT_SECRET_KEY);
+  const user = await UserModel.findById(decoded._id);
+  if (!user) return next(new ApiError(404, "Please provide a valid reset token."));
   const hashedPassword = await bcrypt.hash(password, 12);
   user.password = hashedPassword;
-  user.passwordResetCode = undefined;
-  user.passwordResetCodeExpiration = undefined;
-  user.passwordResetCodeVerified = undefined;
-  user.passwordChangedAt = Date.now();
+  user.security.passwordResetCode = undefined;
+  user.security.passwordResetCodeExpiration = undefined;
   await user.save();
   res.status(200).json({ message: "Your password has been reset successfully. You can now login with your new password." });
 });

@@ -16,13 +16,7 @@ exports.authenticate = asyncHandler(async (req, res, next) => {
   // 3. Check if user exists.
   const user = await UserModel.findById(decoded._id);
   if (!user) return next(new ApiError(401, "User belonging to this token no longer exists."));
-  // 4. Check if user changed password after token was issued.
-  if (user.passwordChangedAt) {
-    const changingTimestamp = parseInt(user.passwordChangedAt.getTime() / 1000, 10);
-    if (changingTimestamp > decoded.iat)
-      return next(new ApiError(401, "User recently changed his password. Please login again."));
-  }
-  // 5. Grant access to protected route.
+
   req.user = user;
   next();
 });

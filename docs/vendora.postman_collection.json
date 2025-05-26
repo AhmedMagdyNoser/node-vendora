@@ -1048,7 +1048,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"admin\",\r\n    \"email\": \" admin@gmail.com\",\r\n    // \"phone\": \"01234567890\",\r\n    \"password\": \"aA!123456\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Ahmed\",\r\n    \"email\": \" fi.d2i2h@gmail.com\",\r\n    // \"phone\": \"01234567890\",\r\n    \"password\": \"aA!123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1126,7 +1126,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"ali.1675@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"email\": \"fi.d2i2h@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1165,7 +1165,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"ali.1675@gmail.com\",\r\n    \"code\": \"955070\"\r\n}",
+							"raw": "{\r\n    \"email\": \"fi.d2i2h@gmail.com\",\r\n    \"resetCode\": \"442769\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1204,7 +1204,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"fi.d2i2h@gmail.com\",\r\n    \"password\": \"aA!123456\"\r\n}",
+							"raw": "{\r\n    \"password\": \"aA!123456\",\r\n    \"resetToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODM0YzQxOGVjYjYwZTRkZjc3NDg1ZWMiLCJpYXQiOjE3NDgyODg3ODgsImV4cCI6MTc0ODI4OTY4OH0.MeHgxVB9hB2Ct6Tr2Z-uN3I6w1jm4GPbNoVWzpcx4ig\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

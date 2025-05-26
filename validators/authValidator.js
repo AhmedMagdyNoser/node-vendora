@@ -72,7 +72,7 @@ exports.verifyResetCodeValidator = [
     .toLowerCase()
     .isEmail()
     .withMessage("Email must be a valid email address."),
-  body("code")
+  body("resetCode")
     .notEmpty()
     .withMessage("Reset code is required.")
     .bail()
@@ -82,14 +82,7 @@ exports.verifyResetCodeValidator = [
 ];
 
 exports.resetPasswordValidator = [
-  body("email")
-    .trim()
-    .notEmpty()
-    .withMessage("Email is required.")
-    .bail()
-    .toLowerCase()
-    .isEmail()
-    .withMessage("Email must be a valid email address."),
+  body("resetToken").notEmpty().withMessage("Reset token is required."),
   body("password")
     .notEmpty()
     .withMessage("Password is required.")
