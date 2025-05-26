@@ -22,14 +22,17 @@ exports.createDocument = (Model, options = {}) =>
 
 exports.getAllDocuments = (Model, options = {}) =>
   asyncHandler(async (req, res) => {
+    const pagination = req.query.limit !== "Infinity";
     const apiQueryBuilder = new ApiQueryBuilder(Model, req.query).filter(); // Filter documents based on query parameters
     if (options.searchableFields) apiQueryBuilder.search(...options.searchableFields); // Search documents based on `keyword` query parameter
-    await apiQueryBuilder.countFilteredDocuments(); // Count the number of documents after applying filters and search (for pagination)
-    apiQueryBuilder.paginate().sort().limitFields(); // Paginate the results, and allow sorting and limiting fields
+    if (pagination) {
+      await apiQueryBuilder.countFilteredDocuments(); // Count the number of documents after applying filters and search (for pagination)
+      apiQueryBuilder.paginate().sort().limitFields(); // Paginate the results, and allow sorting and limiting fields
+    } else apiQueryBuilder.sort().limitFields(); // Only sort and limit fields if pagination is not required
     const documents = await apiQueryBuilder.mongooseQuery; // Execute the query
     res.status(200).json({
       results: documents.length,
-      pagination: apiQueryBuilder.pagination,
+      ...(pagination ? { pagination: apiQueryBuilder.pagination } : {}),
       data: documents,
     });
   });
