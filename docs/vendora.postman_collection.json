@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "6ad8f4f9-ef96-4b6a-8d97-e3b2972c3496",
+		"_postman_id": "5359438a-cf0b-40d8-b47e-a2b5e3ad2058",
 		"name": "vendora",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30741123",
-		"_collection_link": "https://cloudy-trinity-850448.postman.co/workspace/Leopard~dad26772-7b99-4ace-b253-624179845f86/collection/30741123-6ad8f4f9-ef96-4b6a-8d97-e3b2972c3496?action=share&source=collection_link&creator=30741123"
+		"_exporter_id": "30741123"
 	},
 	"item": [
 		{
@@ -13,11 +12,21 @@
 				{
 					"name": "create",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Women\",\r\n    \"description\": \"this is the women category\"\r\n}",
+							"raw": "{\r\n    \"title\": \"Kids\",\r\n    \"description\": \"This is the kids category.\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -25,13 +34,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/categories",
+							"raw": "{{URL}}/categories",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"categories"
 							]
 						}
@@ -44,13 +51,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{LH}}/api/v1/categories?page=1&limit=15",
+							"raw": "{{URL}}/categories?page=1&limit=15",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"categories"
 							],
 							"query": [
@@ -73,15 +78,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{LH}}/api/v1/categories/67a327811bd63f1f49d3132d",
+							"raw": "{{URL}}/categories/682afcbb3b6b8c4a5333fd28",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"categories",
-								"67a327811bd63f1f49d3132d"
+								"682afcbb3b6b8c4a5333fd28"
 							]
 						}
 					},
@@ -90,11 +93,21 @@
 				{
 					"name": "update",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"updated category\"\r\n}",
+							"raw": "{\r\n    \"title\": \"Men\",\r\n    \"description\": \"This is the men category.\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -102,15 +115,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/categories/67a327811bd63f1f49d3132d",
+							"raw": "{{URL}}/categories/682afcbb3b6b8c4a5333fd28",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"categories",
-								"67a327811bd63f1f49d3132d"
+								"682afcbb3b6b8c4a5333fd28"
 							]
 						}
 					},
@@ -119,11 +130,21 @@
 				{
 					"name": "delete",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"updated 1\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -131,13 +152,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/categories/67a5d9ed1fc954d01a631d63",
+							"raw": "{{URL}}/categories/67a5d9ed1fc954d01a631d63",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"categories",
 								"67a5d9ed1fc954d01a631d63"
 							]
@@ -153,11 +172,21 @@
 				{
 					"name": "create",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"test\",\r\n    \"description\": \"this the test subcategory\",\r\n    \"category\": \"67a5d9bf1fc954d01a631d5d\"\r\n}",
+							"raw": "{\r\n    \"title\": \"Shirts\",\r\n    \"description\": \"This the shirts subcategory\",\r\n    \"category\": \"682afcbb3b6b8c4a5333fd28\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -165,13 +194,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/subcategories",
+							"raw": "{{URL}}/subcategories",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"subcategories"
 							]
 						}
@@ -184,13 +211,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{LH}}/api/v1/subcategories?page=1&limit=15",
+							"raw": "{{URL}}/subcategories?page=1&limit=15",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"subcategories"
 							],
 							"query": [
@@ -213,13 +238,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{LH}}/api/v1/subcategories/67a5f0b727b2993589ae7393",
+							"raw": "{{URL}}/subcategories/67a5f0b727b2993589ae7393",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"subcategories",
 								"67a5f0b727b2993589ae7393"
 							]
@@ -230,11 +253,21 @@
 				{
 					"name": "update",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Updated Subategory\"\r\n}",
+							"raw": "{\r\n    \"title\": \"Shoes\",\r\n    \"description\": \"This the shoes subcategory\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -242,15 +275,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/subcategories/67a5f09b27b2993589ae738f",
+							"raw": "{{URL}}/subcategories/682afd463b6b8c4a5333fd38",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"subcategories",
-								"67a5f09b27b2993589ae738f"
+								"682afd463b6b8c4a5333fd38"
 							]
 						}
 					},
@@ -259,11 +290,21 @@
 				{
 					"name": "delete",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"updated 1\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -271,15 +312,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/subcategories/67a743e3089c3670ce81a488",
+							"raw": "{{URL}}/subcategories/682afd463b6b8c4a5333fd38",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"subcategories",
-								"67a743e3089c3670ce81a488"
+								"682afd463b6b8c4a5333fd38"
 							]
 						}
 					},
@@ -293,90 +332,17 @@
 				{
 					"name": "create",
 					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
+						"auth": {
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "name",
-									"value": "Apple",
-									"type": "text"
-								},
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/H:/Gallery/Wallpapers/(28).jpg"
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
 								}
 							]
 						},
-						"url": {
-							"raw": "{{LH}}/api/v1/brands",
-							"host": [
-								"{{LH}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"brands"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{LH}}/api/v1/brands?page=1&limit=15",
-							"host": [
-								"{{LH}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"brands"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "15"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{LH}}/api/v1/brands/67a833a60b3ac4db80adc98f",
-							"host": [
-								"{{LH}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"brands",
-								"67a833a60b3ac4db80adc98f"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"method": "PUT",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "formdata",
@@ -394,15 +360,101 @@
 							]
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/brands/68133c56cd9dbc49a6969c97",
+							"raw": "{{URL}}/brands",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
+								"brands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/brands?page=1&limit=15",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"brands"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/brands/67a833a60b3ac4db80adc98f",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
 								"brands",
-								"68133c56cd9dbc49a6969c97"
+								"67a833a60b3ac4db80adc98f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Apple",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/H:/Gallery/Wallpapers/(5).jpg",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/brands/682a05b7b8ad326bbb8bd2ba",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"brands",
+								"682a05b7b8ad326bbb8bd2ba"
 							]
 						}
 					},
@@ -411,6 +463,16 @@
 				{
 					"name": "delete",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -423,15 +485,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/brands/6811e5a9192d8aa39be03414",
+							"raw": "{{URL}}/brands/682a05b7b8ad326bbb8bd2ba",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"brands",
-								"6811e5a9192d8aa39be03414"
+								"682a05b7b8ad326bbb8bd2ba"
 							]
 						}
 					},
@@ -445,6 +505,16 @@
 				{
 					"name": "create",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -452,12 +522,12 @@
 							"formdata": [
 								{
 									"key": "title",
-									"value": "ZARA Shirt M3",
+									"value": "ZARA Shirt M1",
 									"type": "text"
 								},
 								{
 									"key": "description",
-									"value": "Description of ZARA Shirt M3",
+									"value": "Description of ZARA Shirt M1",
 									"type": "text"
 								},
 								{
@@ -474,7 +544,7 @@
 								{
 									"key": "coverImage",
 									"type": "file",
-									"src": "/H:/Gallery/Wallpapers/(30).jpg"
+									"src": "/H:/Gallery/Wallpapers/(5).jpg"
 								},
 								{
 									"key": "images",
@@ -483,7 +553,8 @@
 										"/H:/Gallery/Wallpapers/(28).jpg",
 										"/H:/Gallery/Wallpapers/(25).jpg",
 										"/H:/Gallery/Wallpapers/(5).jpg"
-									]
+									],
+									"disabled": true
 								},
 								{
 									"key": "brand",
@@ -493,7 +564,7 @@
 								},
 								{
 									"key": "category",
-									"value": "67f396d7a4182c44cf949ccd",
+									"value": "682afcbb3b6b8c4a5333fd28",
 									"type": "text"
 								},
 								{
@@ -509,13 +580,11 @@
 							]
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/products",
+							"raw": "{{URL}}/products",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"products"
 							]
 						}
@@ -528,13 +597,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{LH}}/api/v1/products?page=1&limit=15",
+							"raw": "{{URL}}/products?page=1&limit=15",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"products"
 							],
 							"query": [
@@ -582,13 +649,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{LH}}/api/v1/products/67a8569a3bed8047865cd34a",
+							"raw": "{{URL}}/products/67a8569a3bed8047865cd34a",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"products",
 								"67a8569a3bed8047865cd34a"
 							]
@@ -599,6 +664,16 @@
 				{
 					"name": "Update",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -663,13 +738,11 @@
 							]
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/products/6813a3c52443ea65e71b1e33",
+							"raw": "{{URL}}/products/6813a3c52443ea65e71b1e33",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"products",
 								"6813a3c52443ea65e71b1e33"
 							]
@@ -680,6 +753,16 @@
 				{
 					"name": "delete",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -692,13 +775,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/products/6811e76a192d8aa39be03432",
+							"raw": "{{URL}}/products/6811e76a192d8aa39be03432",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"products",
 								"6811e76a192d8aa39be03432"
 							]
@@ -714,6 +795,16 @@
 				{
 					"name": "create",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -721,22 +812,22 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Ayman",
+									"value": "Ali",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "ayman@outlook.com",
+									"value": "ali@outlook.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "12345678",
+									"value": "aA!123456",
 									"type": "text"
 								},
 								{
 									"key": "phone",
-									"value": "01123456798",
+									"value": "01123456795",
 									"type": "text"
 								},
 								{
@@ -752,13 +843,11 @@
 							]
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/users",
+							"raw": "{{URL}}/users",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"users"
 							]
 						}
@@ -768,16 +857,24 @@
 				{
 					"name": "list",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{LH}}/api/v1/users?page=1&limit=15",
+							"raw": "{{URL}}/users?page=1&limit=15",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"users"
 							],
 							"query": [
@@ -802,16 +899,24 @@
 				{
 					"name": "get",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{LH}}/api/v1/users/67a833a60b3ac4db80adc98f",
+							"raw": "{{URL}}/users/67a833a60b3ac4db80adc98f",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"67a833a60b3ac4db80adc98f"
 							]
@@ -822,6 +927,16 @@
 				{
 					"name": "update",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -839,7 +954,7 @@
 								},
 								{
 									"key": "password",
-									"value": "12345678",
+									"value": "aA!123456",
 									"type": "text"
 								},
 								{
@@ -860,13 +975,11 @@
 							]
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/users/68153f2be4834df8d3e18db7",
+							"raw": "{{URL}}/users/68153f2be4834df8d3e18db7",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"68153f2be4834df8d3e18db7"
 							]
@@ -877,6 +990,16 @@
 				{
 					"name": "delete",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -889,15 +1012,608 @@
 							}
 						},
 						"url": {
-							"raw": "{{LH}}/api/v1/users/6811e5a9192d8aa39be03414",
+							"raw": "{{URL}}/users/6811e5a9192d8aa39be03414",
 							"host": [
-								"{{LH}}"
+								"{{URL}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"users",
 								"6811e5a9192d8aa39be03414"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"JWT\", pm.response.json().token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"admin\",\r\n    \"email\": \" admin@gmail.com\",\r\n    // \"phone\": \"01234567890\",\r\n    \"password\": \"aA!123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"JWT\", pm.response.json().token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"aA!123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request-reset-code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ali.1675@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/request-reset-code",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"request-reset-code"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify-reset-code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ali.1675@gmail.com\",\r\n    \"code\": \"955070\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/verify-reset-code",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"verify-reset-code"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset-password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"fi.d2i2h@gmail.com\",\r\n    \"password\": \"aA!123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/reset-password",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "update-profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"saad\",\r\n    \"email\": \"saad@gmail.com\",\r\n    \"phone\": \"01234567895\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"123456789\",\r\n    \"newPassword\": \"147852365\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/profile/password",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/H:/Gallery/Wallpapers/(5).jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/profile/image",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/profile/image",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\": 5,\r\n    \"title\": \"Good Product\",\r\n    \"product\": \"681f3da6ee819c48088ac673\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/reviews?page=1&limit=15",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/67a833a60b3ac4db80adc98f",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"67a833a60b3ac4db80adc98f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\": 5,\r\n    \"title\": \"Good Product\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/reviews/681f5e4b8091436812464c60",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"reviews",
+								"681f5e4b8091436812464c60"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/reviews/681f634c877954dbaef2fb7c",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"reviews",
+								"681f634c877954dbaef2fb7c"
 							]
 						}
 					},
@@ -911,13 +1627,35 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{LH}}",
+					"raw": "{{URL}}",
 					"host": [
-						"{{LH}}"
+						"{{URL}}"
 					]
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
