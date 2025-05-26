@@ -61,8 +61,7 @@ npm install dotenv
 3. Load environment variables in `index.js` by adding the following:
 
 ```js
-const dotenv = require("dotenv");
-dotenv.config(); // This loads the variables from .env file into process.env
+require("dotenv").config(); // This loads the variables from .env file into process.env
 const PORT = process.env.PORT || 5145;
 ```
 

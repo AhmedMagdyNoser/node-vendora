@@ -1,12 +1,11 @@
+// Load environment variables from .env file
+require("dotenv").config();
+
 const express = require("express");
-const dotenv = require("dotenv");
 const morgan = require("morgan");
 const mountRoutes = require("./routes");
 const connectToDatabase = require("./config/db");
 const globalErrorHandler = require("./middlewares/errorHandlerMiddleware");
-
-// Load environment variables from .env file
-dotenv.config();
 
 // Connect to MongoDB
 connectToDatabase();
