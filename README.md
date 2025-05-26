@@ -775,7 +775,7 @@ Read the note in `controllers/productController.js` regarding image array update
 
 ---
 
-## Returning Full Image URL in Responses using `toJSON` Method
+## Returning Full Image URL in Responses Using `toJSON` Method
 
 To automatically include the full URL of the image when sending the data in responses, update the `toJSON` method in the schema. This method is called whenever the document is converted to JSON — such as when returning it in an API response.
 
@@ -806,13 +806,24 @@ For example, let's say you saved an image at `uploads/brands/123.jpeg`, you can 
 
 ---
 
-## User Module
+## User Modules
 
-The User module is implemented using the same factory-based approach, along with similar image handling logic. CRUD operations are defined in a modular and reusable way.
-Refer to `models/userModel.js`, `routes/userRoute.js`, `validators/userValidator.js`, and `controllers/userController.js`.
+The users collection is affected by 3 main modules:
+
+### 1. Users CRUD - for Admins
+
+Implemented using the same factory-based approach, along with similar image handling logic.
 
 Key highlights:
 
 - Unique field validation (e.g., email and phone) is handled carefully during both creation and updates — see `validators/userValidator.js` for the approach and notice the idea in the `updateUserValidator`.
 - Passwords are hashed securely before being saved to the database.
-- Passwords are excluded from API responses using the Mongoose `select` option and a custom `.toJSON()` transformation.
+- Sensitive data (i. e. password) are excluded from API responses using the Mongoose `select` option and a custom `.toJSON()` transformation.
+
+### 2. Authentication Module
+
+See the `authController.js` and the `protectionMiddlewares.js`
+
+### 3. Profile Module
+
+See the `profileController.js`.
