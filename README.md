@@ -808,22 +808,43 @@ For example, let's say you saved an image at `uploads/brands/123.jpeg`, you can 
 
 ## User Modules
 
-The users collection is affected by 3 main modules:
+The `users` collection is managed through three main modules, each serving a distinct purpose in the system architecture:
 
-### 1. Users CRUD - for Admins
+### 1. Users CRUD – for Admins
 
-Implemented using the same factory-based approach, along with similar image handling logic.
+This module follows the factory-based controller pattern and adopts the same image handling strategy used elsewhere in the system.
 
-Key highlights:
+**Key Highlights:**
 
-- Unique field validation (e.g., email and phone) is handled carefully during both creation and updates — see `validators/userValidator.js` for the approach and notice the idea in the `updateUserValidator`.
-- Passwords are hashed securely before being saved to the database.
-- Sensitive data (i. e. password) are excluded from API responses using the Mongoose `select` option and a custom `.toJSON()` transformation.
+- **Field Uniqueness Validation:** Fields like email and phone are validated carefully during both creation and updates. For implementation details, see `validators/userValidator.js`, particularly the `updateUserValidator`.
+- **Password Security:** Passwords are hashed using bcrypt before being stored in the database.
+- **Data Sanitization:** Sensitive information (e.g., passwords) is excluded from API responses using Mongoose’s `select` option along with a custom `.toJSON()` transformation.
 
 ### 2. Authentication Module
 
-See the `authController.js` and the `protectionMiddlewares.js`
+This module manages user sessions and authentication flow across the app.
+
+- **`controllers/authController.js`**
+  Handles registration, login, logout, token refresh, and password reset logic. Key features include:
+
+  - **JWT Access & Refresh Tokens:** Used for stateless session management, with secure handling of token expiration and renewal.
+  - **Password Reset Workflow:** Generates secure reset codes, sends them via email, and validates them with strict time-bound logic.
+
+- **`middlewares/protectionMiddlewares.js`**
+  Provides:
+
+  - `authenticate`: Verifies JWTs and ensures that the user exists.
+  - `allowTo`: Enforces role-based access control by restricting access to specific user roles.
+
+- **Cookies Support**
+  To enable secure handling of refresh tokens via cookies, make sure to include the cookie parser middleware in your main `index.js` file:
+
+  ```js
+  app.use(cookiesParser);
+  ```
+
+  This parser is defined in `middlewares/cookiesParser.js`, which extracts cookies from incoming requests and makes them accessible through `req.cookies`.
 
 ### 3. Profile Module
 
-See the `profileController.js`.
+This module empowers authenticated users to update their personal data. See `controllers/profileController.js` for implementation details.
