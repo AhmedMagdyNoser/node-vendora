@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { body, cookie } = require("express-validator");
 const validatorMiddleware = require("../middlewares/validatorMiddleware");
 const UserModel = require("../models/userModel");
 
@@ -48,6 +48,11 @@ exports.loginValidator = [
     .isEmail()
     .withMessage("Email must be a valid email address."),
   body("password").notEmpty().withMessage("Password is required."),
+  validatorMiddleware,
+];
+
+exports.refreshAccessTokenValidator = [
+  cookie("rt").notEmpty().withMessage("Refresh token is required in cookies."),
   validatorMiddleware,
 ];
 

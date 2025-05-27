@@ -12,9 +12,13 @@ exports.authenticate = asyncHandler(async (req, res, next) => {
   // 2. Verify and decode the JWT using the secret key.
   // If the token is valid, this returns the decoded payload { _id: '681aa26e08b75c10d0a32c57', iat: ..., exp: ... }.
   // This will throw an error in the following cases: A. Secret key is invalid. B. Token is invalid. C. Token has expired.
-  const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+  let userId;
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
+    if (err) return next(new ApiError(401, "Invalid token. Please login again."));
+    userId = decoded._id;
+  });
   // 3. Check if user exists.
-  const user = await UserModel.findById(decoded._id);
+  const user = await UserModel.findById(userId);
   if (!user) return next(new ApiError(401, "User belonging to this token no longer exists."));
 
   req.user = user;
