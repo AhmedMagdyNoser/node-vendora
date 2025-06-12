@@ -525,7 +525,7 @@ exports.getSubcategories = asyncHandler(async (req, res) => {
 });
 ```
 
-Another way to populate is to use **Mongoose middleware** in the `models/subcategoryModel.js` file:
+Another approach to populate is to use **Mongoose middleware** in the `models/subcategoryModel.js` file:
 
 ```js
 // Populate the category field before executing any `find` query (like find, findOne, findAndUpdate, etc.)
@@ -534,6 +534,8 @@ subcategorySchema.pre(/^find/, function (next) {
   next();
 });
 ```
+
+However, this approach is not recommended, as it often lacks sufficient control, flexibility to accommodate various scenarios, and maintainability.
 
 ---
 
@@ -593,7 +595,7 @@ exports.getProducts = asyncHandler(async (req, res) => {
 
 For reusability, we can create a class that encapsulates these functionalities, making it easy to apply them across multiple models.
 
-Take a look at `utils/apiQueryBuilder` — you'll notice that we've also included additional logic to provide pagination details and additional logic to make the search functionality more flexible.
+Take a look at `utils/apiQueryBuilder` — you’ll notice that we’ve also added extra logic to make the search functionality more flexible, included pagination details, and implemented additional logic for population.
 
 Here's how this class can be used:
 

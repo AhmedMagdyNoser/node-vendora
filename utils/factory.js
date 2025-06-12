@@ -15,7 +15,8 @@ exports.createDocument = (Model, options = {}) =>
   asyncHandler(async (req, res, next) => {
     if (options.fieldToSlugify) slugifyField(req, options.fieldToSlugify);
     if (options.preTask) await options.preTask(req, res, next);
-    const document = await Model.create(req.body);
+    let document = await Model.create(req.body);
+    if (options.populate) document = await Model.findById(document._id).populate(options.populate);
     if (options.postTask) await options.postTask(req, res, next, document);
     res.status(201).json({ message: "Document created successfully.", data: document });
   });
@@ -25,6 +26,7 @@ exports.getAllDocuments = (Model, options = {}) =>
     const pagination = req.query.limit !== "Infinity";
     const apiQueryBuilder = new ApiQueryBuilder(Model, req.query).filter(); // Filter documents based on query parameters
     if (options.searchableFields) apiQueryBuilder.search(...options.searchableFields); // Search documents based on `keyword` query parameter
+    if (options.populate) apiQueryBuilder.populate(options.populate); // Populate specified fields
     if (pagination) {
       await apiQueryBuilder.countFilteredDocuments(); // Count the number of documents after applying filters and search (for pagination)
       apiQueryBuilder.paginate().sort().limitFields(); // Paginate the results, and allow sorting and limiting fields
@@ -37,10 +39,12 @@ exports.getAllDocuments = (Model, options = {}) =>
     });
   });
 
-exports.getDocument = (Model) =>
+exports.getDocument = (Model, options = {}) =>
   asyncHandler(async (req, res, next) => {
     const { id } = req.params;
-    const document = await Model.findById(id);
+    let query = Model.findById(id);
+    if (options.populate) query = query.populate(options.populate);
+    const document = await query;
     if (!document) return next(new ApiError(404, notFoundMsg(id)));
     res.status(200).json({ message: "Document retrieved successfully.", data: document });
   });
@@ -59,6 +63,7 @@ exports.updateDocument = (Model, options = {}) =>
       document = await Model.findByIdAndUpdate(id, req.body, { new: true });
       if (!document) return next(new ApiError(404, notFoundMsg(id)));
     }
+    if (options.populate) document = await Model.findById(document._id).populate(options.populate);
     if (options.postTask) await options.postTask(req, res, next, document);
     res.status(200).json({ message: "Document updated successfully.", data: document });
   });

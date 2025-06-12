@@ -70,6 +70,11 @@ class ApiQueryBuilder {
     }
     return this; // Returning this for method chaining
   }
+
+  populate(populateOptions) {
+    this.mongooseQuery.populate(populateOptions);
+    return this; // Returning this for method chaining
+  }
 }
 
 module.exports = ApiQueryBuilder;
