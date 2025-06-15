@@ -845,7 +845,7 @@ This module manages user sessions and authentication flow across the app.
   app.use(cookiesParser);
   ```
 
-  This parser is defined in `middlewares/cookiesParser.js`, which extracts cookies from incoming requests and makes them accessible through `req.cookies`.
+  This parser is defined in `middlewares/cookiesParserMiddleware.js`, which extracts cookies from incoming requests and makes them accessible through `req.cookies`.
 
 ### 3. Profile Module
 

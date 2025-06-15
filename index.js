@@ -5,7 +5,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mountRoutes = require("./routes");
 const connectToDatabase = require("./config/db");
-const cookiesParser = require("./middlewares/cookiesParser");
+const cookiesParser = require("./middlewares/cookiesParserMiddleware");
 const globalErrorHandler = require("./middlewares/errorHandlerMiddleware");
 
 // Connect to MongoDB
