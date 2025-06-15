@@ -5,6 +5,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mountRoutes = require("./routes");
 const connectToDatabase = require("./config/db");
+const corsHandler = require("./middlewares/corsHandlerMiddleware");
 const cookiesParser = require("./middlewares/cookiesParserMiddleware");
 const globalErrorHandler = require("./middlewares/errorHandlerMiddleware");
 
@@ -19,6 +20,9 @@ app.use(express.json());
 
 // Middleware to parse cookies
 app.use(cookiesParser);
+
+// Middleware to handle CORS
+app.use(corsHandler);
 
 // Middleware to serve static files from the "uploads" directory
 app.use(express.static("uploads"));

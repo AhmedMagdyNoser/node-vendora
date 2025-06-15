@@ -850,3 +850,49 @@ This module manages user sessions and authentication flow across the app.
 ### 3. Profile Module
 
 This module empowers authenticated users to update their personal data. See `controllers/profileController.js` for implementation details.
+
+---
+
+## CORS Configuration
+
+To enable cross-origin requests securely, we established a centralized CORS management strategy using the [`cors`](https://github.com/expressjs/cors) middleware.
+
+```bash
+npm i cors
+```
+
+We encapsulated the configuration into a reusable middleware: `middlewares/corsHandlerMiddleware.js`.
+
+### Usage in `index.js`
+
+Simply import and register the middleware globally before defining your routes:
+
+```js
+const corsHandler = require("./middlewares/corsHandlerMiddleware");
+app.use(corsHandler);
+```
+
+### Example `.env` Configuration
+
+```env
+WHITE_LIST=["http://localhost:3000","https://your-frontend.com"]
+```
+
+### Verifying the CORS Behavior
+
+You can manually test CORS enforcement by attempting requests from various origins. Open your browser’s console and execute:
+
+```js
+try {
+  const response = await fetch("http://localhost:5145/products"); // Adjust the URL to match your API endpoint
+  console.log(await response.json());
+} catch (error) {
+  console.error(error);
+}
+```
+
+Perform the request once from an allowed origin (such as your frontend application), and once from a disallowed origin (e.g., `http://www.google.com`).
+You should observe:
+
+- The request from the **allowed origin** completes successfully.
+- The request from the **unauthorized origin** fails with a CORS policy error, preventing unauthorized cross-origin access.
