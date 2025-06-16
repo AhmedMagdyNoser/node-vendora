@@ -11,6 +11,16 @@ const notFoundMsg = (id) => `Document with ID: \`${id}\` does not exist.`;
 
 // =============================================================
 
+/**
+ * Creates a new document in the database.
+ * @param {mongoose.Model} Model - The Mongoose model to create the document from.
+ * @param {Object} options - Optional settings.
+ * @param {string} [options.fieldToSlugify] - Field name to generate a `slug` from.
+ * @param {Function} [options.preTask] - Async function to run before creating `async (req, res, next)`.
+ * @param {Function} [options.postTask] - Async function to run after creating `async (req, res, next, doc)`.
+ * @param {string} [options.populate] - Fields to populate after creation.
+ */
+
 exports.createDocument = (Model, options = {}) =>
   asyncHandler(async (req, res, next) => {
     if (options.fieldToSlugify) slugifyField(req, options.fieldToSlugify);
@@ -20,6 +30,16 @@ exports.createDocument = (Model, options = {}) =>
     if (options.postTask) await options.postTask(req, res, next, document);
     res.status(201).json({ message: "Document created successfully.", data: document });
   });
+
+// -------------------------------------------------------------
+
+/**
+ * Retrieves all documents from the database.
+ * @param {mongoose.Model} Model - The Mongoose model to retrieve documents from.
+ * @param {Object} options - Optional settings.
+ * @param {string[]} [options.searchableFields] - Fields to search in.
+ * @param {string} [options.populate] - Fields to populate.
+ */
 
 exports.getAllDocuments = (Model, options = {}) =>
   asyncHandler(async (req, res) => {
@@ -39,6 +59,15 @@ exports.getAllDocuments = (Model, options = {}) =>
     });
   });
 
+// -------------------------------------------------------------
+
+/**
+ * Retrieves a single document by its ID from the database.
+ * @param {mongoose.Model} Model - The Mongoose model to retrieve the document from.
+ * @param {Object} options - Optional settings.
+ * @param {string} [options.populate] - Fields to populate.
+ */
+
 exports.getDocument = (Model, options = {}) =>
   asyncHandler(async (req, res, next) => {
     const { id } = req.params;
@@ -48,6 +77,18 @@ exports.getDocument = (Model, options = {}) =>
     if (!document) return next(new ApiError(404, notFoundMsg(id)));
     res.status(200).json({ message: "Document retrieved successfully.", data: document });
   });
+
+// -------------------------------------------------------------
+
+/**
+ * Updates a document by its ID in the database.
+ * @param {mongoose.Model} Model - The Mongoose model to update the document from.
+ * @param {Object} options - Optional settings.
+ * @param {string} [options.fieldToSlugify] - Field name to generate a `slug` from.
+ * @param {Function} [options.preTask] - Async function to run before updating `async (req, res, next, doc)`.
+ * @param {Function} [options.postTask] - Async function to run after updating `async (req, res, next, doc)`.
+ * @param {string} [options.populate] - Fields to populate after updating.
+ */
 
 exports.updateDocument = (Model, options = {}) =>
   asyncHandler(async (req, res, next) => {
@@ -67,6 +108,15 @@ exports.updateDocument = (Model, options = {}) =>
     if (options.postTask) await options.postTask(req, res, next, document);
     res.status(200).json({ message: "Document updated successfully.", data: document });
   });
+
+// -------------------------------------------------------------
+
+/**
+ * Deletes a document by its ID from the database.
+ * @param {mongoose.Model} Model - The Mongoose model to delete the document from.
+ * @param {Object} options - Optional settings.
+ * @param {Function} [options.preTask] - Async function to run before deleting `async (req, res, next, doc)`.
+ */
 
 exports.deleteDocument = (Model, options = {}) =>
   asyncHandler(async (req, res, next) => {
