@@ -81,7 +81,7 @@ exports.createProduct = factory.createDocument(ProductModel, { fieldToSlugify: "
 
 exports.getProducts = factory.getAllDocuments(ProductModel, { searchableFields: ["title", "description"] });
 
-exports.getProduct = factory.getDocument(ProductModel);
+exports.getProduct = factory.getDocument(ProductModel, { populate: "reviews" });
 
 exports.updateProduct = factory.updateDocument(ProductModel, {
   fieldToSlugify: "title",

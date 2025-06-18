@@ -17,8 +17,22 @@ const productSchema = new mongoose.Schema(
     rating: { type: Number, min: 1, max: 5 },
     ratingsCount: { type: Number, default: 0 },
   },
-  { timestamps: true, versionKey: false },
+  {
+    timestamps: true,
+    versionKey: false,
+    // To Enable Virtuals
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  },
 );
+
+// Add a virtual field `reviews`
+productSchema.virtual("reviews", {
+  localField: "_id",
+  ref: "Review",
+  foreignField: "product",
+  options: { populate: { path: "user", select: "name" } },
+});
 
 productSchema.methods.toJSON = function () {
   const obj = this.toObject();

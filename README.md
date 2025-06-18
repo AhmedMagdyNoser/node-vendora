@@ -896,3 +896,44 @@ You should observe:
 
 - The request from the **allowed origin** completes successfully.
 - The request from the **unauthorized origin** fails with a CORS policy error, preventing unauthorized cross-origin access.
+
+## Virtual Population
+
+To display related data without embedding it directly, we use **Mongoose virtuals**.
+
+For example, we want each product to show its associated reviews — but without physically storing them inside the product document.
+
+### Enabling Virtuals in Responses
+
+Enable virtuals in the schema options so they appear in API responses:
+
+```js
+{
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true },
+}
+```
+
+### Defining the Virtual Field
+
+Define a virtual field named `reviews` in the product schema:
+
+```js
+productSchema.virtual("reviews", {
+  localField: "_id", // The product’s _id
+  ref: "Review", // Reference to the Review model
+  foreignField: "product", // The field that match this product’s _id
+});
+```
+
+> This setup tells Mongoose to **add a virtual field named `reviews`, which includes all reviews where the `product` field matches the current product’s `_id`** — without actually storing them in the product document.
+
+### Populating the Virtual
+
+Virtual fields don’t populate automatically — you must **explicitly populate them** when querying:
+
+```js
+exports.getProduct = factory.getDocument(ProductModel, { populate: "reviews" });
+```
+
+> Even though `toJSON` enables the virtual to show in responses, it won’t appear unless you explicitly **populate** the virtual field.
