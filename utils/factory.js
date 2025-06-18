@@ -116,6 +116,7 @@ exports.updateDocument = (Model, options = {}) =>
  * @param {mongoose.Model} Model - The Mongoose model to delete the document from.
  * @param {Object} options - Optional settings.
  * @param {Function} [options.preTask] - Async function to run before deleting `async (req, res, next, doc)`.
+ * @param {Function} [options.postTask] - Async function to run after deleting `async (req, res, next, doc)`.
  */
 
 exports.deleteDocument = (Model, options = {}) =>
@@ -131,5 +132,6 @@ exports.deleteDocument = (Model, options = {}) =>
       document = await Model.findByIdAndDelete(id);
       if (!document) return next(new ApiError(404, notFoundMsg(id)));
     }
+    if (options.postTask) await options.postTask(req, res, next, document);
     res.status(204).send();
   });
