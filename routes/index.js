@@ -7,6 +7,7 @@ const productRoute = require("./productRoute");
 const userRoute = require("./userRoute");
 const authRoute = require("./authRoute");
 const profileRoute = require("./profileRoute");
+const wishlistRoute = require("./wishlistRoute");
 const reviewRoute = require("./reviewRoute");
 
 module.exports = (app) => {
@@ -21,6 +22,7 @@ module.exports = (app) => {
   app.use("/users", userRoute);
   app.use("/auth", authRoute);
   app.use("/profile", profileRoute);
+  app.use("/wishlist", wishlistRoute);
   app.use("/reviews", reviewRoute);
 
   // Handle 404 errors for all other routes
