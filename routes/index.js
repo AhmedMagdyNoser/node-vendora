@@ -10,6 +10,7 @@ const profileRoute = require("./profileRoute");
 const wishlistRoute = require("./wishlistRoute");
 const addressRoute = require("./addressRoute");
 const reviewRoute = require("./reviewRoute");
+const couponRoute = require("./couponRoute");
 
 module.exports = (app) => {
   // An endpoint to check if the server is running
@@ -26,6 +27,7 @@ module.exports = (app) => {
   app.use("/wishlist", wishlistRoute);
   app.use("/addresses", addressRoute);
   app.use("/reviews", reviewRoute);
+  app.use("/coupons", couponRoute);
 
   // Handle 404 errors for all other routes
   app.use("*", (req, res, next) => next(new ApiError(404, `This route does not exist: ${req.originalUrl}`)));

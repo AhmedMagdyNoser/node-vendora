@@ -1087,7 +1087,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"saad@gmail.com\",\r\n    \"password\": \"aA!123456\"\r\n}",
+							"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"aA!123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1957,6 +1957,186 @@
 							"path": [
 								"reviews",
 								"68529b7c5e5f11e95f1ebe1f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Coupons",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"GAZA15\",\r\n    \"discount\": 15,\r\n    \"expirationDate\": \"2025-06-19T15:30:00Z\",\r\n    \"maxUsage\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/coupons",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/coupons?page=1&limit=15",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"coupons"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/coupons/68551cfddc4c9d3aaca69338",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"coupons",
+								"68551cfddc4c9d3aaca69338"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"GAZA10\",\r\n    \"discount\": 10,\r\n    \"expirationDate\": \"2025-06-19T15:30:00Z\",\r\n    \"maxUsage\": 50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/coupons/68551cfddc4c9d3aaca69338",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"coupons",
+								"68551cfddc4c9d3aaca69338"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/coupons/68551cdfdc4c9d3aaca69330",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"coupons",
+								"68551cdfdc4c9d3aaca69330"
 							]
 						}
 					},
