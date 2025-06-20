@@ -649,20 +649,20 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/products/67a8569a3bed8047865cd34a",
+							"raw": "{{URL}}/products/67f39950a4182c44cf949ceb",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"products",
-								"67a8569a3bed8047865cd34a"
+								"67f39950a4182c44cf949ceb"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update",
+					"name": "update",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1048,7 +1048,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Ahmed\",\r\n    \"email\": \" fi.d2i2h@gmail.com\",\r\n    // \"phone\": \"01234567890\",\r\n    \"password\": \"aA!123456\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Saad\",\r\n    \"email\": \" saad@gmail.com\",\r\n    // \"phone\": \"01234567890\",\r\n    \"password\": \"aA!123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1087,7 +1087,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"aA!123456\"\r\n}",
+							"raw": "{\r\n    \"email\": \"saad@gmail.com\",\r\n    \"password\": \"aA!123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1549,6 +1549,271 @@
 			]
 		},
 		{
+			"name": "Wishlist",
+			"item": [
+				{
+					"name": "add-item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"67f39950a4182c44cf949ceb\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/wishlist",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"wishlist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"67f39950a4182c44cf949ceb\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/wishlist",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"wishlist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-wishlist",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/wishlist",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"wishlist"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Addressses",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"alias\": \"Home\",\r\n    \"city\": \"Alex\",\r\n    \"details\": \"19 Bla Bla St.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/addresses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/addresses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/addresses/6854ff81567e02d6c056d7be",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"addresses",
+								"6854ff81567e02d6c056d7be"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"alias\": \"Home\",\r\n    \"city\": \"Cairo\",\r\n    \"details\": \"25 Bla Bla St.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/addresses/6854ffa4567e02d6c056d7c1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"addresses",
+								"6854ffa4567e02d6c056d7c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/addresses/685506a29b70cf5c371d11a8",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"addresses",
+								"685506a29b70cf5c371d11a8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Reviews",
 			"item": [
 				{
@@ -1568,7 +1833,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rating\": 5,\r\n    \"title\": \"Good Product\",\r\n    \"product\": \"681f3da6ee819c48088ac673\"\r\n}",
+							"raw": "{\r\n    \"rating\": 5,\r\n    \"title\": \"Good Product\",\r\n    \"product\": \"67f39950a4182c44cf949ceb\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1620,13 +1885,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/users/67a833a60b3ac4db80adc98f",
+							"raw": "{{URL}}/reviews/684a14b79627c5971e0cecd6",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"users",
-								"67a833a60b3ac4db80adc98f"
+								"reviews",
+								"684a14b79627c5971e0cecd6"
 							]
 						}
 					},
@@ -1685,13 +1950,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/reviews/681f634c877954dbaef2fb7c",
+							"raw": "{{URL}}/reviews/68529b7c5e5f11e95f1ebe1f",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"reviews",
-								"681f634c877954dbaef2fb7c"
+								"68529b7c5e5f11e95f1ebe1f"
 							]
 						}
 					},
