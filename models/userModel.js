@@ -1,5 +1,14 @@
 const mongoose = require("mongoose");
 
+const addressSchema = new mongoose.Schema(
+  {
+    alias: { type: String, required: true },
+    city: { type: String, required: true },
+    details: { type: String, required: true },
+  },
+  { timestamps: true, versionKey: false },
+);
+
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -8,6 +17,7 @@ const userSchema = new mongoose.Schema(
     role: { type: String, enum: ["user", "admin"], default: "user" },
     phone: { type: String, unique: true, sparse: true }, // `sparse: true` ensures the index only includes documents where phone is defined and not null. (Needed for optional unique fields)
     image: { type: String },
+    addresses: [{ type: addressSchema }],
     wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
     security: {
       passwordResetCode: { type: String, select: false },
