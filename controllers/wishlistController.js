@@ -1,6 +1,5 @@
 const asyncHandler = require("express-async-handler");
 const ApiError = require("../utils/apiError");
-const UserModel = require("../models/userModel");
 
 exports.addWishlistItem = asyncHandler(async (req, res, next) => {
   const user = req.user;
@@ -23,8 +22,8 @@ exports.deleteWishlistItem = asyncHandler(async (req, res, next) => {
 });
 
 // Get the user's wishlist with populated product details
-exports.getWishlist = asyncHandler(async (req, res, next) => {
-  const user = await UserModel.findById(req.user._id).populate("wishlist");
-  if (!user) return next(new ApiError(404, "This user does not exist."));
-  res.status(200).json({ data: user.wishlist });
+exports.getWishlist = asyncHandler(async (req, res) => {
+  const user = req.user;
+  await user.populate("wishlist");
+  res.status(200).json({ message: "Wishlist retrieved successfully.", data: user.wishlist });
 });
