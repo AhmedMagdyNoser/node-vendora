@@ -7,8 +7,9 @@ const productRoute = require("./productRoute");
 const userRoute = require("./userRoute");
 const authRoute = require("./authRoute");
 const profileRoute = require("./profileRoute");
-const wishlistRoute = require("./wishlistRoute");
 const addressRoute = require("./addressRoute");
+const wishlistRoute = require("./wishlistRoute");
+const cartRoute = require("./cartRoute");
 const reviewRoute = require("./reviewRoute");
 const couponRoute = require("./couponRoute");
 
@@ -24,8 +25,9 @@ module.exports = (app) => {
   app.use("/users", userRoute);
   app.use("/auth", authRoute);
   app.use("/profile", profileRoute);
-  app.use("/wishlist", wishlistRoute);
   app.use("/addresses", addressRoute);
+  app.use("/wishlist", wishlistRoute);
+  app.use("/cart", cartRoute);
   app.use("/reviews", reviewRoute);
   app.use("/coupons", couponRoute);
 

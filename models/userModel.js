@@ -9,6 +9,15 @@ const addressSchema = new mongoose.Schema(
   { timestamps: true, versionKey: false },
 );
 
+const cartItemSchema = new mongoose.Schema(
+  {
+    product: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
+    price: { type: Number, required: true },
+    quantity: { type: Number, default: 1 },
+  },
+  { timestamps: true, versionKey: false },
+);
+
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -19,6 +28,11 @@ const userSchema = new mongoose.Schema(
     image: { type: String },
     addresses: [{ type: addressSchema }],
     wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+    cart: {
+      items: [{ type: cartItemSchema }],
+      totalPrice: { type: Number, default: 0 },
+      totalPriceAfterDiscount: { type: Number, default: 0 },
+    },
     security: {
       passwordResetCode: { type: String, select: false },
       passwordResetCodeExpiration: { type: Date, select: false },
