@@ -348,21 +348,6 @@ When using custom validators to check conflicting values, You may need to use th
 }),
 ```
 
-### Stripping Unwanted Fields
-
-Before passing data to the controller or factory methods, you can remove fields that shouldn’t be set manually (like `sold`, `rating`, `ratingsCount`):
-
-```js
-(req, res, next) => {
-  delete req.body.sold;
-  delete req.body.rating;
-  delete req.body.ratingsCount;
-  next();
-},
-```
-
-This helps protect internal fields from being altered by the client and keeps your data consistent.
-
 ### `express-validator` Limitations
 
 A limitation of express-validator is its inability to return appropriate HTTP status codes for certain validation scenarios — for instance, custom validators that detect resource conflicts still result in a 400 Bad Request instead of the more suitable 409 Conflict.
