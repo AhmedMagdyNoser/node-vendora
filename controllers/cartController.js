@@ -31,6 +31,18 @@ exports.addCartItem = asyncHandler(async (req, res, next) => {
 
 exports.getCart = asyncHandler(async (req, res) => {
   const user = req.user;
+  // Revalidate the applied coupon
+  if (user.cart.coupon) {
+    const coupon = await CouponModel.findById(user.cart.coupon);
+    if (!coupon || couponHasExpired(coupon)) {
+      user.cart.coupon = null;
+      await user.save();
+      if (coupon) {
+        coupon.usageCount = coupon.usageCount - 1;
+        await coupon.save();
+      }
+    }
+  }
   await user.populate(cartPopulation);
   res.status(200).json({ message: "Cart retrieved successfully.", data: user.cart });
 });
