@@ -810,7 +810,7 @@ For example, let's say you saved an image at `uploads/brands/123.jpeg`, you can 
 
 ## User Modules
 
-The `users` collection is managed through three main modules, each serving a distinct purpose in the system architecture:
+The `users` collection is managed through several modules, each serving a distinct purpose in the system architecture:
 
 ### 1. Users CRUD – for Admins
 
@@ -850,6 +850,18 @@ This module manages user sessions and authentication flow across the app.
 ### 3. Profile Module
 
 This module empowers authenticated users to update their personal data. See `controllers/profileController.js` for implementation details.
+
+### 4. Addresses CRUD
+
+Allows users to manage their own saved addresses. Stored as subdocuments in the user model. See `controllers/addressController.js` for implementation details.
+
+### 5. Wishlist Module
+
+Allows users to save products for later. Items are stored as product references in the user document. See `controllers/wishlistController.js` for implementation details.
+
+### 6. Cart Module
+
+Manages cart items and applied coupons within the user document. See `controllers/cartController.js` for implementation details.
 
 ---
 
