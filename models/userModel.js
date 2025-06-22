@@ -42,8 +42,10 @@ const userSchema = new mongoose.Schema(
 userSchema.methods.toJSON = function () {
   const obj = this.toObject();
   if (obj.image) obj.image = `${process.env.BASE_URL}/users/${obj.image}`;
-  if (obj.password) delete obj.password; // Don't return the password in the response in all cases (as `select: false` doesn't work in case of creating)
+  // Don't return sensitive data in the response in all cases (as `select: false` doesn't work in case of creating)
+  if (obj.password) delete obj.password;
   if (obj.security) delete obj.security;
+  if (obj.cart) delete obj.cart; // There are specific routes for cart
   return obj;
 };
 
