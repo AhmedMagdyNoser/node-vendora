@@ -1,8 +1,17 @@
 const asyncHandler = require("express-async-handler");
 const ApiError = require("../utils/apiError");
 const ProductModel = require("../models/productModel");
+const CouponModel = require("../models/couponModel");
 
-const cartPopulation = { path: "cart.items.product", select: "title description coverImage price priceAfterDiscount" };
+const cartPopulation = [
+  { path: "cart.items.product", select: "title description coverImage price priceAfterDiscount" },
+  { path: "cart.coupon", select: "code discount" },
+];
+
+const couponHasExpired = (coupon) => coupon.expirationDate < Date.now();
+const couponHasReachedMaxUsage = (coupon) => coupon.maxUsage <= coupon.usageCount;
+
+// =============================================================
 
 exports.addCartItem = asyncHandler(async (req, res, next) => {
   const user = req.user;
@@ -53,4 +62,33 @@ exports.deleteCartItem = asyncHandler(async (req, res, next) => {
   await user.save();
   await user.populate(cartPopulation);
   res.status(200).json({ message: "Item removed from cart successfully.", data: user.cart });
+});
+
+exports.applyCoupon = asyncHandler(async (req, res, next) => {
+  const user = req.user;
+  const { code } = req.body;
+  if (user.cart.items.length === 0) return next(new ApiError(400, "Your cart is empty."));
+  if (user.cart.coupon) return next(new ApiError(400, "You have already applied a coupon to your cart."));
+  const coupon = await CouponModel.findOne({ code });
+  if (!coupon) return next(new ApiError(404, `The coupon \`${code}\` does not exist.`));
+  if (couponHasExpired(coupon)) return next(new ApiError(400, "This coupon has expired."));
+  if (couponHasReachedMaxUsage(coupon)) return next(new ApiError(400, "This coupon has reached its maximum usage limit."));
+  coupon.usageCount = coupon.usageCount + 1;
+  await coupon.save();
+  user.cart.coupon = coupon._id;
+  await user.save();
+  await user.populate(cartPopulation);
+  res.status(200).json({ message: "Coupon applied successfully.", data: user.cart });
+});
+
+exports.revokeCoupon = asyncHandler(async (req, res, next) => {
+  const user = req.user;
+  if (!user.cart.coupon) return next(new ApiError(400, "There is no coupon applied to your cart"));
+  const coupon = await CouponModel.findById(user.cart.coupon);
+  coupon.usageCount = coupon.usageCount - 1;
+  await coupon.save();
+  user.cart.coupon = null;
+  await user.save();
+  await user.populate(cartPopulation);
+  res.status(200).json({ message: "Coupon applied successfully.", data: user.cart });
 });

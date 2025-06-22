@@ -35,3 +35,5 @@ exports.updateCartItemQuantityValidator = [
 ];
 
 exports.deleteCartItemValidator = [param("id").isMongoId().withMessage("Invalid item ID format."), validatorMiddleware];
+
+exports.applyCouponValidator = [body("code").trim().notEmpty().withMessage("Coupon code is required."), validatorMiddleware];

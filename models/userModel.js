@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
     wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
     cart: {
       items: [{ type: cartItemSchema }],
-      discount: { type: Number, default: 0 },
+      coupon: { type: mongoose.Schema.Types.ObjectId, ref: "Coupon", default: null },
     },
     security: {
       passwordResetCode: { type: String, select: false },
