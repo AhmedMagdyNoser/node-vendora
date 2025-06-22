@@ -1904,13 +1904,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/cart/68571f8f328cba7b24acf39b",
+							"raw": "{{URL}}/cart/6857e3c2d339015b717aa139",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"cart",
-								"68571f8f328cba7b24acf39b"
+								"6857e3c2d339015b717aa139"
 							]
 						}
 					},
@@ -1932,13 +1932,78 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/cart/68571f8f328cba7b24acf39b",
+							"raw": "{{URL}}/cart/6857e3c2d339015b717aa139",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"cart",
-								"68571f8f328cba7b24acf39b"
+								"6857e3c2d339015b717aa139"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "apply-coupon",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"GAZA10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/cart/apply-coupon",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cart",
+								"apply-coupon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "revoke-coupon",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/cart/revoke-coupon",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cart",
+								"revoke-coupon"
 							]
 						}
 					},
