@@ -80,13 +80,6 @@ exports.createProductValidator = [
       else if (subcategory.category.toString() !== req.body.category)
         throw new Error(`The subcategory provided does not belong to the category provided.`);
     }),
-  // Delete specific fields from the request body if they exist to prevent them from being updated in the factory.
-  (req, res, next) => {
-    delete req.body.sold;
-    delete req.body.rating;
-    delete req.body.ratingsCount;
-    next();
-  },
   validatorMiddleware,
 ];
 
@@ -161,13 +154,6 @@ exports.updateProductValidator = [
       else if (subcategory.category.toString() !== req.body.category)
         throw new Error(`The subcategory provided does not belong to the category provided.`);
     }),
-  // Delete specific fields from the request body if they exist to prevent them from being updated in the factory.
-  (req, res, next) => {
-    delete req.body.sold;
-    delete req.body.rating;
-    delete req.body.ratingsCount;
-    next();
-  },
   validatorMiddleware,
 ];
 

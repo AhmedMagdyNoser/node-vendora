@@ -6,6 +6,13 @@ const asyncHandler = require("express-async-handler");
 const UserModel = require("../models/userModel");
 const factory = require("../utils/factory");
 
+exports.cleanBody = (req, res, next) => {
+  // Only keep the allowed fields for user creation or update. This ensures that no unexpected or unauthorized fields are passed to the factory handler.
+  const { name, email, password, role, phone, image } = req.body;
+  req.body = { name, email, password, role, phone, image };
+  next();
+};
+
 exports.processUserImage = asyncHandler(async (req, res, next) => {
   if (!req.file) return next();
   // Generate a unique filename for the image

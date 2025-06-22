@@ -5,6 +5,14 @@ const asyncHandler = require("express-async-handler");
 const ProductModel = require("../models/productModel");
 const factory = require("../utils/factory");
 
+exports.cleanBody = (req, res, next) => {
+  // Remove fields that should not be set or modified directly by the client, ensuring data integrity when passing the body to the factory handler.
+  delete req.body.sold;
+  delete req.body.rating;
+  delete req.body.ratingsCount;
+  next();
+};
+
 exports.processProductImages = asyncHandler(async (req, res, next) => {
   if (!req.files) return next();
 

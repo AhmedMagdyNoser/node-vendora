@@ -1,12 +1,13 @@
 const router = require("express").Router();
 
 const {
+  processProductImages,
+  cleanBody,
   createProduct,
   getProducts,
   getProduct,
   updateProduct,
   deleteProduct,
-  processProductImages,
 } = require("../controllers/productController");
 
 const {
@@ -28,6 +29,7 @@ router.post(
     { name: "images", maxCount: 5 },
   ]),
   processProductImages,
+  cleanBody,
   createProductValidator,
   createProduct,
 );
@@ -44,6 +46,7 @@ router.put(
     { name: "images", maxCount: 5 },
   ]),
   processProductImages,
+  cleanBody,
   updateProductValidator,
   updateProduct,
 );

@@ -1,6 +1,13 @@
 const router = require("express").Router();
 
-const { createCoupon, getCoupons, getCoupon, updateCoupon, deleteCoupon } = require("../controllers/couponController");
+const {
+  cleanBody,
+  createCoupon,
+  getCoupons,
+  getCoupon,
+  updateCoupon,
+  deleteCoupon,
+} = require("../controllers/couponController");
 
 const {
   createCouponValidator,
@@ -13,10 +20,10 @@ const { authenticate, allowTo } = require("../middlewares/protectionMiddlewares"
 
 router.use(authenticate, allowTo("admin"));
 
-router.post("/", createCouponValidator, createCoupon);
+router.post("/", cleanBody, createCouponValidator, createCoupon);
 router.get("/", getCoupons);
 router.get("/:id", getCouponValidator, getCoupon);
-router.put("/:id", updateCouponValidator, updateCoupon);
+router.put("/:id", cleanBody, updateCouponValidator, updateCoupon);
 router.delete("/:id", deleteCouponValidator, deleteCoupon);
 
 module.exports = router;

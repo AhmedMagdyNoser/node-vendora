@@ -27,7 +27,6 @@ exports.createReviewValidator = [
       const review = await ReviewModel.findOne({ user: req.user._id, product: value });
       if (review) throw new Error("You've already created a review to this product before.");
     }),
-  // User ID will be set in the creation middleware.
   validatorMiddleware,
 ];
 
@@ -51,12 +50,6 @@ exports.updateReviewValidator = [
     .bail()
     .isInt({ min: 1, max: 5 })
     .withMessage("Rating must be an integer between 1 and 5."),
-  // Delete specific fields from the request body if they exist to prevent them from being updated in the factory.
-  (req, res, next) => {
-    delete req.body.user;
-    delete req.body.product;
-    next();
-  },
   validatorMiddleware,
 ];
 

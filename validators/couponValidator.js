@@ -37,11 +37,6 @@ exports.createCouponValidator = [
     .bail()
     .isInt({ gt: 0 })
     .withMessage("Max usage must be an integer greater than 0."),
-  // Delete specific fields from the request body if they exist to prevent them from being set in the factory.
-  (req, res, next) => {
-    delete req.body.usageCount;
-    next();
-  },
   validatorMiddleware,
 ];
 
@@ -75,11 +70,6 @@ exports.updateCouponValidator = [
     .bail()
     .isInt({ gt: 0 })
     .withMessage("Max usage must be an integer greater than 0."),
-  // Delete specific fields from the request body if they exist to prevent them from being updated in the factory.
-  (req, res, next) => {
-    delete req.body.usageCount;
-    next();
-  },
   validatorMiddleware,
 ];
 

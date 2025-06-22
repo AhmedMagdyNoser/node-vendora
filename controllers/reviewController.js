@@ -3,6 +3,13 @@ const ReviewModel = require("../models/reviewModel");
 const productModel = require("../models/productModel");
 const factory = require("../utils/factory");
 
+exports.removeImmutableFields = (req, res, next) => {
+  // Remove fields that are not allowed to be updated.
+  delete req.body.user;
+  delete req.body.product;
+  next();
+};
+
 const calcRating = asyncHandler(async (req, res, next, review) => {
   const productId = review.product;
   const results = await ReviewModel.aggregate([
