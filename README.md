@@ -621,6 +621,14 @@ You'll likely notice that much of the logic is repetitive. To improve **reusabil
 
 Take a look at `utils/factory.js` to see how this approach works.
 
+### Additional Notes
+
+- **Clean the Request Body:**
+  Before calling factory `create` or `update` handlers, make sure to sanitize the body using a middleware. This prevents users from setting sensitive or computed fields (e.g., `sold`, `rating`, `ratingsCount` for products) manually, preserving data integrity.
+
+- **Soft Deletes for Referenced Documents:**
+  When a document is referenced in other collections, avoid hard deletion. Instead, add an `isDeleted` flag to mark the document as deleted. This allows you to safely exclude it from queries while avoiding broken references.
+
 ---
 
 ## Handling Files
