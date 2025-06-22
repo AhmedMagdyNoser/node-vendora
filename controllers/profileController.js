@@ -22,28 +22,28 @@ const deleteUserImage = async (imageName) => {
 
 // =============================================================
 
-exports.updateProfile = asyncHandler(async (req, res, next) => {
+exports.updateProfile = asyncHandler(async (req, res) => {
+  const user = req.user;
   const { name, email, phone } = req.body;
-  const user = await UserModel.findByIdAndUpdate(req.user._id, { name, email, phone }, { new: true });
-  if (!user) return next(new ApiError(404, "User not found."));
+  user.name = name || user.name;
+  user.email = email || user.email;
+  user.phone = phone || user.phone;
+  await user.save();
   res.status(200).json({ message: "User profile updated successfully.", data: user });
 });
 
 exports.updatePassword = asyncHandler(async (req, res, next) => {
   const { currentPassword, newPassword } = req.body;
   const user = await UserModel.findById(req.user._id).select("+password");
-  if (!user) return next(new ApiError(404, "User not found."));
   const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
   if (!isPasswordCorrect) return next(new ApiError(401, "Current password is incorrect."));
   user.password = await bcrypt.hash(newPassword, 12);
-  user.passwordChangedAt = Date.now();
   await user.save();
   res.status(200).json({ message: "User password updated successfully." });
 });
 
-exports.updateImage = asyncHandler(async (req, res, next) => {
-  const user = await UserModel.findById(req.user._id);
-  if (!user) return next(new ApiError(404, "User not found."));
+exports.updateImage = asyncHandler(async (req, res) => {
+  const user = req.user;
   await deleteUserImage(user.image);
   await sharp(req.image.buffer).toFile(`uploads/users/${req.image.filename}`);
   user.image = req.body.image;
@@ -52,7 +52,7 @@ exports.updateImage = asyncHandler(async (req, res, next) => {
 });
 
 exports.deleteImage = asyncHandler(async (req, res) => {
-  const user = await UserModel.findById(req.user._id);
+  const user = req.user;
   await deleteUserImage(user.image);
   user.image = undefined;
   await user.save();
@@ -62,7 +62,6 @@ exports.deleteImage = asyncHandler(async (req, res) => {
 exports.deleteAccount = asyncHandler(async (req, res, next) => {
   const { password } = req.body;
   const user = await UserModel.findById(req.user._id).select("+password");
-  if (!user) return next(new ApiError(404, "User not found."));
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
   if (!isPasswordCorrect) return next(new ApiError(401, "Password is incorrect."));
   await deleteUserImage(user.image);
