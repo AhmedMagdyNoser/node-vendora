@@ -23,8 +23,8 @@ exports.getAddress = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateAddress = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
   const user = req.user;
+  const { id } = req.params;
   const address = user.addresses.id(id);
   if (!address) return next(new ApiError(404, `The address with the ID \`${id}\` does not exist.`));
   const { alias, city, details } = req.body;
@@ -36,8 +36,8 @@ exports.updateAddress = asyncHandler(async (req, res, next) => {
 });
 
 exports.deleteAddress = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
   const user = req.user;
+  const { id } = req.params;
   const address = user.addresses.id(id);
   if (!address) return next(new ApiError(404, `The address with the ID \`${id}\` does not exist.`));
   address.deleteOne();

@@ -12,7 +12,6 @@ const addressSchema = new mongoose.Schema(
 const cartItemSchema = new mongoose.Schema(
   {
     product: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
-    price: { type: Number, required: true },
     quantity: { type: Number, default: 1 },
   },
   { timestamps: true, versionKey: false },
@@ -30,8 +29,7 @@ const userSchema = new mongoose.Schema(
     wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
     cart: {
       items: [{ type: cartItemSchema }],
-      totalPrice: { type: Number, default: 0 },
-      totalPriceAfterDiscount: { type: Number, default: 0 },
+      discount: { type: Number, default: 0 },
     },
     security: {
       passwordResetCode: { type: String, select: false },

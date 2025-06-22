@@ -2,18 +2,7 @@ const asyncHandler = require("express-async-handler");
 const ApiError = require("../utils/apiError");
 const ProductModel = require("../models/productModel");
 
-const getProductFinalPrice = (product) => product.priceAfterDiscount || product.price;
-
-const calculateCartTotals = (user) => {
-  let totalPrice = 0;
-  for (const item of user.cart.items) totalPrice += item.price * item.quantity;
-  user.cart.totalPrice = totalPrice;
-  user.cart.totalPriceAfterDiscount = totalPrice;
-};
-
-const cartPopulation = { path: "cart.items.product", select: "title description coverImage" };
-
-// =============================================================
+const cartPopulation = { path: "cart.items.product", select: "title description coverImage price priceAfterDiscount" };
 
 exports.addCartItem = asyncHandler(async (req, res, next) => {
   const user = req.user;
@@ -25,8 +14,7 @@ exports.addCartItem = asyncHandler(async (req, res, next) => {
   const product = await ProductModel.findById(productId);
   if (!product) return next(new ApiError(404, `The product with the ID \`${productId}\` does not exist.`));
   if (product.quantity < quantity) return next(new ApiError(400, `No enough quantity for the product \`${productId}\`.`));
-  user.cart.items.push({ product: productId, price: getProductFinalPrice(product), quantity });
-  calculateCartTotals(user);
+  user.cart.items.push({ product: productId, quantity });
   await user.save();
   await user.populate(cartPopulation);
   res.status(201).json({ message: "Item added to cart successfully.", data: user.cart });
@@ -50,8 +38,6 @@ exports.updateCartItemQuantity = asyncHandler(async (req, res, next) => {
   if (!product) return next(new ApiError(404, `The product with the ID \`${productId}\` does not exist.`));
   if (product.quantity < quantity) return next(new ApiError(400, `No enough quantity for the product \`${productId}\`.`));
   item.quantity = quantity;
-  item.price = getProductFinalPrice(product); // Update the item price based on the last product price
-  calculateCartTotals(user);
   await user.save();
   await user.populate(cartPopulation);
   res.status(200).json({ message: "Item quantity updated successfully.", data: user.cart });
@@ -64,7 +50,6 @@ exports.deleteCartItem = asyncHandler(async (req, res, next) => {
   const item = req.user.cart.items.id(id);
   if (!item) return next(new ApiError(404, `The cart item with the ID \`${id}\` does not exist.`));
   item.deleteOne();
-  calculateCartTotals(user);
   await user.save();
   await user.populate(cartPopulation);
   res.status(200).json({ message: "Item removed from cart successfully.", data: user.cart });
