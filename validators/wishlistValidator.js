@@ -3,11 +3,13 @@ const validatorMiddleware = require("../middlewares/validatorMiddleware");
 const ProductModel = require("../models/productModel");
 
 exports.addWishlistItemValidator = [
-  body("productId")
+  body("product")
     .notEmpty()
     .withMessage("Product ID is required.")
+    .bail()
     .isMongoId()
     .withMessage("Invalid product ID format.")
+    .bail()
     .custom(async (value) => {
       const product = await ProductModel.findById(value);
       if (!product) throw new Error(`Product with ID: \`${value}\` does not exist.`);
@@ -16,6 +18,11 @@ exports.addWishlistItemValidator = [
 ];
 
 exports.deleteWishlistItemValidator = [
-  body("productId").notEmpty().withMessage("Product ID is required.").isMongoId().withMessage("Invalid product ID format."),
+  body("product")
+    .notEmpty()
+    .withMessage("Product ID is required.")
+    .bail()
+    .isMongoId()
+    .withMessage("Invalid product ID format."),
   validatorMiddleware,
 ];

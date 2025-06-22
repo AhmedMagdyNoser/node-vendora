@@ -1729,7 +1729,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"productId\": \"67f39950a4182c44cf949ceb\"\r\n}",
+							"raw": "{\r\n    \"product\": \"67f39950a4182c44cf949ceb\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1765,7 +1765,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"productId\": \"67f39950a4182c44cf949ceb\"\r\n}",
+							"raw": "{\r\n    \"product\": \"67f39950a4182c44cf949ceb\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
