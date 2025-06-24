@@ -16,9 +16,9 @@ const orderSchema = new mongoose.Schema(
     isPaid: { type: Boolean, default: false },
     paidAt: { type: Date },
     paymentMethod: { type: String, enum: ["cash", "card"], required: true },
-    shippingAddress: { city: { type: String, required: true }, details: { type: String, required: true } }, // A subset from the addressSchema
-    status: { type: String, enum: ["pending", "shipped", "delivered"], default: "pending" },
+    isDelivered: { type: Boolean, default: false },
     deliveredAt: { type: Date },
+    shippingAddress: { city: { type: String, required: true }, details: { type: String, required: true } }, // A subset from the addressSchema
   },
   { timestamps: true, versionKey: false },
 );

@@ -1,11 +1,25 @@
 const asyncHandler = require("express-async-handler");
+const factory = require("../utils/factory");
 const ApiError = require("../utils/apiError");
 const OrderModel = require("../models/orderModel");
 const ProductModel = require("../models/productModel");
 
 const SHIPPING_COST = 50;
 
+const orderPopulation = [
+  { path: "user", select: "name email" },
+  { path: "items.product", select: "title description coverImage" },
+];
+
 const getProductFinalPrice = (product) => product.priceAfterDiscount || product.price;
+
+// If the user is a regular user, list only their orders, else (admin) list all.
+exports.listBasedOnRole = asyncHandler(async (req, res, next) => {
+  if (req.user.role === "user") req.query.user = req.user._id;
+  next();
+});
+
+// =============================================================
 
 exports.createCashOrder = asyncHandler(async (req, res, next) => {
   // 1. Preparing required data and validation
@@ -48,10 +62,7 @@ exports.createCashOrder = asyncHandler(async (req, res, next) => {
   });
 
   // 5. Populating the order with user and product details
-  await order.populate([
-    { path: "user", select: "name email" },
-    { path: "items.product", select: "title description coverImage" },
-  ]);
+  await order.populate(orderPopulation);
 
   // 6. Updating products quantities and sold counts
   const bulkOps = orderItems.map((item) => ({
@@ -69,4 +80,14 @@ exports.createCashOrder = asyncHandler(async (req, res, next) => {
   await user.save();
 
   res.status(201).json({ message: "Order created successfully.", data: order });
+});
+
+exports.getOrders = factory.getAllDocuments(OrderModel, { populate: orderPopulation });
+
+exports.getOrder = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  let order = await OrderModel.findById(id).populate(orderPopulation);
+  if (!order || (req.user.role === "user" && order.user._id !== req.user._id))
+    return next(new ApiError(404, `Document with ID: \`${id}\` does not exist.`));
+  res.status(200).json({ message: "Document retrieved successfully.", data: order });
 });
