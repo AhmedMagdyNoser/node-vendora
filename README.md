@@ -612,7 +612,7 @@ Take a look at `utils/factory.js` to see how this approach works.
   Before calling factory `create` or `update` handlers, make sure to sanitize the body using a middleware. This prevents users from setting sensitive or computed fields (e.g., `sold`, `rating`, `ratingsCount` for products) manually, preserving data integrity.
 
 - **Soft Deletes for Referenced Documents:**
-  When a document is referenced in other collections, avoid hard deletion. Instead, add an `isDeleted` flag to mark the document as deleted. This allows you to safely exclude it from queries while avoiding broken references.
+  When a document is referenced in other collections, avoid hard deletion. Instead, add an `isDeleted` flag to mark the document as deleted. This allows you to safely exclude it from queries while avoiding broken references. This approach is not implemented in this tutorial, but it's **highly recommended**.
 
 ---
 

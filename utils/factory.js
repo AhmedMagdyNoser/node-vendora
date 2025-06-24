@@ -112,26 +112,26 @@ exports.updateDocument = (Model, options = {}) =>
 // -------------------------------------------------------------
 
 /**
- * Soft deletes a document by its ID from the database.
- * If the model includes an `isDeleted` field, it will be set to `true` instead of physically removing the document.
+ * Deletes a document by its ID from the database.
  * @param {mongoose.Model} Model - The Mongoose model to delete the document from.
  * @param {Object} options - Optional settings.
  * @param {Function} [options.preTask] - Async function to run before deleting `async (req, res, next, doc)`.
  * @param {Function} [options.postTask] - Async function to run after deleting `async (req, res, next, doc)`.
- * @param {boolean} [options.forceDelete] - If true, permanently deletes the document even if `isDeleted` is defined.
  */
 
 exports.deleteDocument = (Model, options = {}) =>
   asyncHandler(async (req, res, next) => {
     const { id } = req.params;
-    const document = await Model.findById(id);
-    if (!document) return next(new ApiError(404, notFoundMsg(id)));
-    if (options.preTask) await options.preTask(req, res, next, document);
-    // If soft delete is supported (i.e., `isDeleted` field exists and not overridden), use it
-    if ("isDeleted" in document && !options.forceDelete) {
-      document.isDeleted = true;
-      await document.save();
-    } else await document.deleteOne();
+    let document; // The document to be deleted
+    if (options.preTask) {
+      document = await Model.findById(id);
+      if (!document) return next(new ApiError(404, notFoundMsg(id)));
+      await options.preTask(req, res, next, document);
+      document = await Model.findByIdAndDelete(id);
+    } else {
+      document = await Model.findByIdAndDelete(id);
+      if (!document) return next(new ApiError(404, notFoundMsg(id)));
+    }
     if (options.postTask) await options.postTask(req, res, next, document);
     res.status(204).send();
   });
