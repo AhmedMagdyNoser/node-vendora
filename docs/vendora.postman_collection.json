@@ -1087,7 +1087,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"saad@gmail.com\",\r\n    \"password\": \"aA!123456\"\r\n}",
+							"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"aA!123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1932,13 +1932,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/cart/6857e3c2d339015b717aa139",
+							"raw": "{{URL}}/cart/6859800df5cd3238344af06b",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"cart",
-								"6857e3c2d339015b717aa139"
+								"6859800df5cd3238344af06b"
 							]
 						}
 					},
@@ -2335,6 +2335,170 @@
 							"path": [
 								"coupons",
 								"68551cdfdc4c9d3aaca69330"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": \"685ad5079b0ce24c7f95b726\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/orders",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/orders?page=1&limit=15",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/orders/685ad5239b0ce24c7f95b732",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"orders",
+								"685ad5239b0ce24c7f95b732"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set-as-paid",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/orders/685ad5239b0ce24c7f95b732/set-as-paid",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"orders",
+								"685ad5239b0ce24c7f95b732",
+								"set-as-paid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set-as-delivered",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/orders/685ad5239b0ce24c7f95b732/set-as-delivered",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"orders",
+								"685ad5239b0ce24c7f95b732",
+								"set-as-delivered"
 							]
 						}
 					},
