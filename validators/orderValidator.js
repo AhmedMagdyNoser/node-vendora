@@ -12,3 +12,7 @@ exports.createCashOrderValidator = [
 ];
 
 exports.getOrderValidator = [param("id").isMongoId().withMessage("Invalid order ID format."), validatorMiddleware];
+
+exports.setAsPaidValidator = [param("id").isMongoId().withMessage("Invalid order ID format."), validatorMiddleware];
+
+exports.setAsDeliveredValidator = [param("id").isMongoId().withMessage("Invalid order ID format."), validatorMiddleware];

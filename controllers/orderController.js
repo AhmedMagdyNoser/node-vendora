@@ -88,6 +88,26 @@ exports.getOrder = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   let order = await OrderModel.findById(id).populate(orderPopulation);
   if (!order || (req.user.role === "user" && order.user._id !== req.user._id))
-    return next(new ApiError(404, `Document with ID: \`${id}\` does not exist.`));
-  res.status(200).json({ message: "Document retrieved successfully.", data: order });
+    return next(new ApiError(404, `Order with ID: \`${id}\` does not exist.`));
+  res.status(200).json({ message: "Order retrieved successfully.", data: order });
+});
+
+exports.setAsPaid = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const order = await OrderModel.findByIdAndUpdate(id, { isPaid: true, paidAt: Date.now() }, { new: true }).populate(
+    orderPopulation,
+  );
+  if (!order) return next(new ApiError(404, `Order with ID: \`${id}\` does not exist.`));
+  res.status(200).json({ message: "Order marked as paid successfully.", data: order });
+});
+
+exports.setAsDelivered = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const order = await OrderModel.findByIdAndUpdate(
+    id,
+    { isDelivered: true, deliveredAt: Date.now() },
+    { new: true },
+  ).populate(orderPopulation);
+  if (!order) return next(new ApiError(404, `Order with ID: \`${id}\` does not exist.`));
+  res.status(200).json({ message: "Order marked as delivered successfully.", data: order });
 });
