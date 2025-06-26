@@ -10,9 +10,10 @@ const orderSchema = new mongoose.Schema(
         quantity: { type: Number, required: true },
       },
     ],
-    shippingCost: { type: Number, required: true },
-    totalAmount: { type: Number, required: true }, // Items totals + shipping cost (without calculating discount)
-    discount: { type: Number, default: 0 },
+    subtotal: { type: Number, required: true }, // Items total before discount and shipping
+    discount: { type: Number, default: 0 }, // Discount percentage applied to the subtotal
+    shippingCost: { type: Number, required: true }, // Fixed shipping cost
+    totalAmount: { type: Number, required: true }, // Total after discount and shipping
     isPaid: { type: Boolean, default: false },
     paidAt: { type: Date },
     paymentMethod: { type: String, enum: ["cash", "card"], required: true },

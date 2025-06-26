@@ -13,12 +13,6 @@ const orderPopulation = [
 
 const getProductFinalPrice = (product) => product.priceAfterDiscount || product.price;
 
-// If the user is a regular user, list only their orders, else (admin) list all.
-exports.listBasedOnRole = asyncHandler(async (req, res, next) => {
-  if (req.user.role === "user") req.query.user = req.user._id;
-  next();
-});
-
 // =============================================================
 
 exports.createCashOrder = asyncHandler(async (req, res, next) => {
@@ -32,6 +26,7 @@ exports.createCashOrder = asyncHandler(async (req, res, next) => {
   const cartItems = JSON.parse(JSON.stringify(user.cart.items)); // A deep copy to avoid mutation
   if (cartItems.length === 0) return next(new ApiError(400, "Your cart is empty."));
   const populatedCart = await user.cart.populate(["items.product", "coupon"]);
+  const populatedCoupon = populatedCart.coupon;
 
   // 2. Preparing order items with final prices
   const orderItems = cartItems.map((item) => {
@@ -46,19 +41,21 @@ exports.createCashOrder = asyncHandler(async (req, res, next) => {
   });
 
   // 3. Calculating totals
-  const totalAmount = orderItems.reduce((total, item) => total + item.price * item.quantity, 0) + SHIPPING_COST;
-  const discount =
-    populatedCart.coupon && populatedCart.coupon.expirationDate > Date.now() ? populatedCart.coupon.discount : 0;
+  const subtotal = orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const discount = populatedCoupon && populatedCoupon.expirationDate > Date.now() ? populatedCoupon.discount : 0;
+  const subtotalAfterDiscount = discount ? subtotal - (subtotal * discount) / 100 : subtotal;
+  const totalAmount = subtotalAfterDiscount + SHIPPING_COST;
 
   // 4. Creating the order
   const order = await OrderModel.create({
     user: user._id,
     items: orderItems,
+    subtotal,
+    discount,
     shippingCost: SHIPPING_COST,
     totalAmount,
-    discount,
-    shippingAddress,
     paymentMethod: "cash",
+    shippingAddress,
   });
 
   // 5. Populating the order with user and product details
@@ -82,7 +79,14 @@ exports.createCashOrder = asyncHandler(async (req, res, next) => {
   res.status(201).json({ message: "Order created successfully.", data: order });
 });
 
-exports.getOrders = factory.getAllDocuments(OrderModel, { populate: orderPopulation });
+exports.getOrders = [
+  // Middleware to filter orders based on user role
+  asyncHandler(async (req, res, next) => {
+    if (req.user.role === "user") req.query.user = req.user._id;
+    next();
+  }),
+  factory.getAllDocuments(OrderModel, { populate: orderPopulation }),
+];
 
 exports.getOrder = asyncHandler(async (req, res, next) => {
   const { id } = req.params;

@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const {
   createCashOrder,
-  listBasedOnRole,
+  createCheckoutSession,
   getOrders,
   getOrder,
   setAsPaid,
@@ -11,6 +11,7 @@ const {
 
 const {
   createCashOrderValidator,
+  createCheckoutSessionValidator,
   getOrderValidator,
   setAsPaidValidator,
   setAsDeliveredValidator,
@@ -20,9 +21,12 @@ const { authenticate, allowTo } = require("../middlewares/protectionMiddlewares"
 
 router.use(authenticate);
 
-router.post("/", allowTo("user"), createCashOrderValidator, createCashOrder);
-router.get("/", allowTo("user", "admin"), listBasedOnRole, getOrders);
+router.post("/cash-order", allowTo("user"), createCashOrderValidator, createCashOrder);
+router.post("/checkout-session", allowTo("user"), createCheckoutSessionValidator, createCheckoutSession);
+
+router.get("/", allowTo("user", "admin"), getOrders);
 router.get("/:id", allowTo("user", "admin"), getOrderValidator, getOrder);
+
 router.patch("/:id/set-as-paid", allowTo("admin"), setAsPaidValidator, setAsPaid);
 router.patch("/:id/set-as-delivered", allowTo("admin"), setAsDeliveredValidator, setAsDelivered);
 
