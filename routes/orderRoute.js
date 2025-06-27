@@ -1,8 +1,10 @@
+const express = require("express");
 const router = require("express").Router();
 
 const {
   createCashOrder,
   createCheckoutSession,
+  createCardOrder,
   getOrders,
   getOrder,
   setAsPaid,
@@ -23,6 +25,7 @@ router.use(authenticate);
 
 router.post("/cash-order", allowTo("user"), createCashOrderValidator, createCashOrder);
 router.post("/checkout-session", allowTo("user"), createCheckoutSessionValidator, createCheckoutSession);
+router.post("/card-order", express.raw({ type: "application/json" }), createCardOrder);
 
 router.get("/", allowTo("user", "admin"), getOrders);
 router.get("/:id", allowTo("user", "admin"), getOrderValidator, getOrder);
