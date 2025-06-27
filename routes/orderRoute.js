@@ -21,16 +21,14 @@ const {
 
 const { authenticate, allowTo } = require("../middlewares/protectionMiddlewares");
 
-router.use(authenticate);
+router.post("/cash-order", authenticate, allowTo("user"), createCashOrderValidator, createCashOrder);
+router.post("/checkout-session", authenticate, allowTo("user"), createCheckoutSessionValidator, createCheckoutSession);
+router.post("/card-order", express.raw({ type: "application/json" }), createCardOrder); // A little bit different, this is a webhook endpoint, it will be called by Stripe directly
 
-router.post("/cash-order", allowTo("user"), createCashOrderValidator, createCashOrder);
-router.post("/checkout-session", allowTo("user"), createCheckoutSessionValidator, createCheckoutSession);
-router.post("/card-order", express.raw({ type: "application/json" }), createCardOrder);
+router.get("/", authenticate, allowTo("user", "admin"), getOrders);
+router.get("/:id", authenticate, allowTo("user", "admin"), getOrderValidator, getOrder);
 
-router.get("/", allowTo("user", "admin"), getOrders);
-router.get("/:id", allowTo("user", "admin"), getOrderValidator, getOrder);
-
-router.patch("/:id/set-as-paid", allowTo("admin"), setAsPaidValidator, setAsPaid);
-router.patch("/:id/set-as-delivered", allowTo("admin"), setAsDeliveredValidator, setAsDelivered);
+router.patch("/:id/set-as-paid", authenticate, allowTo("admin"), setAsPaidValidator, setAsPaid);
+router.patch("/:id/set-as-delivered", authenticate, allowTo("admin"), setAsDeliveredValidator, setAsDelivered);
 
 module.exports = router;
