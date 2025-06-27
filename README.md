@@ -967,7 +967,7 @@ vercel login
 4. **Deploy the App**
 
 ```bash
-vercel
+vercel --prod
 ```
 
 You can re-run this command anytime to trigger a new deployment.

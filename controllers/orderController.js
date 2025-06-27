@@ -4,6 +4,7 @@ const factory = require("../utils/factory");
 const ApiError = require("../utils/apiError");
 const OrderModel = require("../models/orderModel");
 const ProductModel = require("../models/productModel");
+const UserModel = require("../models/userModel");
 
 const SHIPPING_COST = 50;
 
@@ -153,8 +154,14 @@ exports.createCheckoutSession = asyncHandler(async (req, res, next) => {
     },
   });
 
-  // This API will return a session object that contains the URL to redirect the user to for payment.
-  // After the payment is successful, we can create the order in the database using the `checkout.session.completed` webhook event.
+  // This endpoint returns a Stripe session object containing a URL to redirect the user for payment.
+
+  // Use the following test card numbers to simulate various payment scenarios:
+  // - Successful payment: 4242 4242 4242 4242
+  // - Payment that requires authentication: 4000 0025 0000 3155
+  // - Declined payment: 4000 0000 0000 9995
+
+  // Once the payment is completed, the order can be created in the database using the `checkout.session.completed` event from the Stripe webhook.
 
   res.status(200).json({ message: "Checkout session created successfully.", data: session });
 });
@@ -197,11 +204,12 @@ exports.createCardOrder = asyncHandler(async (req, res) => {
       },
     }));
 
-    // Execute bulk operations
-    await ProductModel.bulkWrite(bulkOps);
+    await ProductModel.bulkWrite(bulkOps); // Sends multiple operations to the MongoDB server in one command.
 
-    // 4. Sending response
-    return res.status(201).json({ message: "Order created successfully.", data: order });
+    // 4. Clearing user cart
+    await UserModel.findByIdAndUpdate(metadata.user, { cart: { items: [], coupon: null } });
+
+    res.status(201).json({ message: "Order created successfully.", data: order });
   } else {
     return res.status(400).json({ message: `Unhandled event type: ${event.type}` });
   }

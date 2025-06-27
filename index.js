@@ -15,6 +15,9 @@ connectToDatabase();
 // Create an Express app
 const app = express();
 
+// Middleware to parse raw JSON bodies for Stripe webhooks, that must be BEFORE the JSON body parser to preserve the raw body for signature verification.
+app.use("/orders/card-order", express.raw({ type: "application/json" }));
+
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
