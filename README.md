@@ -942,3 +942,41 @@ exports.getProduct = factory.getDocument(ProductModel, { populate: "reviews" });
 ```
 
 > Even though `toJSON` enables the virtual to show in responses, it won’t appear unless you explicitly **populate** the virtual field.
+
+---
+
+## App Deployment
+
+You can deploy your Node.js application using platforms like **Vercel**, **Render**, or **Heroku**. Below is a streamlined guide for deploying on **Vercel**:
+
+1. **Install the Vercel CLI**
+
+```bash
+npm i -g vercel
+```
+
+2. **Authenticate Your Account**
+
+```bash
+vercel login
+```
+
+3. **Add Configuration**
+   Create a `vercel.json` file in the project root to define your deployment settings. Explore `vercel.json` in the project for an example configuration.
+
+4. **Deploy the App**
+
+```bash
+vercel
+```
+
+You can re-run this command anytime to trigger a new deployment.
+
+5. **Set Environment Variables**
+   Use the Vercel dashboard to define necessary environment variables (e.g., `ENVIRONMENT`, database URIs). Make sure the deployment environment is set to `production`.
+
+For more detailed instructions, refer to the [Vercel documentation](https://vercel.com/guides/using-express-with-vercel).
+
+### Vercel Limitations
+
+Vercel has key limitations when deploying a Node.js/Express app: you **can’t specify a custom running command** like `npm run start`, and **you can’t handle files on disk**, as Serverless Functions don’t support persistent storage. These restrictions make it unsuitable for full backend apps that need custom startup logic or file processing. The best way to deploy such apps is to use your own VPS, which offers full control but comes with added cost — and is not covered in this tutorial.
