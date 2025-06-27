@@ -1,2546 +1,2241 @@
 {
-	"info": {
-		"_postman_id": "5359438a-cf0b-40d8-b47e-a2b5e3ad2058",
-		"name": "vendora",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30741123"
-	},
-	"item": [
-		{
-			"name": "Categories",
-			"item": [
-				{
-					"name": "create",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Kids\",\r\n    \"description\": \"This is the kids category.\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/categories",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"categories"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/categories?page=1&limit=15",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"categories"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "15"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/categories/682afcbb3b6b8c4a5333fd28",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"categories",
-								"682afcbb3b6b8c4a5333fd28"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Men\",\r\n    \"description\": \"This is the men category.\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/categories/682afcbb3b6b8c4a5333fd28",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"categories",
-								"682afcbb3b6b8c4a5333fd28"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/categories/67a5d9ed1fc954d01a631d63",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"categories",
-								"67a5d9ed1fc954d01a631d63"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Subcategories",
-			"item": [
-				{
-					"name": "create",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Shirts\",\r\n    \"description\": \"This the shirts subcategory\",\r\n    \"category\": \"682afcbb3b6b8c4a5333fd28\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/subcategories",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"subcategories"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/subcategories?page=1&limit=15",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"subcategories"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "15"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/subcategories/67a5f0b727b2993589ae7393",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"subcategories",
-								"67a5f0b727b2993589ae7393"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Shoes\",\r\n    \"description\": \"This the shoes subcategory\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/subcategories/682afd463b6b8c4a5333fd38",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"subcategories",
-								"682afd463b6b8c4a5333fd38"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/subcategories/682afd463b6b8c4a5333fd38",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"subcategories",
-								"682afd463b6b8c4a5333fd38"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Brands",
-			"item": [
-				{
-					"name": "create",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "HTC",
-									"type": "text"
-								},
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/H:/Gallery/Wallpapers/(5).jpg"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/brands",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"brands"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/brands?page=1&limit=15",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"brands"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "15"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/brands/67a833a60b3ac4db80adc98f",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"brands",
-								"67a833a60b3ac4db80adc98f"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "Apple",
-									"type": "text"
-								},
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/H:/Gallery/Wallpapers/(5).jpg",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/brands/682a05b7b8ad326bbb8bd2ba",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"brands",
-								"682a05b7b8ad326bbb8bd2ba"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/brands/682a05b7b8ad326bbb8bd2ba",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"brands",
-								"682a05b7b8ad326bbb8bd2ba"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Products",
-			"item": [
-				{
-					"name": "create",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "title",
-									"value": "ZARA Shirt M1",
-									"type": "text"
-								},
-								{
-									"key": "description",
-									"value": "Description of ZARA Shirt M1",
-									"type": "text"
-								},
-								{
-									"key": "price",
-									"value": "2500",
-									"type": "text"
-								},
-								{
-									"key": "priceAfterDiscount",
-									"value": "1500",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "coverImage",
-									"type": "file",
-									"src": "/H:/Gallery/Wallpapers/(5).jpg"
-								},
-								{
-									"key": "images",
-									"type": "file",
-									"src": [
-										"/H:/Gallery/Wallpapers/(28).jpg",
-										"/H:/Gallery/Wallpapers/(25).jpg",
-										"/H:/Gallery/Wallpapers/(5).jpg"
-									],
-									"disabled": true
-								},
-								{
-									"key": "brand",
-									"value": "67f396d7a4182c44cf94938a",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "category",
-									"value": "682afcbb3b6b8c4a5333fd28",
-									"type": "text"
-								},
-								{
-									"key": "subcategory",
-									"value": "67f39740a4182c44cf949cd2",
-									"type": "text"
-								},
-								{
-									"key": "quantity",
-									"value": "25",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/products",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"products"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/products?page=1&limit=15",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"products"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "15"
-								},
-								{
-									"key": "price[gt]",
-									"value": "500",
-									"disabled": true
-								},
-								{
-									"key": "price[lt]",
-									"value": "1000",
-									"disabled": true
-								},
-								{
-									"key": "sort",
-									"value": "-price",
-									"disabled": true
-								},
-								{
-									"key": "fields",
-									"value": "title,price",
-									"disabled": true
-								},
-								{
-									"key": "keyword",
-									"value": "Dress",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/products/67f39950a4182c44cf949ceb",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"products",
-								"67f39950a4182c44cf949ceb"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "title",
-									"value": "ZARA Shirt M5",
-									"type": "text"
-								},
-								{
-									"key": "description",
-									"value": "Description of ZARA Shirt M3",
-									"type": "text"
-								},
-								{
-									"key": "price",
-									"value": "3500",
-									"type": "text"
-								},
-								{
-									"key": "priceAfterDiscount",
-									"value": "1500",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "coverImage",
-									"type": "file",
-									"src": "/H:/Gallery/Wallpapers/(5).jpg"
-								},
-								{
-									"key": "images",
-									"type": "file",
-									"src": [
-										"/H:/Gallery/Wallpapers/(28).jpg",
-										"/H:/Gallery/Wallpapers/(25).jpg",
-										"/H:/Gallery/Wallpapers/(30).jpg"
-									]
-								},
-								{
-									"key": "brand",
-									"value": "67f396d7a4182c44cf94938a",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "category",
-									"value": "67f396d7a4182c44cf949ccd",
-									"type": "text"
-								},
-								{
-									"key": "subcategory",
-									"value": "67f39740a4182c44cf949cd2",
-									"type": "text"
-								},
-								{
-									"key": "quantity",
-									"value": "25",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/products/6813a3c52443ea65e71b1e33",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"products",
-								"6813a3c52443ea65e71b1e33"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/products/6811e76a192d8aa39be03432",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"products",
-								"6811e76a192d8aa39be03432"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Users",
-			"item": [
-				{
-					"name": "create",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "Ali",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "ali@outlook.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "aA!123456",
-									"type": "text"
-								},
-								{
-									"key": "phone",
-									"value": "01123456795",
-									"type": "text"
-								},
-								{
-									"key": "role",
-									"value": "user",
-									"type": "text"
-								},
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/H:/Gallery/Wallpapers/(28).jpg"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/users",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/users?page=1&limit=15",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"users"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "15"
-								},
-								{
-									"key": "keyword",
-									"value": "gmail",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/users/67a833a60b3ac4db80adc98f",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"users",
-								"67a833a60b3ac4db80adc98f"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "Ayman",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "ayman@outlook.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "aA!123456",
-									"type": "text"
-								},
-								{
-									"key": "phone",
-									"value": "01123456780",
-									"type": "text"
-								},
-								{
-									"key": "role",
-									"value": "user",
-									"type": "text"
-								},
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/H:/Gallery/Wallpapers/(5).jpg"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/users/68153f2be4834df8d3e18db7",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"users",
-								"68153f2be4834df8d3e18db7"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/users/6811e5a9192d8aa39be03414",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"users",
-								"6811e5a9192d8aa39be03414"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Authentication",
-			"item": [
-				{
-					"name": "register",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"JWT\", pm.response.json().at)"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Saad\",\r\n    \"email\": \" saad@gmail.com\",\r\n    // \"phone\": \"01234567890\",\r\n    \"password\": \"aA!123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/auth/register",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"auth",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"JWT\", pm.response.json().at)"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"aA!123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/auth/login",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "logout",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"JWT\", \"\")"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/auth/logout",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"auth",
-								"logout"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "refresh-access-token",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"JWT\", pm.response.json().at)"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/auth/refresh-access-token",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"auth",
-								"refresh-access-token"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "request-reset-code",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"fi.d2i2h@gmail.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/auth/request-reset-code",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"auth",
-								"request-reset-code"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "verify-reset-code",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"fi.d2i2h@gmail.com\",\r\n    \"resetCode\": \"834915\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/auth/verify-reset-code",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"auth",
-								"verify-reset-code"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "reset-password",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"password\": \"aA!123456\",\r\n    \"resetToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODM0YzQxOGVjYjYwZTRkZjc3NDg1ZWMiLCJpYXQiOjE3NDgzMzgxMDIsImV4cCI6MTc0ODMzOTAwMn0.P1W2oTV8Sk4i5aQzidsfM7bTJvfNVOuPVIgkcflXtSs\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/auth/reset-password",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"auth",
-								"reset-password"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Profile",
-			"item": [
-				{
-					"name": "update-profile",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"saad\",\r\n    \"email\": \"saad@gmail.com\",\r\n    \"phone\": \"01234567895\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/profile",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"profile"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update-password",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"currentPassword\": \"123456789\",\r\n    \"newPassword\": \"147852365\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/profile/password",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"profile",
-								"password"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update-image",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/H:/Gallery/Wallpapers/(5).jpg"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/profile/image",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"profile",
-								"image"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete-image",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": []
-						},
-						"url": {
-							"raw": "{{URL}}/profile/image",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"profile",
-								"image"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete-account",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"password\": \"123456789\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/profile",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"profile"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Addressses",
-			"item": [
-				{
-					"name": "create",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"alias\": \"Home\",\r\n    \"city\": \"Alex\",\r\n    \"details\": \"19 Bla Bla St.\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/addresses",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"addresses"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/addresses",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"addresses"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/addresses/6854ff81567e02d6c056d7be",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"addresses",
-								"6854ff81567e02d6c056d7be"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"alias\": \"Home\",\r\n    \"city\": \"Cairo\",\r\n    \"details\": \"25 Bla Bla St.\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/addresses/6854ffa4567e02d6c056d7c1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"addresses",
-								"6854ffa4567e02d6c056d7c1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/addresses/685506a29b70cf5c371d11a8",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"addresses",
-								"685506a29b70cf5c371d11a8"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Wishlist",
-			"item": [
-				{
-					"name": "add-item",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"product\": \"67f39950a4182c44cf949ceb\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/wishlist",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"wishlist"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete-item",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"product\": \"67f39950a4182c44cf949ceb\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/wishlist",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"wishlist"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get-wishlist",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/wishlist",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"wishlist"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Cart",
-			"item": [
-				{
-					"name": "add-item",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"product\": \"67f39950a4182c44cf949ceb\",\r\n    \"quantity\": 2\r\n    // If the product has multiple variants, you may need to indicate a specific option (e.g., color: \"red\").\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/cart",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"cart"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get-cart",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/cart",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"cart"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update-item-quantity",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"quantity\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/cart/6857e3c2d339015b717aa139",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"cart",
-								"6857e3c2d339015b717aa139"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete-item",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/cart/6859800df5cd3238344af06b",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"cart",
-								"6859800df5cd3238344af06b"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "apply-coupon",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"GAZA10\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/cart/apply-coupon",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"cart",
-								"apply-coupon"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "revoke-coupon",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/cart/revoke-coupon",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"cart",
-								"revoke-coupon"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Reviews",
-			"item": [
-				{
-					"name": "create",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"rating\": 5,\r\n    \"title\": \"Good Product\",\r\n    \"product\": \"67f39950a4182c44cf949ceb\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/reviews",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"reviews"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/reviews?page=1&limit=15",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"reviews"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "15"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/reviews/684a14b79627c5971e0cecd6",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"reviews",
-								"684a14b79627c5971e0cecd6"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"rating\": 5,\r\n    \"title\": \"Good Product\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/reviews/681f5e4b8091436812464c60",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"reviews",
-								"681f5e4b8091436812464c60"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/reviews/68529b7c5e5f11e95f1ebe1f",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"reviews",
-								"68529b7c5e5f11e95f1ebe1f"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Coupons",
-			"item": [
-				{
-					"name": "create",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"GAZA15\",\r\n    \"discount\": 15,\r\n    \"expirationDate\": \"2025-06-19T15:30:00Z\",\r\n    \"maxUsage\": 100\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/coupons",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"coupons"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/coupons?page=1&limit=15",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"coupons"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "15"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/coupons/68551cfddc4c9d3aaca69338",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"coupons",
-								"68551cfddc4c9d3aaca69338"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"GAZA10\",\r\n    \"discount\": 10,\r\n    \"expirationDate\": \"2025-06-19T15:30:00Z\",\r\n    \"maxUsage\": 50\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/coupons/68551cfddc4c9d3aaca69338",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"coupons",
-								"68551cfddc4c9d3aaca69338"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/coupons/68551cdfdc4c9d3aaca69330",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"coupons",
-								"68551cdfdc4c9d3aaca69330"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Orders",
-			"item": [
-				{
-					"name": "create",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"address\": \"685ad5079b0ce24c7f95b726\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/orders",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "list",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/orders?page=1&limit=15",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"orders"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "15"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/orders/685ad5239b0ce24c7f95b732",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"orders",
-								"685ad5239b0ce24c7f95b732"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "set-as-paid",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/orders/685ad5239b0ce24c7f95b732/set-as-paid",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"orders",
-								"685ad5239b0ce24c7f95b732",
-								"set-as-paid"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "set-as-delivered",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/orders/685ad5239b0ce24c7f95b732/set-as-delivered",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"orders",
-								"685ad5239b0ce24c7f95b732",
-								"set-as-delivered"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "App",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URL}}",
-					"host": [
-						"{{URL}}"
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		}
-	]
+  "info": {
+    "_postman_id": "5359438a-cf0b-40d8-b47e-a2b5e3ad2058",
+    "name": "vendora",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "30741123"
+  },
+  "item": [
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Kids\",\r\n    \"description\": \"This is the kids category.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/categories",
+              "host": ["{{URL}}"],
+              "path": ["categories"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/categories?page=1&limit=15",
+              "host": ["{{URL}}"],
+              "path": ["categories"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "15"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/categories/682afcbb3b6b8c4a5333fd28",
+              "host": ["{{URL}}"],
+              "path": ["categories", "682afcbb3b6b8c4a5333fd28"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Men\",\r\n    \"description\": \"This is the men category.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/categories/682afcbb3b6b8c4a5333fd28",
+              "host": ["{{URL}}"],
+              "path": ["categories", "682afcbb3b6b8c4a5333fd28"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/categories/67a5d9ed1fc954d01a631d63",
+              "host": ["{{URL}}"],
+              "path": ["categories", "67a5d9ed1fc954d01a631d63"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Subcategories",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Shirts\",\r\n    \"description\": \"This the shirts subcategory\",\r\n    \"category\": \"682afcbb3b6b8c4a5333fd28\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/subcategories",
+              "host": ["{{URL}}"],
+              "path": ["subcategories"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/subcategories?page=1&limit=15",
+              "host": ["{{URL}}"],
+              "path": ["subcategories"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "15"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/subcategories/67a5f0b727b2993589ae7393",
+              "host": ["{{URL}}"],
+              "path": ["subcategories", "67a5f0b727b2993589ae7393"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Shoes\",\r\n    \"description\": \"This the shoes subcategory\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/subcategories/682afd463b6b8c4a5333fd38",
+              "host": ["{{URL}}"],
+              "path": ["subcategories", "682afd463b6b8c4a5333fd38"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/subcategories/682afd463b6b8c4a5333fd38",
+              "host": ["{{URL}}"],
+              "path": ["subcategories", "682afd463b6b8c4a5333fd38"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Brands",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "HTC",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/H:/Gallery/Wallpapers/(5).jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{URL}}/brands",
+              "host": ["{{URL}}"],
+              "path": ["brands"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/brands?page=1&limit=15",
+              "host": ["{{URL}}"],
+              "path": ["brands"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "15"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/brands/67a833a60b3ac4db80adc98f",
+              "host": ["{{URL}}"],
+              "path": ["brands", "67a833a60b3ac4db80adc98f"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Apple",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/H:/Gallery/Wallpapers/(5).jpg",
+                  "disabled": true
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{URL}}/brands/682a05b7b8ad326bbb8bd2ba",
+              "host": ["{{URL}}"],
+              "path": ["brands", "682a05b7b8ad326bbb8bd2ba"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/brands/682a05b7b8ad326bbb8bd2ba",
+              "host": ["{{URL}}"],
+              "path": ["brands", "682a05b7b8ad326bbb8bd2ba"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "ZARA Shirt M1",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Description of ZARA Shirt M1",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "2500",
+                  "type": "text"
+                },
+                {
+                  "key": "priceAfterDiscount",
+                  "value": "1500",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "coverImage",
+                  "type": "file",
+                  "src": "/H:/Gallery/Wallpapers/(5).jpg"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": [
+                    "/H:/Gallery/Wallpapers/(28).jpg",
+                    "/H:/Gallery/Wallpapers/(25).jpg",
+                    "/H:/Gallery/Wallpapers/(5).jpg"
+                  ],
+                  "disabled": true
+                },
+                {
+                  "key": "brand",
+                  "value": "67f396d7a4182c44cf94938a",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "category",
+                  "value": "682afcbb3b6b8c4a5333fd28",
+                  "type": "text"
+                },
+                {
+                  "key": "subcategory",
+                  "value": "67f39740a4182c44cf949cd2",
+                  "type": "text"
+                },
+                {
+                  "key": "quantity",
+                  "value": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{URL}}/products",
+              "host": ["{{URL}}"],
+              "path": ["products"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/products?page=1&limit=15",
+              "host": ["{{URL}}"],
+              "path": ["products"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "15"
+                },
+                {
+                  "key": "price[gt]",
+                  "value": "500",
+                  "disabled": true
+                },
+                {
+                  "key": "price[lt]",
+                  "value": "1000",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "-price",
+                  "disabled": true
+                },
+                {
+                  "key": "fields",
+                  "value": "title,price",
+                  "disabled": true
+                },
+                {
+                  "key": "keyword",
+                  "value": "Dress",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/products/67f39950a4182c44cf949ceb",
+              "host": ["{{URL}}"],
+              "path": ["products", "67f39950a4182c44cf949ceb"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "ZARA Shirt M5",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Description of ZARA Shirt M3",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "3500",
+                  "type": "text"
+                },
+                {
+                  "key": "priceAfterDiscount",
+                  "value": "1500",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "coverImage",
+                  "type": "file",
+                  "src": "/H:/Gallery/Wallpapers/(5).jpg"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": [
+                    "/H:/Gallery/Wallpapers/(28).jpg",
+                    "/H:/Gallery/Wallpapers/(25).jpg",
+                    "/H:/Gallery/Wallpapers/(30).jpg"
+                  ]
+                },
+                {
+                  "key": "brand",
+                  "value": "67f396d7a4182c44cf94938a",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "category",
+                  "value": "67f396d7a4182c44cf949ccd",
+                  "type": "text"
+                },
+                {
+                  "key": "subcategory",
+                  "value": "67f39740a4182c44cf949cd2",
+                  "type": "text"
+                },
+                {
+                  "key": "quantity",
+                  "value": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{URL}}/products/6813a3c52443ea65e71b1e33",
+              "host": ["{{URL}}"],
+              "path": ["products", "6813a3c52443ea65e71b1e33"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/products/6811e76a192d8aa39be03432",
+              "host": ["{{URL}}"],
+              "path": ["products", "6811e76a192d8aa39be03432"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Ali",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "ali@outlook.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "aA!123456",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "01123456795",
+                  "type": "text"
+                },
+                {
+                  "key": "role",
+                  "value": "user",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/H:/Gallery/Wallpapers/(28).jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{URL}}/users",
+              "host": ["{{URL}}"],
+              "path": ["users"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/users?page=1&limit=15",
+              "host": ["{{URL}}"],
+              "path": ["users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "15"
+                },
+                {
+                  "key": "keyword",
+                  "value": "gmail",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/users/67a833a60b3ac4db80adc98f",
+              "host": ["{{URL}}"],
+              "path": ["users", "67a833a60b3ac4db80adc98f"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Ayman",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "ayman@outlook.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "aA!123456",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "01123456780",
+                  "type": "text"
+                },
+                {
+                  "key": "role",
+                  "value": "user",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/H:/Gallery/Wallpapers/(5).jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{URL}}/users/68153f2be4834df8d3e18db7",
+              "host": ["{{URL}}"],
+              "path": ["users", "68153f2be4834df8d3e18db7"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/users/6811e5a9192d8aa39be03414",
+              "host": ["{{URL}}"],
+              "path": ["users", "6811e5a9192d8aa39be03414"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": ["pm.environment.set(\"JWT\", pm.response.json().at)"],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Saad\",\r\n    \"email\": \" saad@gmail.com\",\r\n    // \"phone\": \"01234567890\",\r\n    \"password\": \"aA!123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/auth/register",
+              "host": ["{{URL}}"],
+              "path": ["auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": ["pm.environment.set(\"JWT\", pm.response.json().at)"],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"saad@gmail.com\",\r\n    \"password\": \"aA!123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/auth/login",
+              "host": ["{{URL}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "logout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": ["pm.environment.set(\"JWT\", \"\")"],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/auth/logout",
+              "host": ["{{URL}}"],
+              "path": ["auth", "logout"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "refresh-access-token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": ["pm.environment.set(\"JWT\", pm.response.json().at)"],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/auth/refresh-access-token",
+              "host": ["{{URL}}"],
+              "path": ["auth", "refresh-access-token"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "request-reset-code",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"fi.d2i2h@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/auth/request-reset-code",
+              "host": ["{{URL}}"],
+              "path": ["auth", "request-reset-code"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "verify-reset-code",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"fi.d2i2h@gmail.com\",\r\n    \"resetCode\": \"834915\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/auth/verify-reset-code",
+              "host": ["{{URL}}"],
+              "path": ["auth", "verify-reset-code"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "reset-password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"password\": \"aA!123456\",\r\n    \"resetToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODM0YzQxOGVjYjYwZTRkZjc3NDg1ZWMiLCJpYXQiOjE3NDgzMzgxMDIsImV4cCI6MTc0ODMzOTAwMn0.P1W2oTV8Sk4i5aQzidsfM7bTJvfNVOuPVIgkcflXtSs\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/auth/reset-password",
+              "host": ["{{URL}}"],
+              "path": ["auth", "reset-password"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "item": [
+        {
+          "name": "update-profile",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"saad\",\r\n    \"email\": \"saad@gmail.com\",\r\n    \"phone\": \"01234567895\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/profile",
+              "host": ["{{URL}}"],
+              "path": ["profile"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update-password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"currentPassword\": \"123456789\",\r\n    \"newPassword\": \"147852365\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/profile/password",
+              "host": ["{{URL}}"],
+              "path": ["profile", "password"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update-image",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/H:/Gallery/Wallpapers/(5).jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{URL}}/profile/image",
+              "host": ["{{URL}}"],
+              "path": ["profile", "image"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete-image",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{URL}}/profile/image",
+              "host": ["{{URL}}"],
+              "path": ["profile", "image"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete-account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"password\": \"123456789\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/profile",
+              "host": ["{{URL}}"],
+              "path": ["profile"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Addressses",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"alias\": \"Home\",\r\n    \"city\": \"Alex\",\r\n    \"details\": \"19 Bla Bla St.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/addresses",
+              "host": ["{{URL}}"],
+              "path": ["addresses"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/addresses",
+              "host": ["{{URL}}"],
+              "path": ["addresses"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/addresses/6854ff81567e02d6c056d7be",
+              "host": ["{{URL}}"],
+              "path": ["addresses", "6854ff81567e02d6c056d7be"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"alias\": \"Home\",\r\n    \"city\": \"Cairo\",\r\n    \"details\": \"25 Bla Bla St.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/addresses/6854ffa4567e02d6c056d7c1",
+              "host": ["{{URL}}"],
+              "path": ["addresses", "6854ffa4567e02d6c056d7c1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/addresses/685506a29b70cf5c371d11a8",
+              "host": ["{{URL}}"],
+              "path": ["addresses", "685506a29b70cf5c371d11a8"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Wishlist",
+      "item": [
+        {
+          "name": "add-item",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"product\": \"67f39950a4182c44cf949ceb\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/wishlist",
+              "host": ["{{URL}}"],
+              "path": ["wishlist"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete-item",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"product\": \"67f39950a4182c44cf949ceb\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/wishlist",
+              "host": ["{{URL}}"],
+              "path": ["wishlist"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get-wishlist",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/wishlist",
+              "host": ["{{URL}}"],
+              "path": ["wishlist"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cart",
+      "item": [
+        {
+          "name": "add-item",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"product\": \"67f39950a4182c44cf949ceb\",\r\n    \"quantity\": 2\r\n    // If the product has multiple variants, you may need to indicate a specific option (e.g., color: \"red\").\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/cart",
+              "host": ["{{URL}}"],
+              "path": ["cart"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get-cart",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/cart",
+              "host": ["{{URL}}"],
+              "path": ["cart"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update-item-quantity",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"quantity\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/cart/6857e3c2d339015b717aa139",
+              "host": ["{{URL}}"],
+              "path": ["cart", "6857e3c2d339015b717aa139"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete-item",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/cart/6859800df5cd3238344af06b",
+              "host": ["{{URL}}"],
+              "path": ["cart", "6859800df5cd3238344af06b"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "apply-coupon",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"code\": \"GAZA10\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/cart/apply-coupon",
+              "host": ["{{URL}}"],
+              "path": ["cart", "apply-coupon"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "revoke-coupon",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/cart/revoke-coupon",
+              "host": ["{{URL}}"],
+              "path": ["cart", "revoke-coupon"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reviews",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"rating\": 5,\r\n    \"title\": \"Good Product\",\r\n    \"product\": \"67f39950a4182c44cf949ceb\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/reviews",
+              "host": ["{{URL}}"],
+              "path": ["reviews"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/reviews?page=1&limit=15",
+              "host": ["{{URL}}"],
+              "path": ["reviews"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "15"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/reviews/684a14b79627c5971e0cecd6",
+              "host": ["{{URL}}"],
+              "path": ["reviews", "684a14b79627c5971e0cecd6"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"rating\": 5,\r\n    \"title\": \"Good Product\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/reviews/681f5e4b8091436812464c60",
+              "host": ["{{URL}}"],
+              "path": ["reviews", "681f5e4b8091436812464c60"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/reviews/68529b7c5e5f11e95f1ebe1f",
+              "host": ["{{URL}}"],
+              "path": ["reviews", "68529b7c5e5f11e95f1ebe1f"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Coupons",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"code\": \"GAZA15\",\r\n    \"discount\": 15,\r\n    \"expirationDate\": \"2025-06-19T15:30:00Z\",\r\n    \"maxUsage\": 100\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/coupons",
+              "host": ["{{URL}}"],
+              "path": ["coupons"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/coupons?page=1&limit=15",
+              "host": ["{{URL}}"],
+              "path": ["coupons"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "15"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/coupons/68551cfddc4c9d3aaca69338",
+              "host": ["{{URL}}"],
+              "path": ["coupons", "68551cfddc4c9d3aaca69338"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"code\": \"GAZA10\",\r\n    \"discount\": 10,\r\n    \"expirationDate\": \"2025-06-19T15:30:00Z\",\r\n    \"maxUsage\": 50\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/coupons/68551cfddc4c9d3aaca69338",
+              "host": ["{{URL}}"],
+              "path": ["coupons", "68551cfddc4c9d3aaca69338"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/coupons/68551cdfdc4c9d3aaca69330",
+              "host": ["{{URL}}"],
+              "path": ["coupons", "68551cdfdc4c9d3aaca69330"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "create-cash-order",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"address\": \"6854ff81567e02d6c056d7be\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/orders/cash-order",
+              "host": ["{{URL}}"],
+              "path": ["orders", "cash-order"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create-checkout-session",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"address\": \"685e578c5ea5371e37aaeb2f\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/orders/checkout-session",
+              "host": ["{{URL}}"],
+              "path": ["orders", "checkout-session"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/orders?page=1&limit=15",
+              "host": ["{{URL}}"],
+              "path": ["orders"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "15"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/orders/685ad5239b0ce24c7f95b732",
+              "host": ["{{URL}}"],
+              "path": ["orders", "685ad5239b0ce24c7f95b732"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "set-as-paid",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/orders/685ad5239b0ce24c7f95b732/set-as-paid",
+              "host": ["{{URL}}"],
+              "path": ["orders", "685ad5239b0ce24c7f95b732", "set-as-paid"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "set-as-delivered",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/orders/685ad5239b0ce24c7f95b732/set-as-delivered",
+              "host": ["{{URL}}"],
+              "path": ["orders", "685ad5239b0ce24c7f95b732", "set-as-delivered"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "App",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{URL}}",
+          "host": ["{{URL}}"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    }
+  ]
 }
