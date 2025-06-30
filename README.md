@@ -949,34 +949,77 @@ exports.getProduct = factory.getDocument(ProductModel, { populate: "reviews" });
 
 You can deploy your Node.js application using platforms like **Vercel**, **Render**, or **Heroku**. Below is a streamlined guide for deploying on **Vercel**:
 
-1. **Install the Vercel CLI**
+### 1. Install the Vercel CLI
+
+To begin, install the Vercel CLI globally on your system:
 
 ```bash
 npm i -g vercel
 ```
 
-2. **Authenticate Your Account**
+### 2. Authenticate with Vercel
+
+Login to your Vercel account to link your local environment:
 
 ```bash
 vercel login
 ```
 
-3. **Add Configuration**
-   Create a `vercel.json` file in the project root to define your deployment settings. Explore `vercel.json` in the project for an example configuration.
+### 3. Configure Deployment Settings
 
-4. **Deploy the App**
+Create a `vercel.json` file in the project root to define your deployment settings. Explore it in the project for an example configuration.
+
+### 4. Deploy to Production
+
+Once everything is set, deploy your application with:
 
 ```bash
 vercel --prod
 ```
 
-You can re-run this command anytime to trigger a new deployment.
+**You can rerun this command at any time to trigger a new deployment.**
 
-5. **Set Environment Variables**
-   Use the Vercel dashboard to define necessary environment variables (e.g., `ENVIRONMENT`, database URIs). Make sure the deployment environment is set to `production`.
+### 5. Set Environment Variables
 
-For more detailed instructions, refer to the [Vercel documentation](https://vercel.com/guides/using-express-with-vercel).
+Navigate to your project in the [Vercel dashboard](https://vercel.com/dashboard), and define any required environment variables—like `ENVIRONMENT`, database URIs, API keys, and so on.
 
 ### Vercel Limitations
 
 Vercel has key limitations when deploying a Node.js/Express app: you **can’t specify a custom running command** like `npm run start`, and **you can’t handle files on disk**, as Serverless Functions don’t support persistent storage. These restrictions make it unsuitable for full backend apps that need custom startup logic or file processing. The best way to deploy such apps is to use your own VPS, which offers full control but comes with added cost — and is not covered in this tutorial.
+
+---
+
+## Stripe Payment Integration
+
+To handle online payments, this project integrates **Stripe**, a powerful and developer-friendly payment platform. While the best way to dive deeper is by reading the [official documentation](https://stripe.com/docs), here's a quick overview of what we implemented.
+
+Install the Stripe package to interact with Stripe’s API for creating payment sessions and handling webhooks,
+
+```bash
+npm install stripe
+```
+
+### How It Works
+
+In `orderRoute.js`, two main routes handle the payment flow:
+
+- **`/checkout-session`**: Creates a Stripe Checkout session and returns a URL to Stripe’s hosted payment page.
+- **`/card-order`**: Receives Stripe’s webhook call after successful payment and creates the order in your database.
+
+The logic for these routes lives in `orderController.js`.
+
+### Webhook Setup
+
+To securely handle Stripe webhooks, the raw body must be preserved for signature verification. This line in `index.js` ensures that:
+
+```js
+app.use("/orders/card-order", express.raw({ type: "application/json" }));
+```
+
+Place it **BEFORE** your JSON body parser.
+
+You can set a webhook call from the [Stripe Dashboard](https://dashboard.stripe.com/). To receive webhook events from Stripe, you need to deploy your app and provide a publicly accessible webhook URL in the dashboard.
+
+### Stripe Secrets
+
+Set up your environment variables with `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET_KEY`. These values are available in your [Stripe Dashboard](https://dashboard.stripe.com/), and are essential for authentication and webhook validation.
