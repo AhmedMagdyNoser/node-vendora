@@ -90,7 +90,7 @@ npm install --save-dev cross-env
 ```json
 "scripts": {
   "dev": "cross-env ENVIRONMENT=development nodemon index.js",
-  "prod": "cross-env ENVIRONMENT=production node index.js"
+  "start": "cross-env ENVIRONMENT=production node index.js"
 }
 ```
 
@@ -1023,3 +1023,43 @@ You can set a webhook call from the [Stripe Dashboard](https://dashboard.stripe.
 ### Stripe Secrets
 
 Set up your environment variables with `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET_KEY`. These values are available in your [Stripe Dashboard](https://dashboard.stripe.com/), and are essential for authentication and webhook validation.
+
+---
+
+## App Security Enhancements
+
+Throughout this project, we’ve implemented several key practices to strengthen the security of our Node.js application. Below is a summary of the most important measures:
+
+### Core Security Practices
+
+- **Environment Variables**: Sensitive data such as API keys and database URIs are stored in environment variables instead of being hard-coded in the source code.
+
+- **JWT Authentication**: We use JSON Web Tokens (JWT) to authenticate users and protect restricted routes, ensuring that only authorized users can access sensitive resources.
+
+- **CORS Configuration**: Cross-Origin Resource Sharing (CORS) is configured to allow requests only from trusted domains.
+
+- **Input Validation & Sanitization**: All user inputs are validated and sanitized to prevent injection attacks and malformed requests.
+
+- **Centralized Error Handling**: A global error handler ensures consistent error responses while hiding sensitive internal details from the client.
+
+### Additional Security Measures
+
+- **Request Body Size Limiting**: To prevent denial-of-service (DoS) attacks, we limit the size of incoming JSON payloads in `index.js`:
+
+  ```js
+  app.use(express.json({ limit: "10kb" }));
+  ```
+
+- **Rate Limiting**: We use the `express-rate-limit` middleware to limit the number of requests from a single IP, protecting the API from abuse and brute-force attacks.
+
+- **NoSQL Injection Protection**: With the `express-mongo-sanitize` package, user input is sanitized to remove MongoDB-specific operators like `$` and `.`, reducing the risk of NoSQL injections.
+
+- **Cross-Site Scripting (XSS) Protection**: We use the `express-xss-sanitizer` middleware to clean user input and prevent malicious scripts from being injected into responses. It helps safeguard both the server and clients from XSS attacks.
+
+For implementation details, refer to the `securityMiddlewares.js` file.
+
+### Final Notes
+
+By applying these best practices, we've significantly improved the security posture of our Node.js application. However, security is an ongoing effort—it's essential to stay updated with new vulnerabilities, libraries, and recommendations.
+
+📚 For a comprehensive guide on Node.js security practices, refer to the [OWASP Node.js Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html).

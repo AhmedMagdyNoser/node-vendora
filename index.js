@@ -5,6 +5,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mountRoutes = require("./routes");
 const connectToDatabase = require("./config/db");
+const applySecurityMiddlewares = require("./middlewares/securityMiddlewares");
 const corsHandler = require("./middlewares/corsHandlerMiddleware");
 const cookiesParser = require("./middlewares/cookiesParserMiddleware");
 const globalErrorHandler = require("./middlewares/errorHandlerMiddleware");
@@ -15,11 +16,14 @@ connectToDatabase();
 // Create an Express app
 const app = express();
 
+// Middleware to log requests
+app.use(morgan("dev"));
+
 // Middleware to parse raw JSON bodies for Stripe webhooks, that must be BEFORE the JSON body parser to preserve the raw body for signature verification.
 app.use("/orders/card-order", express.raw({ type: "application/json" }));
 
 // Middleware to parse JSON request bodies
-app.use(express.json());
+app.use(express.json({ limit: "10kb" }));
 
 // Middleware to parse cookies
 app.use(cookiesParser);
@@ -27,11 +31,11 @@ app.use(cookiesParser);
 // Middleware to handle CORS
 app.use(corsHandler);
 
+// Security Middlewares
+applySecurityMiddlewares(app);
+
 // Middleware to serve static files from the "uploads" directory
 app.use(express.static("uploads"));
-
-// Middleware to log requests
-app.use(morgan("dev"));
 
 // Route handlers
 mountRoutes(app);
