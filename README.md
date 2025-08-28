@@ -768,6 +768,15 @@ You can explore code to see the final implementaion.
 
 Read the note in `controllers/productController.js` regarding image array updates during product edits.
 
+### Multer Parsing Limitations
+
+**1. Non-file fields are always parsed as strings**
+When using Multer to handle `multipart/form-data`, all non-file fields are returned in `req.body` as **strings**.
+This means that even if the client sends numeric values like `25` or booleans like `true`, Multer will not automatically convert them to `Number` or `Boolean`. They will remain `"25"` and `"true"` as strings. This can lead to issues later when validating or performing calculations, unless you explicitly convert them to the correct data types.
+
+**2. Nested fields remain flat (not structured)**
+Unlike `express.urlencoded`, Multer does not interpret the structure of field names. If you send a field named `relation.type`, it will appear in `req.body` exactly as `"relation.type"` — a flat key with a string value. Multer will not turn it into a nested object like `{ relation: { type: "..." } }`. If you need structured/nested objects, you’ll have to post-process the fields (e.g., using `qs.parse`) or send JSON as part of the form data.
+
 ---
 
 ## Returning Full Image URL in Responses Using `toJSON` Method
