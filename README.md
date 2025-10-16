@@ -1,8 +1,8 @@
-# Node.js Summary
+# Node.js Express API Blueprint
 
 Before we begin, please note the following:
 
-> In this tutorial, we’ll use CommonJS modules, but you’re free to use ES Modules instead. ES Modules are the modern standard, while CommonJS remains the legacy default in Node.js.
+> In this tutorial, we’ll use CommonJS modules, but feel free to use ES Modules instead. ES Modules are the modern standard, while CommonJS remains the legacy default in Node.js.
 
 > In some sections, you might need to refer to the original project code or official documentation for a deeper understanding.
 
