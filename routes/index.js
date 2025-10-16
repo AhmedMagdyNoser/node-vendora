@@ -16,7 +16,7 @@ const orderRoute = require("./orderRoute");
 
 module.exports = (app) => {
   // An endpoint to check if the server is running
-  app.get("/", (req, res) => res.send("App is running"));
+  app.get("/", (req, res) => res.send(`App is running - ${new Date().toISOString()}`));
 
   // Mounting the routes
   app.use("/categories", categoryRoute);
