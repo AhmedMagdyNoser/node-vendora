@@ -956,45 +956,35 @@ exports.getProduct = factory.getDocument(ProductModel, { populate: "reviews" });
 
 ## App Deployment
 
-You can deploy your Node.js application using platforms like **Vercel**, **Render**, or **Heroku**. Below is a streamlined guide for deploying on **Vercel**:
+You can deploy your Express application using platforms like **Vercel**, **Render**, or **Railway**.
+Below is a streamlined guide for deploying on **Vercel**:
 
-### 1. Install the Vercel CLI
+1. **Push your project to GitHub**
 
-To begin, install the Vercel CLI globally on your system:
+   Make sure your app is committed and pushed to a GitHub repository.
 
-```bash
-npm i -g vercel
-```
+2. **Sign in to Vercel**
 
-### 2. Authenticate with Vercel
+   Go to [Vercel](https://vercel.com) and sign in using your GitHub account.
 
-Login to your Vercel account to link your local environment:
+3. **Import your project**
 
-```bash
-vercel login
-```
+   In your Vercel dashboard, click **“Add New Project”** → **“Import Git Repository”** → choose your repo.
 
-### 3. Configure Deployment Settings
+4. **Configure the settings**
 
-Create a `vercel.json` file in the project root to define your deployment settings. Explore it in the project for an example configuration.
+   - For the **Framework Preset**, select **“Express”**.
+   - If needed, specify the **Build Command** and the **Output Directory**.
+   - Add your production variables (like database URIs) under the **Environment Variables** tab.
 
-### 4. Deploy to Production
+5. **Deploy**
 
-Once everything is set, deploy your application with:
-
-```bash
-vercel --prod
-```
-
-**You can rerun this command at any time to trigger a new deployment.**
-
-### 5. Set Environment Variables
-
-Navigate to your project in the [Vercel dashboard](https://vercel.com/dashboard), and define any required environment variables—like `ENVIRONMENT`, database URIs, API keys, and so on.
+   Click **Deploy** — Vercel will build and deploy your app automatically.
+   Once done, you’ll get a public URL like `https://your-app-name.vercel.app`.
 
 ### Vercel Limitations
 
-Vercel has key limitations when deploying a Node.js/Express app: you **can’t specify a custom running command** like `npm run start`, and **you can’t handle files on disk**, as Serverless Functions don’t support persistent storage. These restrictions make it unsuitable for full backend apps that need custom startup logic or file processing. The best way to deploy such apps is to use your own VPS, which offers full control but comes with added cost — and is not covered in this tutorial.
+Vercel runs backend code as **serverless functions**, meaning each route is executed on-demand instead of running a full-time server. It has key limitations when deploying a Node.js/Express app: you **can’t specify a custom running command** like `npm run start`, and **you can’t handle files on disk**, as Serverless Functions don’t support persistent storage. These restrictions make it unsuitable for full backend apps that need custom startup logic or file processing. The best way to deploy such apps is to use your own VPS, which offers full control but comes with added cost — and is not covered in this tutorial.
 
 ---
 
