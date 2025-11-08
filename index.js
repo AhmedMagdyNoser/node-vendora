@@ -1,5 +1,5 @@
-// Load environment variables from .env file
-require("dotenv").config();
+// Load environment variables from .env file based on the current environment
+require("dotenv").config({ path: `.env.${process.env.ENVIRONMENT}` }); // `ENVIRONMENT` is set in package.json scripts using `cross-env`.
 
 const express = require("express");
 const morgan = require("morgan");
