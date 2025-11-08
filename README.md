@@ -46,13 +46,13 @@ You should see the message `Server is running on port 5145` in your terminal, an
 
 ## Environment Variables Setup
 
-1. Create a `.env` file in the root directory (and ignore it in `.gitignore`) and add the following content:
+1. Create `.env.development` and `.env.production` files in the root directory (and ignore them in `.gitignore`), then add the following content to them:
 
 ```
 PORT=5145
 ```
 
-2. Install `dotenv` to read environment variables from the `.env` file:
+2. Install `dotenv` to read environment variables from the `.env` files:
 
 ```bash
 npm install dotenv
@@ -61,8 +61,11 @@ npm install dotenv
 3. Load environment variables in `index.js` by adding the following:
 
 ```js
-require("dotenv").config(); // This loads the variables from .env file into process.env
-const PORT = process.env.PORT || 5145;
+require("dotenv").config({ path: `.env.${process.env.ENVIRONMENT}` }); // `ENVIRONMENT` is set in package.json scripts using `cross-env`.
+
+// Now, all other environment variables are accessible via `process.env`
+
+console.log(process.env.PORT); // Access the PORT variable
 ```
 
 By using environment variables, you make your app more flexible and secure across different environments.
