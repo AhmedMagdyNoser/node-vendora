@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema(
 
 userSchema.methods.toJSON = function () {
   const obj = this.toObject();
-  if (obj.image) obj.image = `${process.env.BASE_URL}/users/${obj.image}`;
+  if (obj.image) obj.image = `${process.env.ASSETS_BASE_URL}/users/${obj.image}`;
   // Don't return sensitive data in the response in all cases (as `select: false` doesn't work in case of creating)
   if (obj.password) delete obj.password;
   if (obj.security) delete obj.security;

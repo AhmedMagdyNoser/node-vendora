@@ -11,7 +11,7 @@ const brandSchema = new mongoose.Schema(
 
 brandSchema.methods.toJSON = function () {
   const obj = this.toObject();
-  if (obj.image) obj.image = `${process.env.BASE_URL}/brands/${obj.image}`;
+  if (obj.image) obj.image = `${process.env.ASSETS_BASE_URL}/brands/${obj.image}`;
   return obj;
 };
 

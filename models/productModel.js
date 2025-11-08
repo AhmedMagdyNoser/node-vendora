@@ -36,8 +36,8 @@ productSchema.virtual("reviews", {
 
 productSchema.methods.toJSON = function () {
   const obj = this.toObject();
-  if (obj.coverImage) obj.coverImage = `${process.env.BASE_URL}/products/${obj.coverImage}`;
-  if (obj.images) obj.images = obj.images.map((image) => `${process.env.BASE_URL}/products/${image}`);
+  if (obj.coverImage) obj.coverImage = `${process.env.ASSETS_BASE_URL}/products/${obj.coverImage}`;
+  if (obj.images) obj.images = obj.images.map((image) => `${process.env.ASSETS_BASE_URL}/products/${image}`);
   return obj;
 };
 

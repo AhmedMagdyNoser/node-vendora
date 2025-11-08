@@ -776,7 +776,7 @@ For example,
 // Transform the image field to include the full URL whenever the document is converted to JSON. This process happens when sending the response i. e. using `res.status(200).json({ ... })`.
 brandSchema.methods.toJSON = function () {
   const obj = this.toObject();
-  if (obj.image) obj.image = `${process.env.BASE_URL}/brands/${obj.image}`;
+  if (obj.image) obj.image = `${process.env.ASSETS_BASE_URL}/brands/${obj.image}`;
   return obj;
 };
 ```
