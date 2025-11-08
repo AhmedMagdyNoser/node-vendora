@@ -135,19 +135,6 @@ npm install mongoose
 
 Create a connection function for better organization in `config/db.js`:
 
-```js
-const mongoose = require("mongoose");
-
-module.exports = async () => {
-  try {
-    await mongoose.connect(process.env.DB_URI); // Add Database URI to .env
-    console.log("DB Connected");
-  } catch (err) {
-    console.error(`DB Connection Error: ${err}`);
-  }
-};
-```
-
 Import this function into `index.js` and run it to establish the connection:
 
 ```js
